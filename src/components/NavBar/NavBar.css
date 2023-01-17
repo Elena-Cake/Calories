@@ -1,0 +1,8 @@
+.nav {
+    grid-area: nav;
+}
+
+.nav__menu {
+    display: flex;
+    flex-direction: column;
+}
