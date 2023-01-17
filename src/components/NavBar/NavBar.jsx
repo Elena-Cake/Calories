@@ -5,8 +5,8 @@ const NavBar = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.nav__menu}>
-                <a>Profile</a>
-                <a>Messages</a>
+                <a href="/profile">Profile</a>
+                <a href="/dialogs">Messages</a>
                 <a>News</a>
                 <a>Music</a>
             </div>

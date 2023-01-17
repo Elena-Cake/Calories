@@ -1,7 +1,3 @@
-.profile {
-    grid-area: main;
-}
-
 .profile__top_image {
     width: 100%;
     height: 180px;
