@@ -1,0 +1,33 @@
+.post {
+    display: flex;
+    justify-content: space-around;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: contain;
+}
+
+.likegroup {
+    text-align: center;
+}
+
+.like {
+    border: 0;
+    border-radius: 50%;
+    background-color: inherit;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+
+.imglike {
+    width: 100%;
+    margin: 0;
+}
+
+.counter {
+    margin: 0;
+}

@@ -1,11 +1,13 @@
 import React from "react";
-import './Profile.css'
+import Posts from "./Posts/Posts";
+import c from './Profile.module.css'
+
 
 const Profile = () => {
     return (
-        <div className='profile'>
-            <img className='profile__top-image' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Stars_01_%28MK%29.jpg/911px-Stars_01_%28MK%29.jpg' />
-
+        <div className={c.profile}>
+            <img className={c.profile__top_image} src='http://c.files.bbci.co.uk/9017/production/_105278863_gettyimages-855098134.jpg' />
+            <Posts />
         </div>
     )
 }
