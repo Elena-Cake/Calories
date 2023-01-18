@@ -1,12 +1,13 @@
 import React from "react";
 import Posts from "./Posts/Posts";
-import c from './Profile.module.css'
+import c from './Profile.module.css';
+import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 
 const Profile = () => {
     return (
         <div>
-            <img className={c.profile__top_image} src='http://c.files.bbci.co.uk/9017/production/_105278863_gettyimages-855098134.jpg' />
+            <ProfileInfo />
             <Posts />
         </div>
     )

@@ -1,9 +1,19 @@
 .nav {
     grid-area: nav;
     background-color: rgba(97, 250, 166, 0.315);
+    padding: 20px;
 }
 
 .nav__menu {
     display: flex;
     flex-direction: column;
+}
+
+.navlink {
+    color: rgb(0, 19, 9);
+    text-decoration: none;
+}
+
+.active {
+    color: rgb(2, 185, 85);
 }
