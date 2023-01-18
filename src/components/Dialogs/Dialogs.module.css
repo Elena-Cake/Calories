@@ -6,26 +6,3 @@
 .dialogs__items {
     padding: 10px;
 }
-
-.dialogs__item {
-    padding: 5px 5px;
-}
-
-.dialogs__item_link {
-    text-decoration: none;
-    color: rgb(1, 48, 24);
-}
-
-.dialogs__item_active {
-    color: rgb(2, 167, 84);
-    background-color: rgba(1, 236, 119, 0.185);
-    border-radius: 5px;
-}
-
-.dialogs__messages {
-    padding: 10px;
-}
-
-.messages__item {
-    padding: 15px 0;
-}

@@ -1,26 +1,10 @@
 import React, { useState } from "react";
 import s from './Dialogs.module.css'
 import { NavLink } from "react-router-dom";
+import DialogItem from './DialogItem/DialogItem'
+import Message from "./Message/Message";
 
 
-
-const DialogItem = ({ name, id, isActive }) => {
-    return (
-        <div className={s.dialogs__item + ' ' + (isActive ? s.dialogs__item_active : '')}>
-            <NavLink to={"/dialogs/" + id} className={s.dialogs__item_link}>
-                {name}
-            </NavLink>
-        </div>
-    )
-}
-
-const Message = ({ message }) => {
-    return (
-        <div className={s.messages__item}>
-            {message}
-        </div>
-    )
-}
 
 const Dialogs = () => {
     const [isActive, setIsActive] = useState(false)
