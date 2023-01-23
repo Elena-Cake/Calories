@@ -6,18 +6,20 @@ import Message from "./Message/Message";
 
 
 
-const Dialogs = () => {
+const Dialogs = ({ state }) => {
     const [isActive, setIsActive] = useState(false)
+
+    const dialogsElem = state.dialogsData.map((dialog, i) => <DialogItem key={i} name={dialog.name} id={dialog.id} isActive={isActive} />)
+
+    const messagesElem = state.messagesData.map((m, i) => <Message key={i} message={m.message} />)
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs__items}>
-                <DialogItem name='Dima' id='1' isActive={isActive} />
-                <DialogItem name='Lena' id='2' isActive={true} />
+                {dialogsElem}
             </div>
             <div className={s.dialogs__messages}>
-                <Message message='hi' />
-                <Message message='sova' />
-                <Message message='sova' />
+                {messagesElem}
             </div>
         </div>
     )
