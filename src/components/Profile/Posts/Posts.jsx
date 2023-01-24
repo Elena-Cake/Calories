@@ -1,15 +1,16 @@
 import React from "react";
 import Post from "./Post/Post";
-import c from './Posts.module.css'
+import c from './Posts.module.css';
+import {addPospActionCreator} from '../../../redux/state'
 
-const Posts = ({ posts,addPost }) => {
+const Posts = ({ posts, dispatch }) => {
 
     const userElements = posts.map((u, i) => <Post key={i} user={u} />)
     const newPostElem = React.createRef()
 
     const addPostUI = () => {
         const text = newPostElem.current.value;
-        addPost(text);
+        dispatch(addPospActionCreator(text));
         newPostElem.current.value ='';
     }
 
