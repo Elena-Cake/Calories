@@ -1,3 +1,4 @@
+let rerenderEntireTree = () =>{}
 
 const state = {
     profilePage: {
@@ -34,6 +35,20 @@ const state = {
         ]
     }
 
+}
+
+export let addPost = (postMessage) => {
+    let newPost = {
+        avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg', 
+        text: postMessage,
+        likes: 0
+    }
+    state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state);
+}
+
+export const subcribe = (observer) => {
+    rerenderEntireTree = observer
 }
 
 export default state;
