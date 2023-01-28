@@ -6,7 +6,7 @@ import {updateNewMessaeBodyCreator, sendMessaeCreator} from '../../redux/dialogs
 
 
 
-const Dialogs = ({ state, dispatch}) => {
+const Dialogs = ({ state, sendMessae, updateNewMessaeBody}) => {
     const [isActive, setIsActive] = useState(false)
 
     const dialogsElem = state.dialogsData.map((dialog, i) => <DialogItem key={i} name={dialog.name} id={dialog.id} isActive={isActive} />)
@@ -15,12 +15,12 @@ const Dialogs = ({ state, dispatch}) => {
     const newMessageBody = state.newMessageBody;
 
     const handleAddMessage = () => {
-        dispatch(sendMessaeCreator())
+        sendMessae()
     }
 
     const onNewMessageChange = (e) => {
         let body = e.target.value;
-        dispatch(updateNewMessaeBodyCreator(body))
+        updateNewMessaeBody(body)
     }
 
     return (

@@ -1,16 +1,15 @@
 import React from "react";
 import Post from "./Post/Post";
 import c from './Posts.module.css';
-import {addPospActionCreator} from '../../../redux/profileReduser'
 
-const Posts = ({ posts, dispatch }) => {
+const Posts = ({ posts, addPost}) => {
 
     const userElements = posts.map((u, i) => <Post key={i} user={u} />)
     const newPostElem = React.createRef()
 
-    const addPostUI = () => {
+    const onAddPost = () => {
         const text = newPostElem.current.value;
-        dispatch(addPospActionCreator(text));
+        addPost(text);
         newPostElem.current.value ='';
     }
 
@@ -18,7 +17,7 @@ const Posts = ({ posts, dispatch }) => {
         <div className={c.posts}>
             <div>
                 <input ref={newPostElem}></input>
-                <button onClick={addPostUI}>add</button>
+                <button onClick={onAddPost}>add</button>
             </div>
             <ul>
                 {userElements}
