@@ -1,5 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const ADD_MESSAGE = 'ADD_MESSAGE';
+import profileReduser from "./profileReduser";
+import dialogsReduser from "./dialogsReduser";
+
 
 let store = {
     _state: {
@@ -34,7 +35,8 @@ let store = {
                 { id: 4, message: 'js' },
                 { id: 5, message: 'know' },
                 { id: 6, message: 'yo' }
-            ]
+            ],
+            newMessageBody: ""
         }
     },
     _callSubscriber() {
@@ -47,38 +49,12 @@ let store = {
         this._callSubscriber = observer
     },
     dispatch(action) { // {type: 'ADD-POST'}
-        if (action.type === ADD_POST ) {
-            let newPost = {
-                avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg', 
-                text: action.postMessage,
-                likes: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: 7,
-                message: action.textMessage
-            }
-            this._state.dialogsPage.messagesData.push(newMessage);
-            this._callSubscriber(this._state);
-        } else {
-            console.log('dispatch error')
-        }
-    }
-}
 
-export const addPospActionCreator = (text) => {
-    return {
-        type: ADD_POST,
-        postMessage: text
-    }
-}
+        this._state.profilePage = profileReduser(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action);
 
-export const addNewMessageElement = (text) => {
-    return {
-        type: ADD_MESSAGE,
-        textMessage: text
+        this._callSubscriber(this._state);
+
     }
 }
 
