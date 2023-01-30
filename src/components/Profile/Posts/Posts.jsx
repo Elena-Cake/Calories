@@ -8,9 +8,9 @@ const Posts = ({ posts }) => {
 
     return (
         <div className={c.posts}>
-            <div>
-                <input></input>
-                <button>add</button>
+            <div className={c.addGroup}>
+                <input className={c.input}></input>
+                <button className={c.btnAdd}>add</button>
             </div>
             <ul>
                 {userElements}
