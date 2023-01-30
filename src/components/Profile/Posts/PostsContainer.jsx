@@ -4,6 +4,7 @@ import c from './Posts.module.css';
 import {addPospActionCreator} from '../../../redux/profileReduser'
 
 import Posts from "./Posts";
+import StoreContext from "../../../StoreContext";
 
 const PostsContainer = ({ posts, dispatch }) => {
 
@@ -12,7 +13,12 @@ const addPost = (text) => {
 }
 
     return (
-      <Posts posts={posts} addPost={addPost}/>
+      <StoreContext.Consumer> {
+        (store)=> (
+        <Posts posts={store.getState().profilePage.posts} addPost={addPost}/>
+        )
+      }
+      </StoreContext.Consumer>
     )
 }
 

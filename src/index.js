@@ -9,14 +9,17 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 import store from './redux/reduxStore';
 
+import StoreContext from './StoreContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const rerenderEntireTree = (state) => {
+const rerenderEntireTree = () => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={state} dispatch={store.dispatch.bind(store)} />
+        <StoreContext.Provider value={store}>
+          <App />
+        </StoreContext.Provider>
       </BrowserRouter>
     </React.StrictMode>
   );
@@ -26,7 +29,7 @@ rerenderEntireTree(store.getState());
 
 store.subscribe(() => {
   let state = store.getState();
-  rerenderEntireTree(state)
+  rerenderEntireTree()
 });
 
 // If you want to start measuring performance in your app, pass a function

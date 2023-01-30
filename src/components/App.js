@@ -6,15 +6,15 @@ import NavBar from './NavBar/NavBar';
 import DialogsContainer from './Dialogs/DialogsContainer';
 import { Route, Routes } from 'react-router-dom';
 
-const App = ({ state, dispatch }) => {
+const App = () => {
   return (
     <div className="app__wrapper">
       <Header />
       <NavBar />
       <div className='app__wrapper_content'>
         <Routes>
-          <Route path="/profile" element={<Profile state={state.profilePage} dispatch={dispatch} />} />
-          <Route path="/dialogs" element={<DialogsContainer state={state.dialogsPage} dispatch={dispatch} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialogs" element={<DialogsContainer />} />
         </Routes>
       </div>
     </div>

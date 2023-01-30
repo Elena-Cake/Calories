@@ -1,0 +1,25 @@
+.addGroup {
+    margin-left: 5%;
+}
+
+.input {
+    border: 0;
+    border-bottom: 1px solid rgba(0, 58, 17, 0.336);
+    padding: 10px;
+    margin: 15px;
+}
+
+.btnAdd {
+    background-color: rgba(97, 250, 166, 0.315);
+    border: 0;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: rgb(2, 100, 46);
+    font-size: 20px;
+    transition: background-color .5s ease;
+}
+
+.btnAdd:hover {
+    background-color: rgba(97, 250, 166, 0.5);
+}
