@@ -6,17 +6,18 @@ import {addPospActionCreator} from '../../../redux/profileReduser'
 import Posts from "./Posts";
 import StoreContext from "../../../StoreContext";
 
-const PostsContainer = ({ posts, dispatch }) => {
-
-const addPost = (text) => {
-    dispatch(addPospActionCreator(text));
-}
+const PostsContainer = () => {
 
     return (
-      <StoreContext.Consumer> {
-        (store)=> (
+      <StoreContext.Consumer> 
+        {
+        (store)=> {
+          const addPost = (text) => {
+            store.dispatch.addPospActionCreator(text);
+        }
+        (
         <Posts posts={store.getState().profilePage.posts} addPost={addPost}/>
-        )
+        )}
       }
       </StoreContext.Consumer>
     )
