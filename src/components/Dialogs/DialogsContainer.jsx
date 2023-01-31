@@ -10,7 +10,7 @@ import StoreContext from "../../StoreContext";
 
 const DialogsContainer = () => {
   
-    return 
+    return (
     <StoreContext.Consumer>
         { (store) => {
             const onSendMessae = () => {
@@ -20,9 +20,9 @@ const DialogsContainer = () => {
             const onUpdateNewMessaeBody = (body) => {
                 store.dispatch(updateNewMessaeBodyCreator(body))
             }
-        return <Dialogs state={store} sendMessae={onSendMessae} updateNewMessaeBody={onUpdateNewMessaeBody}/>
+        return <Dialogs state={store.getState().dialogsPage} sendMessae={onSendMessae} updateNewMessaeBody={onUpdateNewMessaeBody}/>
     }}
     </StoreContext.Consumer>
-}
+)}
 
 export default DialogsContainer;
