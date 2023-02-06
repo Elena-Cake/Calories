@@ -27,6 +27,11 @@ const NavBar = () => {
                         `${s.navlink} ${s.active}` : `${s.navlink}`}>
                     Music
                 </NavLink>
+                <NavLink to="/users"
+                    className={(state) => state.isActive ?
+                        `${s.navlink} ${s.active}` : `${s.navlink}`}>
+                    Find users
+                </NavLink>
             </div>
         </nav>
     )
