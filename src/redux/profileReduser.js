@@ -20,19 +20,24 @@ const profileReduser = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
-            state.posts.push({
-                avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg',
-                text: action.postMessage,
-                likes: 0
-            });
-            return state
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    {
+                        avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg',
+                        text: action.postMessage,
+                        likes: 0
+                    }
+                ]
+            };
         default:
             return state
     }
 
 }
 
-export const addPospActionCreator = (text) => {
+export const addPostActionCreator = (text) => {
     return {
         type: ADD_POST,
         postMessage: text
