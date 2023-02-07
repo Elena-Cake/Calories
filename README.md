@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+<!-- API (aplication programming interface) -->
+ 
+апи - это интерфейс чего-то, то есть он есть у приложения (то, с чем играет пользователь), а есть у сервера
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+сервер апи - это сервер написанный на ноде\ апаче\ нжикс и др...
+ у сервера есть эндпоинты - урлы, на которые делаются запросы и типы запроса.
+ Мы имеем жестко определенный запрос и ожидаемый ответ с сервера
 
-## Available Scripts
+ типы:  get - получить
+        post - отправить
+        patch - 
+        put - обновить
+        delete - удалить
 
-In the project directory, you can run:
+axios - обертка как нода - библиотека
 
-### `npm start`
+идемпотентность - один и тот же запрос вернет тот же ответ, присуще гет запросу, никак не влияет на сервер (не меняет данные)
+____________________
+промис - это это "обещание", что когда асинхронный запрос завершится, к его результату можно будет достучаться через промис
+ 
+ function getSmth () {
+ const promise = $.aiax('https://smth...')
+ return promise;
+}
+...
+const promise = getSmth()
+promise
+    .then(dosmth)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+зачем? что бы изолировать UI от api ,не передавать туда колбеки что сделать если.
+_________________________
+аякс- AJAX - асихронные запросы
+____________________________
+ event loop -> есть определенная очередь выполнения на сервере...
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ ___________________________
+ рест апи
+ - спецификация, рекомендация как строить взаимодействие клиента и сервера
 
-### `npm test`
+ -> урлы одни и теже, меняются типы запроса
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ _____________________________
+ 
+ СORS - перед отправкой запросов интерфейс делает запрос OPTION на сервер, что бы узнать, какие запросы тот разрешает ему адресовывать
