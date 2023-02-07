@@ -1,7 +1,7 @@
 .user__card {
     display: grid;
-    padding: 10px 10px;
-    margin: 10px 0;
+    padding: 10px 20px;
+    margin: 10px;
     background-color: rgba(97, 250, 166, 0.1);
     grid-template-areas:
         'foto name location'
