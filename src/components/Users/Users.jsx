@@ -3,13 +3,16 @@
 import React from "react";
 import s from './Users.module.css';
 import userPhoto from '../../images/ava.png'
+import { NavLink } from "react-router-dom";
 
 let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount }) => {
 
     const usersElements = users.map(u => {
         return (
             <div className={s.user__card} key={u.id}>
-                <img className={s.user__foto} src={u.photos.small != null ? u.photos.small : userPhoto} />
+                <NavLink to={'/profile/' + u.id}>
+                    <img className={s.user__foto} src={u.photos.small != null ? u.photos.small : userPhoto} />
+                </NavLink>
                 <button className={s.user__btnFollow} onClick={() => { follow(u.id) }}>
                     {u.followed ? 'unfollow' : 'follow'}
                 </button>
