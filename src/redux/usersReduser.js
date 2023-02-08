@@ -49,10 +49,10 @@ const usersReduser = (state = initialState, action) => {
     }
 }
 
-export const followAC = (userId) => ({ type: FOLLOW, userId })
-export const setUsersAC = (users) => ({ type: SET_USERS, users })
-export const setCurrPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
-export const setTotalUserCountAC = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUserCount })
+export const follow = (userId) => ({ type: FOLLOW, userId })
+export const setUsers = (users) => ({ type: SET_USERS, users })
+export const setCurrPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
+export const setTotalUserCount = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUserCount })
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 
 export default usersReduser;
