@@ -1,9 +1,10 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+// чистая компонента
+
+import React from "react";
 import s from './Users.module.css';
 import userPhoto from '../../images/ava.png'
 
-let Users = ({ users, follow, setUsers, setCurrPageAC, setTotalUserCountAC, pageSize, totalUserCount, currentPage }) => {
+let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount }) => {
 
     const usersElements = users.map(u => {
         return (
@@ -22,12 +23,12 @@ let Users = ({ users, follow, setUsers, setCurrPageAC, setTotalUserCountAC, page
         )
     })
 
-    const pages = []
-    for (let i = 1; i <= Math.ceil(totalUserCount / pageSize); i++) {
-        pages.push(i)
+    const pagesCounterEmpty = []
+    for (let i = 1; i <= pageCount; i++) {
+        pagesCounterEmpty.push(i)
     }
 
-    const pagesElements = pages.map(i => {
+    const pagesElements = pagesCounterEmpty.slice(0, 10).map(i => {
         return (
             <div key={i} className={`${s.pagination__btn} ${currentPage === i && s.pagination__btn_type_active}`}
                 onClick={(e) => onChangePage(i)}>
@@ -36,21 +37,6 @@ let Users = ({ users, follow, setUsers, setCurrPageAC, setTotalUserCountAC, page
         )
     })
 
-    const onChangePage = (pageNumber) => {
-        setCurrPageAC(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`)
-            .then((res) => {
-                setUsers(res.data.items)
-            })
-    }
-
-    useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
-            .then((res) => {
-                setUsers(res.data.items)
-                setTotalUserCountAC(res.data.totalCount)
-            })
-    }, [])
 
     return (
         <div>

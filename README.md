@@ -1,3 +1,7 @@
+ссылка на схему:
+https://app.creately.com/d/WanvLc4fibE/edit/s/PDt4DThOPw0
+
+
 <!-- API (aplication programming interface) -->
  
 апи - это интерфейс чего-то, то есть он есть у приложения (то, с чем играет пользователь), а есть у сервера
