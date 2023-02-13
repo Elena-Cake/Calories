@@ -3,9 +3,23 @@
     background-color: rgb(5, 172, 74);
     display: flex;
     align-self: center;
+    justify-content: space-between;
 }
 
 .header__logo {
     height: 40px;
 
+}
+
+.login__block {
+    margin: 10px;
+}
+
+.login__text {
+    color: #000;
+    text-decoration: none;
+}
+
+.login__text:hover {
+    font-weight: bold;
 }
