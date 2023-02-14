@@ -19,7 +19,10 @@ let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
     const onChangePage = (pageNumber) => {
         toggleIsFetching(true)
         setCurrPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
+            {
+                withCredentials: true
+            })
             .then((res) => {
                 setUsers(res.data.items)
             })
@@ -28,7 +31,10 @@ let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
 
     useEffect(() => {
         toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+            {
+                withCredentials: true
+            })
             .then((res) => {
                 setUsers(res.data.items)
                 setTotalUserCount(res.data.totalCount)
