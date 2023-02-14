@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import { api } from "../../api/api";
 
 
 
@@ -19,25 +20,19 @@ let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
     const onChangePage = (pageNumber) => {
         toggleIsFetching(true)
         setCurrPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
-            {
-                withCredentials: true
-            })
-            .then((res) => {
-                setUsers(res.data.items)
+        api.getUsers(currentPage, pageSize)
+            .then((data) => {
+                setUsers(data.items)
             })
             .then(() => toggleIsFetching(false))
     }
 
     useEffect(() => {
         toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
-            {
-                withCredentials: true
-            })
-            .then((res) => {
-                setUsers(res.data.items)
-                setTotalUserCount(res.data.totalCount)
+        api.getUsers(currentPage, pageSize)
+            .then((data) => {
+                setUsers(data.items)
+                setTotalUserCount(data.totalCount)
             })
             .then(() => toggleIsFetching(false))
     }, [])

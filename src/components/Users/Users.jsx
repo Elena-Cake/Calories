@@ -5,34 +5,25 @@ import s from './Users.module.css';
 import userPhoto from '../../images/ava.png'
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { api } from "../../api/api";
 
 let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount }) => {
 
     const handleFollow = (id, isFollowed) => {
         isFollowed ?
-            (axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '4a9017e2-c35e-4760-9a40-6035439f2742'
-                }
-            })
-                .then(res => {
-                    if (res.data.resultCode === 0) {
+            api.unfollow(id)
+                .then(data => {
+                    if (data.resultCode === 0) {
                         follow(id)
                     }
-                }))
+                })
             :
-            (axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '4a9017e2-c35e-4760-9a40-6035439f2742'
-                }
-            })
-                .then(res => {
-                    if (res.data.resultCode === 0) {
+            api.follow(id)
+                .then(data => {
+                    if (data.resultCode === 0) {
                         follow(id)
                     }
-                }))
+                })
 
 
     }
