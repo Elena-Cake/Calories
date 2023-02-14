@@ -4,26 +4,28 @@ import React from "react";
 import s from './Users.module.css';
 import userPhoto from '../../images/ava.png'
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import { api } from "../../api/api";
 
-let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount }) => {
-
-    const handleFollow = (id, isFollowed) => {
+let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount,
+    toggleFollowingProgress, followingInProgress }) => {
+    console.log(followingInProgress)
+    const handleFollow = (isFollowed, userId) => {
+        toggleFollowingProgress(true, userId)
         isFollowed ?
-            api.unfollow(id)
+            api.unfollow(userId)
                 .then(data => {
                     if (data.resultCode === 0) {
-                        follow(id)
+                        follow(userId)
                     }
                 })
             :
-            api.follow(id)
+            api.follow(userId)
                 .then(data => {
                     if (data.resultCode === 0) {
-                        follow(id)
+                        follow(userId)
                     }
                 })
+        toggleFollowingProgress(false, userId)
 
 
     }
@@ -34,7 +36,9 @@ let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePag
                 <NavLink to={'/profile/' + u.id}>
                     <img className={s.user__foto} src={u.photos.small != null ? u.photos.small : userPhoto} />
                 </NavLink>
-                <button className={s.user__btnFollow} onClick={() => { handleFollow(u.id, u.followed) }}>
+                <button disabled={followingInProgress.some(id => id == u.id)}
+                    className={s.user__btnFollow}
+                    onClick={() => { handleFollow(u.followed, u.id) }}>
                     {u.followed ? 'unfollow' : 'follow'}
                 </button>
                 <h2 className={s.user__name}>{u.name}</h2>

@@ -3,7 +3,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching } from "../../redux/usersReduser";
+import { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import { api } from "../../api/api";
@@ -13,7 +13,7 @@ import { api } from "../../api/api";
 // контейнернаяя компонента для общения с API
 let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
     setTotalUserCount, pageSize, totalUserCount,
-    currentPage, isFetching, toggleIsFetching }) => {
+    currentPage, isFetching, toggleIsFetching, toggleFollowingProgress, followingInProgress }) => {
 
     const pageCount = Math.ceil(totalUserCount / pageSize)
 
@@ -48,7 +48,9 @@ let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onChangePage={onChangePage}
-                pageCount={pageCount} />
+                pageCount={pageCount}
+                toggleFollowingProgress={toggleFollowingProgress}
+                followingInProgress={followingInProgress} />
         </>
     )
 }
@@ -61,10 +63,11 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
 export default connect(mapStateToProps,
-    { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching }
+    { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching, toggleFollowingProgress }
 )(UsersAPIComponent);
