@@ -4,10 +4,6 @@ import c from './ProfileInfo.module.css'
 
 const Profile = ({ profile }) => {
 
-    // if (!profile) {
-    //     return <Preloader isFetching={true} />
-    // }
-
     return (
         <>
             <div className={c.profile__top_image} ></div>
