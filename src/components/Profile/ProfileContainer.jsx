@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import {
+    Navigate,
     useLocation,
     useNavigate,
     useParams,
@@ -9,6 +10,7 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import { api } from "../../api/api";
 import { getUser } from "../../redux/profileReduser";
+import { AuthRedirect } from "../hoc/AuthRedirect";
 
 const ProfileContainer = (props) => {
     console.log(props.router.params)
@@ -26,8 +28,11 @@ const ProfileContainer = (props) => {
     )
 }
 
+let withAuthRedirect = AuthRedirect(ProfileContainer)
+
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 function withRouter(Component) {
@@ -45,4 +50,4 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, { getUser })(withRouter(ProfileContainer));
+export default connect(mapStateToProps, { getUser })(withRouter(withAuthRedirect));
