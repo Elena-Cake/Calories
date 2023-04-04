@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { follow, unfollow, setCurrPage, getUsers } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import { compose } from "redux";
 
 
 // контейнернаяя компонента для общения с API
@@ -54,8 +55,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        follow, unfollow, setCurrPage, getUsers,
-    }
-)(UsersAPIComponent);
+export default compose(
+    connect(mapStateToProps, { follow, unfollow, setCurrPage, getUsers })
+)(UsersAPIComponent)
+

@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import { api } from "../../api/api";
 import { getUser } from "../../redux/profileReduser";
 import { AuthRedirect } from "../hoc/AuthRedirect";
+import { compose } from "redux";
 
 const ProfileContainer = (props) => {
     console.log(props.router.params)
@@ -28,12 +29,6 @@ const ProfileContainer = (props) => {
     )
 }
 
-let withAuthRedirect = AuthRedirect(ProfileContainer)
-
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
-})
-
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
@@ -49,4 +44,12 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, { getUser })(withRouter(withAuthRedirect));
+let mapStateToProps = (state) => ({
+    profile: state.profilePage.profile
+})
+
+export default compose(
+    connect(mapStateToProps, { getUser }),
+    withRouter,
+    AuthRedirect
+)(ProfileContainer)
