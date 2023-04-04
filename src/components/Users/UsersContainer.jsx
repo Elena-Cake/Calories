@@ -3,37 +3,25 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching } from "../../redux/usersReduser";
+import { follow, setCurrPage, getUsers } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 
 
-
 // контейнернаяя компонента для общения с API
-let UsersAPIComponent = ({ users, follow, setUsers, setCurrPage,
-    setTotalUserCount, pageSize, totalUserCount,
-    currentPage, isFetching, toggleIsFetching }) => {
+let UsersAPIComponent = ({ users, follow,
+    setCurrPage, pageSize, totalUserCount,
+    currentPage, isFetching, getUsers }) => {
 
     const pageCount = Math.ceil(totalUserCount / pageSize)
 
     const onChangePage = (pageNumber) => {
-        toggleIsFetching(true)
         setCurrPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`)
-            .then((res) => {
-                setUsers(res.data.items)
-            })
-            .then(() => toggleIsFetching(false))
+        getUsers(pageNumber, pageSize)
     }
 
     useEffect(() => {
-        toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
-            .then((res) => {
-                setUsers(res.data.items)
-                setTotalUserCount(res.data.totalCount)
-            })
-            .then(() => toggleIsFetching(false))
+        getUsers(currentPage, pageSize)
     }, [])
 
     return (
@@ -65,5 +53,8 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,
-    { follow, setUsers, setCurrPage, setTotalUserCount, toggleIsFetching }
+    {
+        follow, setCurrPage, getUsers,
+
+    }
 )(UsersAPIComponent);
