@@ -1,3 +1,5 @@
+import { api } from "../api/api";
+
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
@@ -51,5 +53,13 @@ export const addPost = (text) => {
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
+export const getUser = (profileId) => {
+    return (dispatch) => {
+        api.getProfile(profileId)
+            .then((data) => {
+                dispatch(setUserProfile(data))
+            })
+    }
+}
 
 export default profileReduser;

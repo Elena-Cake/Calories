@@ -11,7 +11,7 @@ const instance = axios.create({
 export const api = {
     // auth
     checkAuthUser() {
-        return instance.get('/auth/me')
+        return instance.get('auth/me')
             .then(res => res.data)
     },
 
@@ -22,15 +22,19 @@ export const api = {
     },
 
     follow(id) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {})
+        return instance.post(`follow/${id}`, {})
             .then(res => res.data)
     },
 
     unfollow(id) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
+        return instance.delete(`follow/${id}`)
             .then(res => res.data)
-    }
+    },
 
     // Profile
+    getProfile(profileId) {
+        return instance.get(`profile/${profileId}`)
+            .then(res => res.data)
+    }
 
 }
