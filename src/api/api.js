@@ -30,4 +30,7 @@ export const api = {
         return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
             .then(res => res.data)
     }
+
+    // Profile
+
 }

@@ -2,13 +2,13 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { follow, setCurrPage, getUsers } from "../../redux/usersReduser";
+import { follow, unfollow, setCurrPage, getUsers } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 
 
 // контейнернаяя компонента для общения с API
-let UsersAPIComponent = ({ users, follow,
+let UsersAPIComponent = ({ users, follow, unfollow,
     setCurrPage, pageSize, totalUserCount,
     currentPage, isFetching, getUsers, toggleFollowingProgress, followingInProgress }) => {
 
@@ -29,13 +29,13 @@ let UsersAPIComponent = ({ users, follow,
             <Users
                 users={users}
                 follow={follow}
+                unfollow={unfollow}
                 totalUserCount={totalUserCount}
 
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onChangePage={onChangePage}
                 pageCount={pageCount}
-                toggleFollowingProgress={toggleFollowingProgress}
                 followingInProgress={followingInProgress} />
         </>
     )
@@ -56,6 +56,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        follow, setCurrPage, getUsers,
+        follow, unfollow, setCurrPage, getUsers,
     }
 )(UsersAPIComponent);

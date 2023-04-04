@@ -1,4 +1,5 @@
 import axios from "axios"
+import { api } from "../api/api"
 
 const FOLLOW = 'FOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -60,7 +61,7 @@ const usersReduser = (state = initialState, action) => {
     }
 }
 
-export const follow = (userId) => ({ type: FOLLOW, userId })
+export const followToggleSucsess = (userId) => ({ type: FOLLOW, userId })
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setCurrPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setTotalUserCount = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUserCount })
@@ -71,12 +72,43 @@ export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_I
 export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        api.getUsers(currentPage, pageSize)
             .then((res) => {
-                dispatch(setUsers(res.data.items))
-                dispatch(setTotalUserCount(res.data.totalCount))
+                dispatch(setUsers(res.items))
+                dispatch(setTotalUserCount(res.totalCount))
                 dispatch(toggleIsFetching(false))
             })
     }
 }
+
+//followThunkCreator
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId));
+
+        api.follow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followToggleSucsess(userId))
+                }
+            })
+        dispatch(toggleFollowingProgress(false, userId));
+    }
+}
+
+//unfollowThunkCreator
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId));
+
+        api.unfollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followToggleSucsess(userId))
+                }
+            })
+        dispatch(toggleFollowingProgress(false, userId));
+    }
+}
+
 export default usersReduser;

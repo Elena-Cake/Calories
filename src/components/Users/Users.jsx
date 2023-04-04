@@ -6,26 +6,13 @@ import userPhoto from '../../images/ava.png'
 import { NavLink } from "react-router-dom";
 import { api } from "../../api/api";
 
-let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePage, pageCount,
-    toggleFollowingProgress, followingInProgress }) => {
-    console.log(followingInProgress)
+let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
+    followingInProgress }) => {
     const handleFollow = (isFollowed, userId) => {
-        toggleFollowingProgress(true, userId)
         isFollowed ?
-            api.unfollow(userId)
-                .then(data => {
-                    if (data.resultCode === 0) {
-                        follow(userId)
-                    }
-                })
+            unfollow(userId)
             :
-            api.follow(userId)
-                .then(data => {
-                    if (data.resultCode === 0) {
-                        follow(userId)
-                    }
-                })
-        toggleFollowingProgress(false, userId)
+            follow(userId);
 
 
     }
@@ -34,9 +21,9 @@ let Users = ({ users, follow, totalUserCount, pageSize, currentPage, onChangePag
         return (
             <div className={s.user__card} key={u.id}>
                 <NavLink to={'/profile/' + u.id}>
-                    <img className={s.user__foto} src={u.photos.small != null ? u.photos.small : userPhoto} />
+                    <img className={s.user__foto} src={u.photos.small !== null ? u.photos.small : userPhoto} alt="" />
                 </NavLink>
-                <button disabled={followingInProgress.some(id => id == u.id)}
+                <button disabled={followingInProgress.some(id => id === u.id)}
                     className={s.user__btnFollow}
                     onClick={() => { handleFollow(u.followed, u.id) }}>
                     {u.followed ? 'unfollow' : 'follow'}
