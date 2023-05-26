@@ -16,7 +16,7 @@ import { compose } from "redux";
 const ProfileContainer = (props) => {
 
     let profileId = props.router.params.userId;
-    if (!profileId) { profileId = 2 }
+    if (!profileId) { profileId = 27953 }
 
     useEffect(() => {
         props.getUser(profileId)
