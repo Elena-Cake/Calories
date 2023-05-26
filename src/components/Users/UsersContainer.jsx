@@ -11,7 +11,8 @@ import { compose } from "redux";
 // контейнернаяя компонента для общения с API
 let UsersAPIComponent = ({ users, follow, unfollow,
     setCurrPage, pageSize, totalUserCount,
-    currentPage, isFetching, getUsers, toggleFollowingProgress, followingInProgress }) => {
+    currentPage, isFetching, getUsers,
+    toggleFollowingProgress, followingInProgress }) => {
 
     const pageCount = Math.ceil(totalUserCount / pageSize)
 

@@ -2,7 +2,7 @@ import { api } from "../api/api";
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
-
+const SET_STATUS = 'SET_STATUS'
 
 const initialState = {
     posts: [
@@ -18,7 +18,8 @@ const initialState = {
             likes: 33
         }
     ],
-    profile: null
+    profile: null,
+    status: ''
 }
 
 const profileReduser = (state = initialState, action) => {
@@ -38,6 +39,9 @@ const profileReduser = (state = initialState, action) => {
             };
         case SET_USER_PROFILE:
             return { ...state, profile: action.profile };
+        case SET_STATUS:
+            return { ...state, status: action.status };
+
         default:
             return state
     }
@@ -50,6 +54,7 @@ export const addPost = (text) => {
         postMessage: text
     }
 }
+export const setStatus = (status) => ({ type: SET_STATUS, status })
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
@@ -61,5 +66,25 @@ export const getUser = (profileId) => {
             })
     }
 }
+
+export const getStatus = (profileId) => {
+    return (dispatch) => {
+        api.getStatus(profileId)
+            .then((data) => {
+                dispatch(setStatus(data))
+            })
+    }
+}
+
+export const updateStatus = (status) => (dispatch) => {
+    console.log(1)
+    api.updateStatus(status)
+        .then((res) => {
+            console.log(res)
+            if (res.resultCode === 0) dispatch(setStatus(status))
+            if (res.resultCode === 1) console.warn('update fail')
+        })
+}
+
 
 export default profileReduser;

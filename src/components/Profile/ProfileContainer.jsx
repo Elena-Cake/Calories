@@ -9,17 +9,18 @@ import {
 import { connect } from "react-redux";
 import Profile from "./Profile";
 import { api } from "../../api/api";
-import { getUser } from "../../redux/profileReduser";
+import { getUser, getStatus, updateStatus } from "../../redux/profileReduser";
 import { AuthRedirect } from "../hoc/AuthRedirect";
 import { compose } from "redux";
 
 const ProfileContainer = (props) => {
-    console.log(props.router.params)
+
     let profileId = props.router.params.userId;
     if (!profileId) { profileId = 2 }
 
     useEffect(() => {
         props.getUser(profileId)
+        props.getStatus(profileId)
     }, [])
 
     return (
@@ -45,11 +46,12 @@ function withRouter(Component) {
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 export default compose(
-    connect(mapStateToProps, { getUser }),
+    connect(mapStateToProps, { getUser, getStatus, updateStatus }),
     withRouter,
     AuthRedirect
 )(ProfileContainer)
