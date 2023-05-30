@@ -1,0 +1,15 @@
+.form__input {
+
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    margin: 5px 0;
+    position: relative;
+}
+
+.input__error {
+    color: #df1414;
+    font-size: 12px;
+    position: absolute;
+    left: 420px;
+    bottom: -5px;
+}
