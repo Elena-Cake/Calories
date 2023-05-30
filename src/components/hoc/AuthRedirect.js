@@ -18,7 +18,6 @@ export const AuthRedirect = (Component) => {
         //     }
         // }
         render() {
-            console.log(this.props.isAuth)
             if (!this.props.isAuth) return <Navigate to='/login' />
             return <Component {...this.props} />
         }

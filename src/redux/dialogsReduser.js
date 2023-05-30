@@ -1,5 +1,5 @@
-// СОХРАНЕНИЕ НАПЕЧАТАННОГО, НО ЕЩЕ НЕ ОТПРАВЛЕННОГО СООБЩЕНИЯ (тоже делалось и для поста)
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+
+
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 const initialState = {
@@ -18,23 +18,17 @@ const initialState = {
         { id: 4, message: 'js' },
         { id: 5, message: 'know' },
         { id: 6, message: 'yo' }
-    ],
-    newMessageBody: ""
+    ]
 }
 
 const dialogsReduser = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {
-                ...state,
-                newMessageBody: action.body
-            };
+
         case SEND_MESSAGE:
-            let body = state.newMessageBody
+            let body = action.message
             return {
                 ...state,
-                newMessageBody: '',
-                messagesData: [...state.messagesData, { id: 7, message: body }]
+                messagesData: [...state.messagesData, { id: state.messagesData.length + 1, message: body }]
             };
         default:
             return state
@@ -42,13 +36,7 @@ const dialogsReduser = (state = initialState, action) => {
 }
 
 
-export const sendMessaeCreator = () => ({ type: SEND_MESSAGE })
+export const sendMessageCreator = (message) => ({ type: SEND_MESSAGE, message: message })
 
-export const updateNewMessaeBodyCreator = (text) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: text
-    }
-}
 
 export default dialogsReduser;

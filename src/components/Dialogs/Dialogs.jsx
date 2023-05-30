@@ -3,25 +3,16 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from "./Message/Message";
 import { Navigate } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 
 
 
-const Dialogs = ({ dialogsPage, sendMessae, updateNewMessaeBody, isAuth }) => {
+const Dialogs = ({ dialogsPage, sendMessage, isAuth }) => {
     const [isActive, setIsActive] = useState(false)
 
     const dialogsElem = dialogsPage.dialogsData.map((dialog, i) => <DialogItem key={i} name={dialog.name} id={dialog.id} isActive={isActive} />)
     const messagesElem = dialogsPage.messagesData.map((m, i) => <Message key={i} message={m.message} />)
 
-    const newMessageBody = dialogsPage.newMessageBody;
-
-    const handleAddMessage = () => {
-        sendMessae()
-    }
-
-    const onNewMessageChange = (e) => {
-        let body = e.target.value;
-        updateNewMessaeBody(body)
-    }
 
     if (!isAuth) {
         return <Navigate to={'login'} />
@@ -34,9 +25,39 @@ const Dialogs = ({ dialogsPage, sendMessae, updateNewMessaeBody, isAuth }) => {
             </div>
             <div className={s.dialogs__messages}>
                 {messagesElem}
-                <input value={newMessageBody} onChange={onNewMessageChange}></input>
-                <button onClick={handleAddMessage}>Отправить</button>
+                <MessageForm sendMessage={sendMessage} />
             </div>
+        </div>
+    )
+}
+
+const MessageForm = ({ sendMessage }) => {
+    return (
+        <div className={s.dialogs__messages}>
+            <Formik
+                initialValues={{
+                    message: '',
+                }}
+                validateOnBlur
+                onSubmit={(values) => {
+                    sendMessage(values.message)
+                }}
+            >
+                {({ values, touched,
+                    handleChange, handleBlur,
+                    isValid, handleSubmit, dirty }) => (
+
+                    <Form onSubmit={handleSubmit}>
+                        <Field
+                            name='message'
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.message}
+                            placeholder="What do your wonna send?" />
+                        <button disabled={!isValid && !dirty} type="submit">Отправить</button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 
-const FormicForm = () => {
+const LoginForm = () => {
     const validationsSchema = yup.object().shape({
         login: yup.string().typeError('String').required('Required'),
         password: yup.string().typeError('String').required('Required'),
@@ -89,7 +89,7 @@ const Login = () => {
     return (
         <div >
             <h1>LOGIN</h1>
-            <FormicForm />
+            <LoginForm />
         </div>
     )
 }
