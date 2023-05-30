@@ -29,12 +29,12 @@ const profileReduser = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [
-                    ...state.posts,
                     {
                         avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg',
                         text: action.postMessage,
                         likes: 0
-                    }
+                    },
+                    ...state.posts
                 ]
             };
         case SET_USER_PROFILE:
