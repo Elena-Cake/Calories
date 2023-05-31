@@ -1,6 +1,6 @@
 import React from "react";
 
-import loadingSrc from "../../images/loading.gif";
+import loadingSrc from "../../../images/loading.gif";
 
 const Preloader = ({ isFetching }) => {
     return (

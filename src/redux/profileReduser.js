@@ -45,7 +45,6 @@ const profileReduser = (state = initialState, action) => {
         default:
             return state
     }
-
 }
 
 export const addPost = (text) => {

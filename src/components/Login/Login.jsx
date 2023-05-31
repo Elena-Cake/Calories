@@ -1,14 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import s from './Login.module.css'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import InputWithErrorRight from "../common/FormsControls/FormsControls";
+import { loginMe } from "../../redux/authReduser";
+import { connect } from "react-redux";
 
 
-const LoginForm = () => {
+const LoginForm = ({ onSubmit }) => {
     const validationsSchema = yup.object().shape({
-        login: yup.string().typeError('String').required('Required'),
+        email: yup.string().typeError('String').required('Required'),
         password: yup.string().typeError('String').required('Required'),
         confirmPassword: yup.string().typeError('String').oneOf([yup.ref('password')], 'not equal pass').required('Required'),
     })
@@ -16,7 +19,7 @@ const LoginForm = () => {
         <div>
             <Formik
                 initialValues={{
-                    login: '',
+                    email: '',
                     password: '',
                     confirmPassword: '',
                     isRobot: false
@@ -24,7 +27,7 @@ const LoginForm = () => {
                 validateOnBlur
                 validationSchema={validationsSchema}
                 onSubmit={(values) => {
-                    console.log(values)
+                    onSubmit(values)
                 }}
             >
                 {({ values, errors, touched,
@@ -33,14 +36,14 @@ const LoginForm = () => {
 
                     <Form onSubmit={handleSubmit}>
                         <div className={s.form__input}>
-                            <label >Login</label>
+                            <label >Email</label>
                             <Field
-                                name='login'
+                                name='email'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.login}
-                                placeholder="What your login?" />
-                            <ErrorMessage className={s.input__error} name="login" component="span"></ErrorMessage>
+                                value={values.email}
+                                placeholder="What your email?" />
+                            <ErrorMessage className={s.input__error} name="email" component="span"></ErrorMessage>
                         </div>
                         <div className={s.form__input}>
                             <label htmlFor={'password'}>Password</label>
@@ -82,16 +85,26 @@ const LoginForm = () => {
 }
 
 
-
-
-const Login = () => {
-
+const Login = (props) => {
+    const navigate = useNavigate();
+    const onSubmit = (values) => {
+        const { email, password, isRobot } = values
+        const rememberMe = !isRobot
+        props.loginMe(email, password, rememberMe)
+    }
+    if (props.isAuth) {
+        navigate("/profile")
+    }
     return (
         <div >
             <h1>LOGIN</h1>
-            <LoginForm />
+            <LoginForm onSubmit={onSubmit} />
         </div>
     )
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
+
+export default connect(mapStateToProps, { loginMe })(Login);
