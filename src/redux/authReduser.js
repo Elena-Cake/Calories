@@ -3,7 +3,7 @@ import { api } from "../api/api";
 const SET_USER_DATA = 'SET_USER_DATA'
 
 const initialState = {
-    id: null,
+    authorisedId: null,
     email: null,
     login: null,
     isAuth: false,
@@ -24,15 +24,15 @@ const authReduser = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
+export const setAuthUserData = (authorisedId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { authorisedId, email, login, isAuth } })
 
 export const checkAuthUser = () => {
     return (dispatch) => {
         api.checkAuthUser()
             .then(data => {
                 if (data.resultCode === 0) {
-                    let { userId, email, login } = data.data
-                    dispatch(setAuthUserData(userId, email, login, true))
+                    let { id, email, login } = data.data
+                    dispatch(setAuthUserData(id, email, login, true))
                 }
             })
     }

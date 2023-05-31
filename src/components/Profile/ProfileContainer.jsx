@@ -14,11 +14,18 @@ import { AuthRedirect } from "../hoc/AuthRedirect";
 import { compose } from "redux";
 
 const ProfileContainer = (props) => {
+    const navigate = useNavigate()
 
-    let profileId = props.router.params.userId;
-    if (!profileId) { profileId = 27953 }
 
     useEffect(() => {
+        let profileId = props.router.params.userId;
+        if (!profileId) {
+            console.log(props.isAuth)
+            if (!props.authorisedId) {
+                navigate('/users')
+            }
+            profileId = props.authorisedId
+        }
         props.getUser(profileId)
         props.getStatus(profileId)
     }, [])
@@ -48,7 +55,7 @@ function withRouter(Component) {
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorisedId: state.auth.id,
+    authorisedId: state.auth.authorisedId,
     isAuth: state.auth.isAuth
 })
 
