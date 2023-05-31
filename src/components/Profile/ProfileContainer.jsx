@@ -47,7 +47,9 @@ function withRouter(Component) {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorisedId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(

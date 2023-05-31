@@ -8,19 +8,17 @@ let mapStateToProps = (state) => ({
 })
 
 export const AuthRedirect = (Component) => {
-    class RedirectComponent extends React.Component {
-        // componentDidMount(prevProps, prevState) {
-        //     // debugger
-        //     if (prevProps.isAuth !== this.props.isAuth) {
-        //         this.setState({
-        //             isAuth: this.props.isAuth
-        //         })
+    const RedirectComponent = (props) => {
+        // const [isAuth, setIsAuth] = useState(props.isAuth)
+        // useEffect(() => {
+        //     if (isAuth !== props.isAuth) {
+        //         setIsAuth(props.isAuth)
         //     }
-        // }
-        render() {
-            if (!this.props.isAuth) return <Navigate to='/login' />
-            return <Component {...this.props} />
-        }
+        // }, [])
+        console.log(props.isAuth)
+        if (!props.isAuth) return <Navigate to='/login' />
+        return <Component {...props} />
+
     }
 
 

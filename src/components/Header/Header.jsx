@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import c from './Header.module.css'
-import { connect } from "react-redux";
-import { logoutMe } from "../../redux/authReduser";
 
 const Header = (props) => {
     const onSubmit = (values) => {
@@ -27,4 +25,4 @@ const Header = (props) => {
     )
 }
 
-export default connect(null, { logoutMe })(Header);
+export default Header;

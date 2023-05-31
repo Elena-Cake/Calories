@@ -16,8 +16,7 @@ const authReduser = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.payload,
-                isAuth: true
+                ...action.payload
             };
 
         default:
