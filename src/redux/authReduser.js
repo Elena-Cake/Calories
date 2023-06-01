@@ -26,17 +26,16 @@ const authReduser = (state = initialState, action) => {
 
 export const setAuthUserData = (authorisedId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { authorisedId, email, login, isAuth } })
 
-export const checkAuthUser = () => {
-    return (dispatch) => {
-        api.checkAuthUser()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let { id, email, login } = data.data
-                    dispatch(setAuthUserData(id, email, login, true))
-                }
-            })
-    }
+export const checkAuthUser = () => (dispatch) => {
+    return api.checkAuthUser()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let { id, email, login } = data.data
+                dispatch(setAuthUserData(id, email, login, true))
+            }
+        })
 }
+
 
 export const loginMe = (email, pass, rememberMe) => (dispatch) => {
     api.login(email, pass, rememberMe)
