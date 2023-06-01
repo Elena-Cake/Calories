@@ -15,7 +15,6 @@ const appReduser = (state = initialState, action) => {
                 ...state,
                 initialized: true
             };
-
         default:
             return state
     }
@@ -25,8 +24,8 @@ export const setInitiolizedSuccess = () => ({ type: INITIALISED_SUCCESS })
 
 
 export const initializeApp = () => (dispatch) => {
-    let checkUser = dispatch(checkAuthUser())
-    Promise.all([checkUser])
+    let getUserData = dispatch(checkAuthUser())
+    Promise.all([getUserData])
         .then(() => {
             dispatch(setInitiolizedSuccess())
         })
