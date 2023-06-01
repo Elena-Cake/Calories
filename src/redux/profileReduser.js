@@ -43,7 +43,7 @@ const profileReduser = (state = initialState, action) => {
         case DELETE_POST:
             return {
                 ...state,
-                posts: state.posts.filter(post => post.id === action.postId)
+                posts: state.posts.filter(post => post.id !== action.postId)
             };
         case SET_USER_PROFILE:
             return { ...state, profile: action.profile };
