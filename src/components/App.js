@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import NavBar from './NavBar/NavBar';
-import DialogsContainer from './Dialogs/DialogsContainer';
 import { Route, Routes } from 'react-router-dom';
-import UsersContainer from './Users/UsersContainer';
 import ProfileContainer from './Profile/ProfileContainer';
 import HeaderContainer from './Header/HeaderContainer';
 import Login from './Login/Login';
 import { connect } from 'react-redux';
 import { initializeApp } from '../redux/appReduser';
 import Preloader from './common/Preloader/Preloader';
+
+// подрузка по мере нужности
+const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
+const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
+
 
 const App = (props) => {
 
@@ -29,7 +32,10 @@ const App = (props) => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:userId?" element={<ProfileContainer />} />
-          <Route path="/dialogs/*" element={<DialogsContainer />} />
+          <Route path="/dialogs/*" element={(
+            <Suspense fallback={<p>Loading...</p>}>
+              <DialogsContainer />
+            </Suspense>)} />
           <Route path="/users" element={<UsersContainer />} />
         </Routes>
       </div>

@@ -5,8 +5,8 @@ import s from './Users.module.css';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
-let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
-    followingInProgress }) => {
+let Users = ({ users, follow, unfollow, currentPage, onChangePage,
+    followingInProgress, totalUserCount, pageSize }) => {
     const handleFollow = (isFollowed, userId) => {
         isFollowed ?
             unfollow(userId)
@@ -21,7 +21,7 @@ let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
     })
     return (
         <div>
-            <Paginator pageCount={pageCount} currentPage={currentPage} onChangePage={onChangePage} />
+            <Paginator currentPage={currentPage} onChangePage={onChangePage} totalUserCount={totalUserCount} pageSize={pageSize} />
             <div className={s.users}>
                 {usersElements}
             </div>

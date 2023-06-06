@@ -14,7 +14,6 @@ let UsersAPIComponent = ({ users, follow, unfollow,
     currentPage, isFetching, getUsers,
     toggleFollowingProgress, followingInProgress }) => {
 
-    const pageCount = Math.ceil(totalUserCount / pageSize)
 
     const onChangePage = (pageNumber) => {
         setCurrPage(pageNumber)
@@ -37,7 +36,6 @@ let UsersAPIComponent = ({ users, follow, unfollow,
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onChangePage={onChangePage}
-                pageCount={pageCount}
                 followingInProgress={followingInProgress} />
         </>
     )
