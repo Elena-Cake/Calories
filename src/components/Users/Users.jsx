@@ -2,8 +2,6 @@
 
 import React from "react";
 import s from './Users.module.css';
-import { NavLink } from "react-router-dom";
-import { api } from "../../api/api";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
