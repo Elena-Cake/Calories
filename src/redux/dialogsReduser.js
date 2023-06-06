@@ -1,6 +1,6 @@
 
 
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_MESSAGE = 'calories/dialogs/SEND_MESSAGE';
 
 const initialState = {
     dialogsData: [

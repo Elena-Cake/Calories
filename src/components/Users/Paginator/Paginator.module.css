@@ -1,0 +1,25 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination__btn {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(1, 107, 33, 0.212);
+    color: rgba(0, 54, 7, 0.7);
+    margin: 0 5px;
+    text-align: center;
+}
+
+.pagination__btn:hover {
+    background-color: rgba(1, 107, 33, 0.5);
+    color: rgb(255, 255, 255);
+}
+
+.pagination__btn_type_active {
+    background-color: rgba(1, 107, 33, 0.5);
+    color: rgb(255, 255, 255);
+}

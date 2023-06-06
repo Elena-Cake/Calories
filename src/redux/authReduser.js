@@ -1,6 +1,6 @@
 import { api } from "../api/api";
 
-const SET_USER_DATA = 'SET_USER_DATA'
+const SET_USER_DATA = 'calories/auth/SET_USER_DATA'
 
 const initialState = {
     authorisedId: null,
@@ -26,33 +26,28 @@ const authReduser = (state = initialState, action) => {
 
 export const setAuthUserData = (authorisedId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { authorisedId, email, login, isAuth } })
 
-export const checkAuthUser = () => (dispatch) => {
-    return api.checkAuthUser()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let { id, email, login } = data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
+export const checkAuthUser = () => async (dispatch) => {
+    let data = await api.checkAuthUser();
+    if (data.resultCode === 0) {
+        let { id, email, login } = data.data
+        dispatch(setAuthUserData(id, email, login, true))
+    }
+
 }
 
 
-export const loginMe = (email, pass, rememberMe) => (dispatch) => {
-    api.login(email, pass, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(checkAuthUser())
-            }
-        })
+export const loginMe = (email, pass, rememberMe) => async (dispatch) => {
+    let data = await api.login(email, pass, rememberMe);
+    if (data.resultCode === 0) {
+        dispatch(checkAuthUser())
+    }
 }
 
-export const logoutMe = () => (dispatch) => {
-    api.logout()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
-            }
-        })
+export const logoutMe = () => async (dispatch) => {
+    let data = await api.logout()
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
 }
 
 export default authReduser;

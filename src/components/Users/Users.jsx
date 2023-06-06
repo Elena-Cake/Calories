@@ -5,6 +5,7 @@ import s from './Users.module.css';
 import userPhoto from '../../images/ava.png'
 import { NavLink } from "react-router-dom";
 import { api } from "../../api/api";
+import Paginator from "./Paginator/Paginator";
 
 let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
     followingInProgress }) => {
@@ -13,8 +14,6 @@ let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
             unfollow(userId)
             :
             follow(userId);
-
-
     }
 
     const usersElements = users.map(u => {
@@ -38,26 +37,24 @@ let Users = ({ users, follow, unfollow, currentPage, onChangePage, pageCount,
         )
     })
 
-    const pagesCounterEmpty = []
-    for (let i = 1; i <= pageCount; i++) {
-        pagesCounterEmpty.push(i)
-    }
+    // const pagesCounterEmpty = []
+    // for (let i = 1; i <= pageCount; i++) {
+    //     pagesCounterEmpty.push(i)
+    // }
 
-    const pagesElements = pagesCounterEmpty.slice(0, 10).map(i => {
-        return (
-            <div key={i} className={`${s.pagination__btn} ${currentPage === i && s.pagination__btn_type_active}`}
-                onClick={(e) => onChangePage(i)}>
-                {i}
-            </div>
-        )
-    })
+    // const pagesElements = pagesCounterEmpty.slice(0, 10).map(i => {
+    //     return (
+    //         <div key={i} className={`${s.pagination__btn} ${currentPage === i && s.pagination__btn_type_active}`}
+    //             onClick={(e) => onChangePage(i)}>
+    //             {i}
+    //         </div>
+    //     )
+    // })
 
 
     return (
         <div>
-            <div className={s.pagination}>
-                {pagesElements}
-            </div>
+            <Paginator pageCount={pageCount} currentPage={currentPage} onChangePage={onChangePage} />
             <div className={s.users}>
                 {usersElements}
             </div>

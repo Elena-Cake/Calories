@@ -84,14 +84,14 @@ const LoginForm = ({ onSubmit }) => {
 }
 
 
-const Login = (props) => {
+const Login = ({ isAuth, loginMe }) => {
     const navigate = useNavigate();
     const onSubmit = (values) => {
         const { email, password, isRobot } = values
         const rememberMe = !isRobot
-        props.loginMe(email, password, rememberMe)
+        loginMe(email, password, rememberMe)
     }
-    if (props.isAuth) {
+    if (isAuth) {
         navigate("/profile")
     }
     return (

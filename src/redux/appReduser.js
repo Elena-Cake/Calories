@@ -1,7 +1,7 @@
 import { api } from "../api/api";
 import { checkAuthUser } from "./authReduser";
 
-const INITIALISED_SUCCESS = 'INITIALISED_SUCCESS'
+const INITIALISED_SUCCESS = 'calories/app/INITIALISED_SUCCESS'
 
 const initialState = {
     initialized: false

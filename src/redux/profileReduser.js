@@ -1,9 +1,9 @@
 import { api } from "../api/api";
 
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS'
+const ADD_POST = 'calories/profile/ADD_POST';
+const DELETE_POST = 'calories/profile/DELETE_POST';
+const SET_USER_PROFILE = 'calories/profile/SET_USER_PROFILE';
+const SET_STATUS = 'calories/profile/SET_STATUS'
 
 const initialState = {
     posts: [
@@ -64,40 +64,31 @@ export const addPost = (text) => {
 export const deletePost = (postId) => {
     return {
         type: DELETE_POST,
-        postId: postId
+        postId
     }
 }
 
 export const setStatus = (status) => ({ type: SET_STATUS, status })
-
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
-export const getUser = (profileId) => {
-    return (dispatch) => {
-        api.getProfile(profileId)
-            .then((data) => {
-                dispatch(setUserProfile(data))
-            })
-    }
+export const getUser = (profileId) => async (dispatch) => {
+    let data = await api.getProfile(profileId);
+    dispatch(setUserProfile(data))
 }
 
-export const getStatus = (profileId) => {
-    return (dispatch) => {
-        api.getStatus(profileId)
-            .then((data) => {
-                dispatch(setStatus(data))
-            })
-    }
+
+export const getStatus = (profileId) => async (dispatch) => {
+    let data = await api.getStatus(profileId)
+    dispatch(setStatus(data))
 }
 
-export const updateStatus = (status) => (dispatch) => {
-    console.log(1)
-    api.updateStatus(status)
-        .then((res) => {
-            console.log(res)
-            if (res.resultCode === 0) dispatch(setStatus(status))
-            if (res.resultCode === 1) console.warn('update fail')
-        })
+
+export const updateStatus = (status) => async (dispatch) => {
+    let res = await api.updateStatus(status);
+
+    if (!res.resultCode) dispatch(setStatus(status))
+    if (res.resultCode) console.warn('update fail')
+
 }
 
 
