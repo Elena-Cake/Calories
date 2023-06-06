@@ -18,17 +18,28 @@
     margin-bottom: 5px;
 }
 
-/* .user__btnFollow {
-    grid-area: btn;
-    width: 70px;
-    min-height: 30px;
-    border-radius: 8px;
-    background-color: rgba(1, 107, 33, 0.212);
+.user__name {
+    grid-area: name;
+    margin: 0;
+    align-self: center;
     color: rgba(0, 54, 7, 0.7);
-    border: 0;
 }
 
-.user__btnFollow:hover {
-    background-color: rgba(1, 107, 33, 0.5);
-    color: rgb(255, 255, 255);
-} */
+.user__status {
+    grid-area: status;
+}
+
+.user__location {
+    grid-area: location;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user__text {
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    justify-content: center;
+    color: rgba(0, 54, 7, 0.7);
+}
