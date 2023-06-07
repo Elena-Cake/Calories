@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Elena-Cake/Calories/static/css/main.d43239f5.css",
+    "main.js": "/Elena-Cake/Calories/static/js/main.15456b93.js",
+    "static/css/165.52fdda0f.chunk.css": "/Elena-Cake/Calories/static/css/165.52fdda0f.chunk.css",
+    "static/js/165.98539990.chunk.js": "/Elena-Cake/Calories/static/js/165.98539990.chunk.js",
+    "static/css/770.fca04b46.chunk.css": "/Elena-Cake/Calories/static/css/770.fca04b46.chunk.css",
+    "static/js/770.7c0adb93.chunk.js": "/Elena-Cake/Calories/static/js/770.7c0adb93.chunk.js",
+    "static/js/787.691e512a.chunk.js": "/Elena-Cake/Calories/static/js/787.691e512a.chunk.js",
+    "static/media/main_top.jpeg": "/Elena-Cake/Calories/static/media/main_top.69fdc0d2f6a176bd29bc.jpeg",
+    "static/media/loading.gif": "/Elena-Cake/Calories/static/media/loading.c0c2f01083736d90f19a.gif",
+    "index.html": "/Elena-Cake/Calories/index.html",
+    "main.d43239f5.css.map": "/Elena-Cake/Calories/static/css/main.d43239f5.css.map",
+    "main.15456b93.js.map": "/Elena-Cake/Calories/static/js/main.15456b93.js.map",
+    "165.52fdda0f.chunk.css.map": "/Elena-Cake/Calories/static/css/165.52fdda0f.chunk.css.map",
+    "165.98539990.chunk.js.map": "/Elena-Cake/Calories/static/js/165.98539990.chunk.js.map",
+    "770.fca04b46.chunk.css.map": "/Elena-Cake/Calories/static/css/770.fca04b46.chunk.css.map",
+    "770.7c0adb93.chunk.js.map": "/Elena-Cake/Calories/static/js/770.7c0adb93.chunk.js.map",
+    "787.691e512a.chunk.js.map": "/Elena-Cake/Calories/static/js/787.691e512a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d43239f5.css",
+    "static/js/main.15456b93.js"
+  ]
+}
