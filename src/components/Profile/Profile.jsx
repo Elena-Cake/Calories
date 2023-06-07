@@ -3,10 +3,15 @@ import PostsContainer from "./Posts/PostsContainer";
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 
-const Profile = ({ profile, isAuth, status, updateStatus }) => {
+const Profile = ({ profile, isAuth, status, updateStatus, isOwner, updateAvatar }) => {
     return (
         <div>
-            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus} />
+            <ProfileInfo
+                isOwner={isOwner}
+                profile={profile}
+                status={status}
+                updateStatus={updateStatus}
+                updateAvatar={updateAvatar} />
             <PostsContainer />
         </div>
     )

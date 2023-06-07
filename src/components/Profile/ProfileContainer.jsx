@@ -1,21 +1,17 @@
-import axios from "axios";
+
 import React, { useEffect } from "react";
 import {
-    Navigate,
     useLocation,
     useNavigate,
     useParams,
 } from "react-router-dom";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { api } from "../../api/api";
-import { getUser, getStatus, updateStatus } from "../../redux/profileReduser";
-import { AuthRedirect } from "../hoc/AuthRedirect";
+import { getUser, getStatus, updateStatus, updateAvatar } from "../../redux/profileReduser";
 import { compose } from "redux";
 
 const ProfileContainer = (props) => {
     const navigate = useNavigate()
-
 
     useEffect(() => {
         let profileId = props.router.params.userId;
@@ -31,7 +27,7 @@ const ProfileContainer = (props) => {
 
     return (
         <div>
-            <Profile {...props} />
+            <Profile isOwner={!props.router.params.userId}  {...props} />
         </div>
     )
 }
@@ -59,7 +55,7 @@ let mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, { getUser, getStatus, updateStatus }),
+    connect(mapStateToProps, { getUser, getStatus, updateStatus, updateAvatar }),
     withRouter,
     // AuthRedirect
 )(ProfileContainer)

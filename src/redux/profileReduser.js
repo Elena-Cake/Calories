@@ -3,7 +3,8 @@ import { api } from "../api/api";
 const ADD_POST = 'calories/profile/ADD_POST';
 const DELETE_POST = 'calories/profile/DELETE_POST';
 const SET_USER_PROFILE = 'calories/profile/SET_USER_PROFILE';
-const SET_STATUS = 'calories/profile/SET_STATUS'
+const SET_STATUS = 'calories/profile/SET_STATUS';
+const SET_AVATAR = 'calories/profile/SET_AVATAR';
 
 const initialState = {
     posts: [
@@ -21,8 +22,9 @@ const initialState = {
             likes: 33
         }
     ],
-    profile: null,
-    status: ''
+    profile: { photos: { large: '', small: '' } },
+    status: '',
+
 }
 
 const profileReduser = (state = initialState, action) => {
@@ -49,6 +51,8 @@ const profileReduser = (state = initialState, action) => {
             return { ...state, profile: action.profile };
         case SET_STATUS:
             return { ...state, status: action.status };
+        case SET_AVATAR:
+            return { ...state, profile: { ...state.profile, photos: action.photos } };
 
         default:
             return state
@@ -70,6 +74,7 @@ export const deletePost = (postId) => {
 
 export const setStatus = (status) => ({ type: SET_STATUS, status })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
+export const setAvatarSuccess = (photos) => ({ type: SET_AVATAR, photos: photos })
 
 export const getUser = (profileId) => async (dispatch) => {
     let data = await api.getProfile(profileId);
@@ -91,5 +96,12 @@ export const updateStatus = (status) => async (dispatch) => {
 
 }
 
+export const updateAvatar = (file) => async (dispatch) => {
+    let res = await api.updateAvatar(file);
+
+    if (!res.resultCode) dispatch(setAvatarSuccess(res.data.photos))
+    if (res.resultCode) console.warn('update fail')
+
+}
 
 export default profileReduser;
