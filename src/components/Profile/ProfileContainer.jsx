@@ -20,7 +20,6 @@ const ProfileContainer = (props) => {
     useEffect(() => {
         let profileId = props.router.params.userId;
         if (!profileId) {
-            console.log(props.isAuth)
             if (!props.authorisedId) {
                 navigate('/users')
             }
