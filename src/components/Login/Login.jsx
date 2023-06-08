@@ -8,11 +8,11 @@ import { loginMe } from "../../redux/authReduser";
 import { connect } from "react-redux";
 
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, captchaUrl }) => {
     const validationsSchema = yup.object().shape({
         email: yup.string().typeError('String').required('Required'),
         password: yup.string().typeError('String').required('Required'),
-        confirmPassword: yup.string().typeError('String').oneOf([yup.ref('password')], 'not equal pass').required('Required'),
+        // confirmPassword: yup.string().typeError('String').oneOf([yup.ref('password')], 'not equal pass').required('Required'),
     })
     return (
         <div>
@@ -21,7 +21,8 @@ const LoginForm = ({ onSubmit }) => {
                     email: '',
                     password: '',
                     confirmPassword: '',
-                    isRobot: false
+                    isRobot: false,
+                    captcha: null
                 }}
                 validateOnBlur
                 validationSchema={validationsSchema}
@@ -55,7 +56,7 @@ const LoginForm = ({ onSubmit }) => {
                                 placeholder="What your password?" />
                             <ErrorMessage className={s.input__error} name="password" component="span"></ErrorMessage>
                         </div>
-                        <div className={s.form__input}>
+                        {/* <div className={s.form__input}>
                             <label htmlFor={'confirmPassword'}>Confirm Password</label>
                             <Field
                                 name={'confirmPassword'}
@@ -65,7 +66,7 @@ const LoginForm = ({ onSubmit }) => {
                                 value={values.confirmPassword}
                                 placeholder="Copy pass)" />
                             <ErrorMessage className={s.input__error} name="confirmPassword" component="span"></ErrorMessage>
-                        </div>
+                        </div> */}
                         <div className={s.form__input}>
                             <label htmlFor={'isRobot'}>I'm not a robot</label>
                             <Field
@@ -75,6 +76,16 @@ const LoginForm = ({ onSubmit }) => {
                                 selected={!values.isRobot}
                                 type={"checkbox"} />
                         </div>
+                        {captchaUrl &&
+                            <img src={captchaUrl} />
+                        }
+                        {captchaUrl &&
+                            <Field
+                                name={'captcha'}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required />
+                        }
                         <button disabled={!isValid && !dirty} type="submit">Сome in</button>
                     </Form>
                 )}
@@ -84,12 +95,12 @@ const LoginForm = ({ onSubmit }) => {
 }
 
 
-const Login = ({ isAuth, loginMe }) => {
+const Login = ({ isAuth, loginMe, captchaUrl }) => {
     const navigate = useNavigate();
     const onSubmit = (values) => {
-        const { email, password, isRobot } = values
+        const { email, password, isRobot, captcha = null } = values
         const rememberMe = !isRobot
-        loginMe(email, password, rememberMe)
+        loginMe(email, password, rememberMe, captcha)
     }
     if (isAuth) {
         navigate("/profile")
@@ -97,12 +108,13 @@ const Login = ({ isAuth, loginMe }) => {
     return (
         <div >
             <h1>LOGIN</h1>
-            <LoginForm onSubmit={onSubmit} />
+            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 
