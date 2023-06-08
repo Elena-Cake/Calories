@@ -1,0 +1,7 @@
+.contact {
+    display: none;
+}
+
+.contact_visible {
+    display: flex;
+}
