@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import NavBar from './NavBar/NavBar';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ProfileContainer from './Profile/ProfileContainer';
 import HeaderContainer from './Header/HeaderContainer';
 import Login from './Login/Login';
@@ -15,6 +15,7 @@ const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
 
 
 const App = (props) => {
+
 
   useEffect(() => {
     props.initializeApp()
@@ -30,10 +31,12 @@ const App = (props) => {
       <div className='app__wrapper_content'>
         <Suspense fallback={<Preloader isFetching={true} />}>
           <Routes>
+            <Route exact path="/" element={<Navigate to="/profile" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:userId?" element={<ProfileContainer />} />
             <Route path="/dialogs/*" element={(<DialogsContainer />)} />
             <Route path="/users" element={(<UsersContainer />)} />
+            <Route path="*" element={(<div>404 NOT FOUND</div>)} />
           </Routes>
         </Suspense>
       </div>
