@@ -3,3 +3,18 @@
     display: grid;
     grid-template-columns: 100px minmax(200px, 80%);
 }
+
+.edit__item {
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: minmax(100px, 20%) minmax(200px, 70%);
+    position: relative;
+}
+
+.input__error {
+    color: #df1414;
+    font-size: 12px;
+    position: absolute;
+    left: 420px;
+    bottom: -12px;
+}

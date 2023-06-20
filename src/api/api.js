@@ -68,5 +68,10 @@ export const api = {
             }
         })
             .then(res => res.data)
-    }
+    },
+
+    updateProfile(profile) {
+        return instance.put(`profile`, { profile })
+            .then(res => res.data)
+    },
 }

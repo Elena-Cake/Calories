@@ -4,7 +4,7 @@ import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
-import ProfileEditForm from "./ProfileEditForm/ProfileEditForm";
+import ProfileForm from "./ProfileEditForm/ProfileEditForm";
 
 const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth }) => {
     const [isEditMode, setIsEditMode] = useState(false)
@@ -60,7 +60,7 @@ const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth 
                     <ProfileStatus text={status} updateStatus={updateStatus} />
                 </div>
                 :
-                <ProfileEditForm profile={profile} avatarSrc={avatarSrc} onNewAvatarSelected={onNewAvatarSelected} />
+                <ProfileForm />
             }
         </>
     )

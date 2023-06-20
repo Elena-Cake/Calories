@@ -104,4 +104,13 @@ export const updateAvatar = (file) => async (dispatch) => {
 
 }
 
+export const updateProfile = (profile) => async (dispatch) => {
+    console.log('updateProfile')
+    let res = await api.updateProfile(profile);
+    console.log(res)
+    // if (!res.resultCode) dispatch(setAvatarSuccess(res.data.photos))
+    if (res.resultCode) console.warn('update fail')
+
+}
+
 export default profileReduser;
