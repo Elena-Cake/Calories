@@ -1,6 +1,6 @@
 import React from "react";
 import PostsContainer from "./Posts/PostsContainer";
-import ProfileInfo from './ProfileInfo/ProfileInfo'
+import ProfileInfo from './ProfileInfo/Profile'
 
 
 const Profile = ({ profile, isAuth, status, updateStatus, isOwner, updateAvatar }) => {
@@ -11,7 +11,8 @@ const Profile = ({ profile, isAuth, status, updateStatus, isOwner, updateAvatar 
                 profile={profile}
                 status={status}
                 updateStatus={updateStatus}
-                updateAvatar={updateAvatar} />
+                updateAvatar={updateAvatar}
+                isAuth={isAuth} />
             <PostsContainer />
         </div>
     )

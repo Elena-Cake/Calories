@@ -5,7 +5,7 @@ const Contact = ({ contactLink, contactName }) => {
     return (
         <li className={`${c.contact} ${contactLink ? c.contact_visible : ''}`}>
             <a href={contactLink}>{contactName}</a>
-        </li>
+        </li >
     )
 }
 
