@@ -23,13 +23,15 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
         instagram: yup.string().url().nullable(),
         youtube: yup.string().url().nullable(),
         github: yup.string().url().nullable(),
-        mainLink: yup.string().url().nullable()
+        mainLink: yup.string().url().nullable(),
+        aboutMe: yup.string().nullable()
     })
 
     return (
         <div>
             <Formik
                 initialValues={{
+                    fullName: profile.fullName,
                     facebook: profile.contacts.facebook,
                     website: profile.contacts.website,
                     vk: profile.contacts.vk,
@@ -40,7 +42,7 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                     mainLink: profile.contacts.mainLink,
                     lookingForAJob: profile.lookingForAJob,
                     lookingForAJobDescription: profile.lookingForAJobDescription,
-                    // aboutMe: profile.aboutMe
+                    aboutMe: profile.aboutMe
                 }}
                 validateOnBlur
                 validationSchema={validationsSchema}
@@ -53,6 +55,16 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                     isValid, handleSubmit, dirty }) => (
 
                     <Form onSubmit={handleSubmit}>
+                        <div className={c.edit__item}>
+                            <label >fullName</label>
+                            <Field
+                                name='fullName'
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.fullName || ''}
+                                placeholder="What your fullName?" />
+                            <ErrorMessage className={c.input__error} name="fullName" component="span"></ErrorMessage>
+                        </div>
                         <div className={c.edit__item}>
                             <label >facebook</label>
                             <Field
@@ -153,7 +165,7 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 placeholder="What your new job expectations?" />
                             <ErrorMessage className={c.input__error} name="lookingForAJobDescription" component="span"></ErrorMessage>
                         </div>
-                        {/* <div className={c.edit__item}>
+                        <div className={c.edit__item}>
                             <label >aboutMe</label>
                             <Field
                                 name='aboutMe'
@@ -162,7 +174,7 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 value={values.aboutMe || ''}
                                 placeholder="What your aboutMe?" />
                             <ErrorMessage className={c.input__error} name="aboutMe" component="span"></ErrorMessage>
-                        </div> */}
+                        </div>
 
                         <button disabled={!isValid && !dirty} type="submit">Сохранить</button>
                     </Form>
@@ -176,9 +188,10 @@ const ProfileForm = ({ profile, updateProfile }) => {
     const onSubmit = (values) => {
         updateProfile({
             userId: profile.userId,
-            fullName: profile.fullName,
+            fullName: values.fullName,
             lookingForAJob: values.lookingForAJob,
             lookingForAJobDescription: values.lookingForAJobDescription,
+            aboutMe: values.aboutMe,
             contacts: {
                 github: values.github,
                 vk: values.vk,

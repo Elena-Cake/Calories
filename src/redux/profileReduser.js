@@ -5,6 +5,9 @@ const DELETE_POST = 'calories/profile/DELETE_POST';
 const SET_USER_PROFILE = 'calories/profile/SET_USER_PROFILE';
 const SET_STATUS = 'calories/profile/SET_STATUS';
 const SET_AVATAR = 'calories/profile/SET_AVATAR';
+const SET_PROFILE = 'calories/profile/SET_PROFILE';
+const SET_IS_EDIT_MODE_ON = 'calories/profile/SET_IS_EDIT_MODE_ON';
+const SET_IS_EDIT_MODE_OFF = 'calories/profile/SET_IS_EDIT_MODE_OFF';
 
 const initialState = {
     posts: [
@@ -24,6 +27,7 @@ const initialState = {
     ],
     profile: { photos: { large: '', small: '' } },
     status: '',
+    isEditMode: false
 
 }
 
@@ -53,6 +57,30 @@ const profileReduser = (state = initialState, action) => {
             return { ...state, status: action.status };
         case SET_AVATAR:
             return { ...state, profile: { ...state.profile, photos: action.photos } };
+        case SET_PROFILE:
+            return {
+                ...state, profile: {
+                    ...state.profile,
+                    fullName: action.profile.fullName,
+                    lookingForAJob: action.profile.lookingForAJob,
+                    lookingForAJobDescription: action.profile.lookingForAJobDescription,
+                    aboutMe: action.profile.aboutMe,
+                    contacts: {
+                        github: action.profile.contacts.github,
+                        vk: action.profile.contacts.vk,
+                        facebook: action.profile.contacts.facebook,
+                        instagram: action.profile.contacts.instagram,
+                        twitter: action.profile.contacts.twitter,
+                        website: action.profile.contacts.website,
+                        youtube: action.profile.contacts.youtube,
+                        mainLink: action.profile.contacts.mainLink
+                    }
+                }
+            };
+        case SET_IS_EDIT_MODE_ON:
+            return { ...state, isEditMode: true };
+        case SET_IS_EDIT_MODE_OFF:
+            return { ...state, isEditMode: false };
 
         default:
             return state
@@ -75,6 +103,9 @@ export const deletePost = (postId) => {
 export const setStatus = (status) => ({ type: SET_STATUS, status })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setAvatarSuccess = (photos) => ({ type: SET_AVATAR, photos: photos })
+export const setProfileSuccess = (profile) => ({ type: SET_PROFILE, profile })
+export const setIsEditModeProfileOn = () => ({ type: SET_IS_EDIT_MODE_ON })
+export const setIsEditModeProfileOff = () => ({ type: SET_IS_EDIT_MODE_OFF })
 
 export const getUser = (profileId) => async (dispatch) => {
     let data = await api.getProfile(profileId);
@@ -107,8 +138,10 @@ export const updateAvatar = (file) => async (dispatch) => {
 export const updateProfile = (profile) => async (dispatch) => {
     console.log('updateProfile')
     let res = await api.updateProfile(profile);
-    console.log(res)
-    // if (!res.resultCode) dispatch(setAvatarSuccess(res.data.photos))
+    if (!res.resultCode) {
+        dispatch(setProfileSuccess(profile))
+        dispatch(setIsEditModeProfileOff())
+    }
     if (res.resultCode) console.warn('update fail')
 
 }

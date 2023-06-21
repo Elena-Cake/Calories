@@ -71,7 +71,7 @@ export const api = {
     },
 
     updateProfile(profile) {
-        return instance.put(`profile`, { profile })
+        return instance.put(`profile`, profile)
             .then(res => res.data)
     },
 }

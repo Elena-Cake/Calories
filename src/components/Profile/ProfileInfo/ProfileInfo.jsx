@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
-import c from './Profile.module.css'
+import c from './ProfileInfo.module.css'
 import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
 import ProfileForm from "./ProfileEditForm/ProfileEditForm";
 
-const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth }) => {
-    const [isEditMode, setIsEditMode] = useState(false)
+const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth, isEditMode, setIsEditModeProfileOn }) => {
+    // const [isEditMode, setIsEditMode] = useState(false)
     const avatarSrc = profile.photos.large || userPhoto
 
     const onNewAvatarSelected = (e) => {
@@ -20,8 +20,8 @@ const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth 
         contactElements.push(<Contact key={contact} contactLink={profile.contacts[contact]} contactName={contact} />)
     }
 
-    const onEditModeChange = () => {
-        setIsEditMode(!isEditMode)
+    const onEditModeActivate = () => {
+        setIsEditModeProfileOn()
     }
 
     return (
@@ -55,7 +55,7 @@ const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth 
                             </div>
                         }
                         {isOwner &&
-                            <button onClick={onEditModeChange}>Изменить</button>}
+                            <button onClick={onEditModeActivate}>Изменить</button>}
                     </div>
                     <ProfileStatus text={status} updateStatus={updateStatus} />
                 </div>
@@ -66,4 +66,4 @@ const Profile = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth 
     )
 }
 
-export default React.memo(Profile);
+export default React.memo(ProfileInfo);
