@@ -12,7 +12,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS
 
 const initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 8,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,

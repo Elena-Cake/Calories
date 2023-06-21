@@ -1,7 +1,7 @@
 // чистая компонента
 
 import React from "react";
-import s from './Users.module.css';
+import s from './Users.module.scss';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
@@ -20,9 +20,9 @@ let Users = ({ users, follow, unfollow, currentPage, onChangePage,
         )
     })
     return (
-        <div>
+        <div className={s.users}>
             <Paginator currentPage={currentPage} onChangePage={onChangePage} totalUserCount={totalUserCount} pageSize={pageSize} />
-            <div className={s.users}>
+            <div className={s.users__items}>
                 {usersElements}
             </div>
         </div >
