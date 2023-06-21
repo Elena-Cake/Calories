@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import c from './ProfileInfo.module.css'
+import c from './ProfileInfo.module.scss'
 import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
-import ProfileForm from "./ProfileEditForm/ProfileEditForm";
 
 const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth, isEditMode, setIsEditModeProfileOn }) => {
     // const [isEditMode, setIsEditMode] = useState(false)
@@ -26,13 +25,14 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
 
     return (
         <>
-            {/* <div className={c.profile__top_image} ></div> */}
             {(profile) &&
-                !isEditMode ?
-                <div className="profile__user">
-                    <img src={avatarSrc} alt="avatar" />
-                    {isOwner &&
-                        <input type={"file"} onChange={onNewAvatarSelected} />}
+                <div className={c.profileInfo}>
+                    <div className={c.profileInfo__avatar}>
+                        <img src={avatarSrc} alt="avatar" className={c.profileInfo__avatarImg} />
+                        {isOwner &&
+                            <input type="file" accept="image/*" onChange={onNewAvatarSelected} className={c.profileInfo__avatar_btn_edit} />
+                        }
+                    </div>
 
                     <h1>{profile.fullName}</h1>
                     <ul>
@@ -59,8 +59,6 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                     </div>
                     <ProfileStatus text={status} updateStatus={updateStatus} />
                 </div>
-                :
-                <ProfileForm />
             }
         </>
     )

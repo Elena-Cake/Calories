@@ -1,0 +1,27 @@
+@import '../../default_variables.scss';
+
+.profileInfo {
+    @extend .container;
+    padding: 20px;
+}
+
+.profileInfo__avatar {
+    position: relative;
+    height: 300px;
+    width: 300px;
+}
+
+.profileInfo__avatarImg {
+    position: absolute;
+    border-radius: 50%;
+    max-width: 300px;
+}
+
+.profileInfo__avatar_btn_edit {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+}
