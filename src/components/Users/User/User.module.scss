@@ -1,8 +1,10 @@
+@import '../../default_variables.scss';
+
 .user__card {
+    @extend .container;
     display: grid;
     padding: 10px 20px;
     margin: 10px;
-    background-color: rgba(97, 250, 166, 0.1);
     grid-template-areas:
         'foto name location'
         'btn status location';
@@ -19,13 +21,14 @@
 }
 
 .user__name {
+    @extend .font-h2;
     grid-area: name;
     margin: 0;
     align-self: center;
-    color: rgba(0, 54, 7, 0.7);
 }
 
 .user__status {
+    @extend .font-text;
     grid-area: status;
 }
 
@@ -37,9 +40,13 @@
 }
 
 .user__text {
+    @extend .font-text;
     margin: 0;
     padding: 0;
     align-self: center;
     justify-content: center;
-    color: rgba(0, 54, 7, 0.7);
+}
+
+.user__btnFollow {
+    @extend .button;
 }

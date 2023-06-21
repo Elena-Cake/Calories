@@ -24,7 +24,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
         youtube: yup.string().url().nullable(),
         github: yup.string().url().nullable(),
         mainLink: yup.string().url().nullable(),
-        aboutMe: yup.string().nullable()
+        aboutMe: yup.string().required(),
+        lookingForAJobDescription: yup.string().required()
     })
 
     return (
@@ -65,85 +66,88 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 placeholder="What your fullName?" />
                             <ErrorMessage className={c.input__error} name="fullName" component="span"></ErrorMessage>
                         </div>
-                        <div className={c.edit__item}>
-                            <label >facebook</label>
-                            <Field
-                                name='facebook'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.facebook || ''}
-                                placeholder="What your facebook?" />
-                            <ErrorMessage className={c.input__error} name="facebook" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >website</label>
-                            <Field
-                                name='website'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.website || ''}
-                                placeholder="What your website?" />
-                            <ErrorMessage className={c.input__error} name="website" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >vk</label>
-                            <Field
-                                name='vk'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.vk || ''}
-                                placeholder="What your vk?" />
-                            <ErrorMessage className={c.input__error} name="vk" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >twitter</label>
-                            <Field
-                                name='twitter'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.twitter || ''}
-                                placeholder="What your twitter?" />
-                            <ErrorMessage className={c.input__error} name="twitter" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >instagram</label>
-                            <Field
-                                name='instagram'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.instagram || ''}
-                                placeholder="What your instagram?" />
-                            <ErrorMessage className={c.input__error} name="instagram" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >youtube</label>
-                            <Field
-                                name='youtube'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.youtube || ''}
-                                placeholder="What your youtube?" />
-                            <ErrorMessage className={c.input__error} name="youtube" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >github</label>
-                            <Field
-                                name='github'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.github || ''}
-                                placeholder="What your github?" />
-                            <ErrorMessage className={c.input__error} name="github" component="span"></ErrorMessage>
-                        </div>
-                        <div className={c.edit__item}>
-                            <label >mainLink</label>
-                            <Field
-                                name='mainLink'
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.mainLink || ''}
-                                placeholder="What your mainLink?" />
-                            <ErrorMessage className={c.input__error} name="mainLink" component="span"></ErrorMessage>
+                        <div className={c.edit__contacts}>
+                            <p>Contacts:</p>
+                            <div className={c.edit__item}>
+                                <label >facebook</label>
+                                <Field
+                                    name='facebook'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.facebook || ''}
+                                    placeholder="What your facebook?" />
+                                <ErrorMessage className={c.input__error} name="facebook" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >website</label>
+                                <Field
+                                    name='website'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.website || ''}
+                                    placeholder="What your website?" />
+                                <ErrorMessage className={c.input__error} name="website" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >vk</label>
+                                <Field
+                                    name='vk'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.vk || ''}
+                                    placeholder="What your vk?" />
+                                <ErrorMessage className={c.input__error} name="vk" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >twitter</label>
+                                <Field
+                                    name='twitter'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.twitter || ''}
+                                    placeholder="What your twitter?" />
+                                <ErrorMessage className={c.input__error} name="twitter" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >instagram</label>
+                                <Field
+                                    name='instagram'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.instagram || ''}
+                                    placeholder="What your instagram?" />
+                                <ErrorMessage className={c.input__error} name="instagram" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >youtube</label>
+                                <Field
+                                    name='youtube'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.youtube || ''}
+                                    placeholder="What your youtube?" />
+                                <ErrorMessage className={c.input__error} name="youtube" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >github</label>
+                                <Field
+                                    name='github'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.github || ''}
+                                    placeholder="What your github?" />
+                                <ErrorMessage className={c.input__error} name="github" component="span"></ErrorMessage>
+                            </div>
+                            <div className={c.edit__item}>
+                                <label >mainLink</label>
+                                <Field
+                                    name='mainLink'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.mainLink || ''}
+                                    placeholder="What your mainLink?" />
+                                <ErrorMessage className={c.input__error} name="mainLink" component="span"></ErrorMessage>
+                            </div>
                         </div>
                         <div className={c.edit__item}>
                             <label >lookingForAJob</label>
@@ -188,7 +192,7 @@ const ProfileForm = ({ profile, updateProfile }) => {
     const onSubmit = (values) => {
         updateProfile({
             userId: profile.userId,
-            fullName: values.fullName,
+            fullName: !values.fullName ? profile.fullName : values.fullName,
             lookingForAJob: values.lookingForAJob,
             lookingForAJobDescription: values.lookingForAJobDescription,
             aboutMe: values.aboutMe,

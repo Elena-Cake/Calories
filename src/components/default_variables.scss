@@ -1,0 +1,44 @@
+// COLORS
+
+$color-bg-header: rgb(255, 255, 255);
+$color-bg: rgba(150, 183, 207, 0.141);
+
+$color-bg-container: #fff;
+$color-border-container: rgba(38, 73, 96, 0.25);
+$color-box-shadow: 0 0 10px 5px rgba(150, 183, 207, .1);
+
+$color-bg-button: rgba(2, 93, 154, 0.357);
+
+$color-text: rgb(8, 49, 77);
+
+// FONTS
+.font-h1 {
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.font-h2 {
+  color: $color-text;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.font-text {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+// STYLE CONTAINERS
+.container {
+  background-color: $color-bg-container;
+  border: $color-border-container .5px solid;
+  border-radius: 20px;
+  box-shadow: $color-box-shadow;
+}
+
+.button {
+  border: 0;
+  border-radius: 10px;
+  box-shadow: $color-box-shadow;
+  background-color: $color-bg-button;
+}

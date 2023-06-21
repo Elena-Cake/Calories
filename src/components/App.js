@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import NavBar from './NavBar/NavBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ProfileContainer from './Profile/ProfileContainer';
