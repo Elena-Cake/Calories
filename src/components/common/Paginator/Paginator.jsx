@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from './Paginator.module.css'
+import s from './Paginator.module.scss'
 
 const Paginator = ({ currentPage, onChangePage, totalUserCount, pageSize, portionSize = 10 }) => {
 
@@ -37,11 +37,11 @@ const Paginator = ({ currentPage, onChangePage, totalUserCount, pageSize, portio
     return (
         <div className={s.pagination}>
             {currentPortion > 1 &&
-                <button onClick={onPrevClick}>prev</button>
+                <button className={s.pagination__btn} onClick={onPrevClick}>prev</button>
             }
             {pagesElements}
             {currentPortion <= portionCount &&
-                <button onClick={onNextClick}>next</button>
+                <button className={s.pagination__btn} onClick={onNextClick}>next</button>
             }
         </div>
     )

@@ -1,0 +1,25 @@
+@import "../../default_variables.scss";
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination__btn {
+    @extend .button;
+    min-width: 20px;
+    min-height: 20px;
+    border: 0;
+    border-radius: 50%;
+    margin: 0 5px;
+    text-align: center;
+
+    &:hover {
+        @extend .button_active;
+        font-weight: normal;
+    }
+}
+
+.pagination__btn_type_active {
+    @extend .button_active;
+}
