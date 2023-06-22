@@ -24,3 +24,9 @@
         font-weight: bold;
     }
 }
+
+.login__btn {
+    @extend .button;
+    margin-left: 15px;
+    text-decoration: none;
+}
