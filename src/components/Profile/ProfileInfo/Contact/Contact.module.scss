@@ -13,15 +13,46 @@
 }
 
 .contact__icon {
-    width: 30px;
-    height: 30px;
-    background-image: url(../../../../images/youtube.png);
+    width: 40px;
+    height: 40px;
+    margin: 2px 3px;
+    background-size: 40px;
+    object-fit: contain;
+    transition: opacity ease .5s;
 
     &_type_youtube {
         background-image: url(../../../../images/youtube.png);
     }
-}
 
-.contact__link {
-    display: none;
+    &_type_instagram {
+        background-image: url(../../../../images/inst.png);
+    }
+
+    &_type_facebook {
+        background-image: url(../../../../images/facebook.png);
+    }
+
+    &_type_website {
+        background-image: url(../../../../images/website.png);
+    }
+
+    &_type_vk {
+        background-image: url(../../../../images/vk.png);
+    }
+
+    &_type_twitter {
+        background-image: url(../../../../images/twitter.png);
+    }
+
+    &_type_github {
+        background-image: url(../../../../images/gitHub.png);
+    }
+
+    &_type_mainLink {
+        background-image: url(../../../../images/mainlink.png);
+    }
+
+    &:hover {
+        opacity: .7;
+    }
 }
