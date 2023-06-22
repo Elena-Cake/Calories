@@ -8,10 +8,12 @@
         'ava . edit  '
         'ava name name  '
         'ava status status'
-        'ava links links'
         'ava job job'
-        'about about about';
-
+        'about about about'
+        'links links links';
+    grid-template-columns: minmax(300px, 30%) auto auto;
+    gap: 10px;
+    column-gap: 30px;
 
     &__avatar {
         grid-area: ava;
@@ -19,12 +21,18 @@
 
     &__name {
         @extend .font-h1;
+
+        margin-bottom: 0;
         grid-area: name;
     }
 
     &__contacts {
+        padding: 0;
+        margin: 0;
+        list-style: none;
         grid-area: links;
         display: flex;
+        justify-content: center;
     }
 
     &__job {
@@ -40,6 +48,9 @@
     &__btnEdit {
         @extend .button;
         grid-area: edit;
+        padding: 10px 15px;
+        max-width: 190px;
+        margin: 0 0 80px auto;
     }
 
     &__status {
@@ -50,8 +61,9 @@
 
 .avatar {
     position: relative;
-    height: 300px;
     width: 300px;
+    height: 300px;
+    max-width: 30%;
 }
 
 .avatar__labelImg {

@@ -13,10 +13,13 @@
 }
 
 .contact__icon {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     margin: 2px 3px;
-    background-size: 40px;
+    padding: 7px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
     object-fit: contain;
     transition: opacity ease .5s;
 

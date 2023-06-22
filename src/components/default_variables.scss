@@ -77,7 +77,10 @@ $color-text-light: rgb(255, 255, 255);
 // LINKS
 
 .link {
+  opacity: 1;
+  text-decoration: none;
   transition: opacity ease .5s;
+  cursor: pointer;
 
   &:hover {
     opacity: .7s;

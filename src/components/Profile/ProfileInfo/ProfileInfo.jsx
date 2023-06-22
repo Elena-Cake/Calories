@@ -48,12 +48,11 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                     }
                     {profile.aboutMe &&
                         <div className={c.profileInfo__about}>
-                            <label>About me: </label>
                             <p >{profile.aboutMe} </p>
                         </div>
                     }
                     {isOwner &&
-                        <button className={c.profileInfo__btnEdit} onClick={onEditModeActivate}>Изменить</button>}
+                        <button className={c.profileInfo__btnEdit} onClick={onEditModeActivate}>Редактировать профиль</button>}
                     <div className={c.profileInfo__status}>
                         <ProfileStatus text={status} updateStatus={updateStatus} isOwner={isOwner} />
                     </div>

@@ -1,17 +1,23 @@
 @import '../../default_variables.scss';
 
 .status__show {
+    @extend .link;
+    padding: 5px;
     display: flex;
+    align-items: center;
+
+    &:hover {
+        opacity: .7;
+    }
 }
 
 .status__text {
     @extend .font-text;
-    @extend .link;
+    max-width: calc(100% - 40px);
     cursor: pointer;
 }
 
 .status__pen {
-    @extend .link;
     margin-left: 10px;
     width: 20px;
     height: 20px;
@@ -25,5 +31,7 @@
     &:focus {
         border: 1px solid rgba(70, 70, 70, 0.533);
         padding: 2px;
+        min-width: 100%;
+        min-height: 50px;
     }
 }

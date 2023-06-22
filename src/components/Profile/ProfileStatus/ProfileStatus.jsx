@@ -28,11 +28,11 @@ const ProfileStatus = ({ text, updateStatus, isOwner }) => {
                 <span className={c.status__text} onClick={activateEditMode}>{text || "статус шредингера"}</span>
                 :
                 !editMode ?
-                    <div className={c.status__show}>
-                        <span className={c.status__text} onClick={activateEditMode}>{text || "статус шредингера"}</span>
+                    <div className={c.status__show} onClick={activateEditMode}>
+                        <span className={c.status__text} >{text || "статус шредингера"}</span>
                         <div className={c.status__pen}> </div>
                     </div> :
-                    <input className={c.status__edit} value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
+                    <textarea className={c.status__edit} value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
             }
         </div>
     )
