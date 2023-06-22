@@ -92,3 +92,8 @@
     z-index: 1;
 
 }
+
+.profileInfo__jobWarn {
+    @extend .font-text;
+    color: $color-text-warn;
+}

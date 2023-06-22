@@ -42,7 +42,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                     </ul>
                     {profile.lookingForAJob &&
                         <div className={c.profileInfo__job}>
-                            <label>Ищу работу! </label>
+                            <label className={c.profileInfo__jobWarn}>Ищу работу! </label>
                             <p>{profile.lookingForAJobDescription} </p>
                         </div>
                     }
