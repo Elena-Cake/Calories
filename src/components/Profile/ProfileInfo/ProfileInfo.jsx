@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import c from './ProfileInfo.module.scss'
 import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
@@ -6,7 +6,6 @@ import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
 
 const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth, isEditMode, setIsEditModeProfileOn }) => {
-    // const [isEditMode, setIsEditMode] = useState(false)
     const avatarSrc = profile.photos.large || userPhoto
 
     const onNewAvatarSelected = (e) => {
@@ -27,38 +26,39 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
         <>
             {(profile) &&
                 <div className={c.profileInfo}>
-                    <div className={c.profileInfo__avatar}>
-                        <img src={avatarSrc} alt="avatar" className={c.profileInfo__avatarImg} />
-                        {isOwner &&
-                            <input type="file" accept="image/*" onChange={onNewAvatarSelected} className={c.profileInfo__avatar_btn_edit} />
+                    <div className={`${c.profileInfo__avatar} ${c.avatar}`}>
+                        {isOwner ?
+                            <>
+                                <label for="ava" className={c.avatar__labelImg}><img src={avatarSrc} alt="avatar" className={c.avatar__img} /></label>
+                                <input id="ava" className={c.avatar__btnEdit} type="file" accept="image/*" onChange={onNewAvatarSelected} />
+                            </>
+                            :
+                            <img src={avatarSrc} alt="avatar" className={c.avatar__img} />
                         }
                     </div>
-
-                    <h1>{profile.fullName}</h1>
-                    <ul>
+                    <h1 className={c.profileInfo__name}>{profile.fullName}</h1>
+                    <ul className={c.profileInfo__contacts}>
                         {contactElements}
                     </ul>
-                    <div>
-                        <div>
-                            <label>Looking for a job: </label>
-                            <input readOnly placeholder={profile.lookingForAJob ? 'yes' : 'no'} />
+                    {profile.lookingForAJob &&
+                        <div className={c.profileInfo__job}>
+                            <label>Ищу работу! </label>
+                            <p>{profile.lookingForAJobDescription} </p>
                         </div>
-                        {profile.lookingForAJobDescription &&
-                            <div>
-                                <input readOnly placeholder={profile.lookingForAJobDescription} />
-                            </div>
-                        }
-                        {profile.aboutMe &&
-                            <div>
-                                <label>About me: </label>
-                                <input readOnly placeholder={profile.aboutMe} />
-                            </div>
-                        }
-                        {isOwner &&
-                            <button onClick={onEditModeActivate}>Изменить</button>}
+                    }
+                    {profile.aboutMe &&
+                        <div className={c.profileInfo__about}>
+                            <label>About me: </label>
+                            <p >{profile.aboutMe} </p>
+                        </div>
+                    }
+                    {isOwner &&
+                        <button className={c.profileInfo__btnEdit} onClick={onEditModeActivate}>Изменить</button>}
+                    <div className={c.profileInfo__status}>
+                        <ProfileStatus text={status} updateStatus={updateStatus} />
                     </div>
-                    <ProfileStatus text={status} updateStatus={updateStatus} />
-                </div>
+
+                </div >
             }
         </>
     )

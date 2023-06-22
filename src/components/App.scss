@@ -1,5 +1,12 @@
 @import "./default_variables.scss";
 
+.app {
+  width: 100%;
+  height: 100%;
+
+  background-color: $color-bg;
+}
+
 .app__wrapper {
   width: 1200px;
   max-width: 95%;
@@ -11,7 +18,6 @@
   grid-template-areas:
     'head head'
     'nav main';
-  background-color: $color-bg;
 }
 
 .app__wrapper_content {

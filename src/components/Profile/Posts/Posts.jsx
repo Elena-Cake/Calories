@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./Post/Post";
-import c from './Posts.module.css';
+import c from './Posts.module.scss';
 import { Field, Form, Formik } from "formik";
 
 const Posts = ({ posts, addPost }) => {
@@ -27,7 +27,7 @@ const Posts = ({ posts, addPost }) => {
 const PostsForm = ({ addPost }) => {
 
     return (
-        <div>
+        <div className={c.postsForm}>
             <Formik
                 initialValues={{
                     post: ''

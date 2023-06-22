@@ -25,20 +25,22 @@ const App = (props) => {
     return <Preloader isFetching={true} />
   }
   return (
-    <div className="app__wrapper">
-      <HeaderContainer />
-      <NavBar />
-      <div className='app__wrapper_content'>
-        <Suspense fallback={<Preloader isFetching={true} />}>
-          <Routes>
-            <Route exact path="/" element={<Navigate to="/profile" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile/:userId?" element={<ProfileContainer />} />
-            <Route path="/dialogs/*" element={(<DialogsContainer />)} />
-            <Route path="/users" element={(<UsersContainer />)} />
-            <Route path="*" element={(<div>404 NOT FOUND</div>)} />
-          </Routes>
-        </Suspense>
+    <div className='app'>
+      <div className="app__wrapper">
+        <HeaderContainer />
+        <NavBar />
+        <div className='app__wrapper_content'>
+          <Suspense fallback={<Preloader isFetching={true} />}>
+            <Routes>
+              <Route exact path="/" element={<Navigate to="/profile" />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile/:userId?" element={<ProfileContainer />} />
+              <Route path="/dialogs/*" element={(<DialogsContainer />)} />
+              <Route path="/users" element={(<UsersContainer />)} />
+              <Route path="*" element={(<div>404 NOT FOUND</div>)} />
+            </Routes>
+          </Suspense>
+        </div>
       </div>
     </div>
   )
