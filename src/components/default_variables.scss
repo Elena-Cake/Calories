@@ -83,6 +83,34 @@ $color-text-warn: rgb(144, 0, 31);
   border-radius: 10px;
 }
 
+// SEARCH
+
+.searhForm {
+  @extend .container;
+  display: grid;
+  grid-template-columns: auto 15%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.searchInput {
+  border: 0;
+  padding-left: 20px;
+
+  &:focus {
+    border: 0;
+    border-bottom: 1px solid $color-border-container;
+  }
+}
+
+.searchBtn {
+  @extend .button;
+  width: 100%;
+  height: 100%;
+  padding: 10px 15px;
+  border-radius: 0;
+}
+
 // LINKS
 
 .link {
