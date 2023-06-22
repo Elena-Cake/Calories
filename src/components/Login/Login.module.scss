@@ -1,3 +1,13 @@
+@import '../default_variables.scss';
+
+.login {
+    @extend .container;
+}
+
+.login__title {
+    @extend .font-h1;
+}
+
 .form__input {
 
     display: grid;
@@ -12,4 +22,10 @@
     position: absolute;
     left: 420px;
     bottom: -5px;
+}
+
+.login__btnOkey {
+    @extend .button;
+    padding: 10px 15px;
+    margin: 10px 15px;
 }

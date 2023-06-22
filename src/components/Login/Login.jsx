@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import s from './Login.module.css'
+import s from './Login.module.scss'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -15,7 +15,8 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
         // confirmPassword: yup.string().typeError('String').oneOf([yup.ref('password')], 'not equal pass').required('Required'),
     })
     return (
-        <div>
+        <div className={s.login}>
+            <h1 className={s.login__title}>Login</h1>
             <Formik
                 initialValues={{
                     email: '',
@@ -86,7 +87,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                                 onBlur={handleBlur}
                                 required />
                         }
-                        <button disabled={!isValid && !dirty} type="submit">Сome in</button>
+                        <button className={s.login__btnOkey} disabled={!isValid && !dirty} type="submit">Сome in</button>
                     </Form>
                 )}
             </Formik>
@@ -107,7 +108,6 @@ const Login = ({ isAuth, loginMe, captchaUrl }) => {
     }
     return (
         <div >
-            <h1>LOGIN</h1>
             <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
         </div>
     )
