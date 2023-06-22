@@ -26,8 +26,8 @@ const App = (props) => {
   }
   return (
     <div className='app'>
+      <HeaderContainer />
       <div className="app__wrapper">
-        <HeaderContainer />
         <NavBar />
         <div className='app__wrapper_content'>
           <Suspense fallback={<Preloader isFetching={true} />}>
