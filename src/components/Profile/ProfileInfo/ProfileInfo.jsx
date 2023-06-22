@@ -55,7 +55,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                     {isOwner &&
                         <button className={c.profileInfo__btnEdit} onClick={onEditModeActivate}>Изменить</button>}
                     <div className={c.profileInfo__status}>
-                        <ProfileStatus text={status} updateStatus={updateStatus} />
+                        <ProfileStatus text={status} updateStatus={updateStatus} isOwner={isOwner} />
                     </div>
 
                 </div >

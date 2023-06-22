@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import c from './ProfileStatus.module.css'
+import c from './ProfileStatus.module.scss'
 
-const ProfileStatus = ({ text, updateStatus }) => {
+const ProfileStatus = ({ text, updateStatus, isOwner }) => {
 
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState(text);
@@ -24,9 +24,15 @@ const ProfileStatus = ({ text, updateStatus }) => {
 
     return (
         <div >
-            {!editMode ?
-                <span onClick={activateEditMode}>{text || "статус шредингера"}</span> :
-                <input value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
+            {!isOwner ?
+                <span className={c.status__text} onClick={activateEditMode}>{text || "статус шредингера"}</span>
+                :
+                !editMode ?
+                    <div className={c.status__show}>
+                        <span className={c.status__text} onClick={activateEditMode}>{text || "статус шредингера"}</span>
+                        <div className={c.status__pen}> </div>
+                    </div> :
+                    <input className={c.status__edit} value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
             }
         </div>
     )

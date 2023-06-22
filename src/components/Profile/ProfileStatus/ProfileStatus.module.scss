@@ -1,0 +1,29 @@
+@import '../../default_variables.scss';
+
+.status__show {
+    display: flex;
+}
+
+.status__text {
+    @extend .font-text;
+    @extend .link;
+    cursor: pointer;
+}
+
+.status__pen {
+    @extend .link;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../images/pen.png);
+    background-size: 20px;
+}
+
+.status__edit {
+    @extend .font-text;
+
+    &:focus {
+        border: 1px solid rgba(70, 70, 70, 0.533);
+        padding: 2px;
+    }
+}

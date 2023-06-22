@@ -73,3 +73,13 @@ $color-text-light: rgb(255, 255, 255);
   color: $color-text-light;
   font-weight: bold;
 }
+
+// LINKS
+
+.link {
+  transition: opacity ease .5s;
+
+  &:hover {
+    opacity: .7s;
+  }
+}
