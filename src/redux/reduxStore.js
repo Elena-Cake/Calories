@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, compose, legacy_createStore as createStore } from "redux";
-import authReduser from "./authReduser";
+import authReduser from "./authReduser.ts";
 import dialogsReduser from "./dialogsReduser";
 import profileReduser from "./profileReduser";
 import usersReduser from "./usersReduser";

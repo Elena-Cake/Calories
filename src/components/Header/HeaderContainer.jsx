@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { logoutMe } from "../../redux/authReduser";
+import { logoutMe } from "../../redux/authReduser.ts";
 import Header from "./Header";
 
 const HeaderContainer = (props) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { checkAuthUser } from "../../redux/authReduser";
+import { checkAuthUser } from "../../redux/authReduser.ts";
 
 let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth

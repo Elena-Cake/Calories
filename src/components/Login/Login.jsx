@@ -4,7 +4,7 @@ import s from './Login.module.scss'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { loginMe } from "../../redux/authReduser";
+import { loginMe } from "../../redux/authReduser.ts";
 import { connect } from "react-redux";
 
 
