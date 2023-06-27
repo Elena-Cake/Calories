@@ -9,6 +9,38 @@ const SET_PROFILE = 'calories/profile/SET_PROFILE';
 const SET_IS_EDIT_MODE_ON = 'calories/profile/SET_IS_EDIT_MODE_ON';
 const SET_IS_EDIT_MODE_OFF = 'calories/profile/SET_IS_EDIT_MODE_OFF';
 
+type postType = {
+    id: number,
+    avatar: string,
+    text: string,
+    likes: number
+}
+
+type contactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+type photosType = {
+    small: string | null
+    large: string | null
+}
+
+type profileType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: contactsType
+    photos: photosType
+}
+
 const initialState = {
     posts: [
         {
@@ -24,14 +56,16 @@ const initialState = {
             text: 'худею',
             likes: 33
         }
-    ],
-    profile: { photos: { large: '', small: '' } },
+    ] as Array<postType>,
+    profile: { photos: { large: '', small: '' } } as profileType | null,
     status: '',
     isEditMode: false
 
 }
 
-const profileReduser = (state = initialState, action) => {
+export type initialStateType = typeof initialState
+
+const profileReduser = (state = initialState, action: any): initialStateType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -39,6 +73,7 @@ const profileReduser = (state = initialState, action) => {
                 ...state,
                 posts: [
                     {
+                        id: state.posts.length,
                         avatar: 'https://freelance.ru/img/portfolio/pics/00/3F/3A/4143866.jpg',
                         text: action.postMessage,
                         likes: 0
