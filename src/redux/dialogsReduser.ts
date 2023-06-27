@@ -2,6 +2,16 @@
 
 const SEND_MESSAGE = 'calories/dialogs/SEND_MESSAGE';
 
+
+type dialogType = {
+    id: number
+    name: string
+}
+type messageType = {
+    id: number
+    message: string
+}
+
 const initialState = {
     dialogsData: [
         { id: 1, name: 'Dima' },
@@ -10,7 +20,7 @@ const initialState = {
         { id: 4, name: 'Anna' },
         { id: 5, name: 'Boris' },
         { id: 6, name: 'Sveta' }
-    ],
+    ] as Array<dialogType>,
     messagesData: [
         { id: 1, message: 'hi' },
         { id: 2, message: 'sova' },
@@ -18,10 +28,12 @@ const initialState = {
         { id: 4, message: 'js' },
         { id: 5, message: 'know' },
         { id: 6, message: 'yo' }
-    ]
+    ] as Array<messageType>
 }
 
-const dialogsReduser = (state = initialState, action) => {
+export type initialStateType = typeof initialState
+
+const dialogsReduser = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
 
         case SEND_MESSAGE:
@@ -35,8 +47,9 @@ const dialogsReduser = (state = initialState, action) => {
     }
 }
 
+type sendMessageCreatorType = { type: typeof SEND_MESSAGE, message: string }
 
-export const sendMessageCreator = (message) => ({ type: SEND_MESSAGE, message: message })
+export const sendMessageCreator = (message: string): sendMessageCreatorType => ({ type: SEND_MESSAGE, message: message })
 
 
 export default dialogsReduser;
