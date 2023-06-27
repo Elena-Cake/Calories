@@ -122,6 +122,8 @@ const profileReduser = (state = initialState, action: any): initialStateType => 
     }
 }
 
+
+
 export const addPost = (text) => {
     return {
         type: ADD_POST,
