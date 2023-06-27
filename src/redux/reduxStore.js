@@ -4,7 +4,7 @@ import dialogsReduser from "./dialogsReduser";
 import profileReduser from "./profileReduser";
 import usersReduser from "./usersReduser";
 import thunkMiddleware from "redux-thunk"
-import appReduser from "./appReduser";
+import appReduser from "./appReduser.ts";
 
 let reducers = combineReducers({
     profilePage: profileReduser,

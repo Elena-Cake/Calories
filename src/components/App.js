@@ -6,7 +6,7 @@ import ProfileContainer from './Profile/ProfileContainer';
 import HeaderContainer from './Header/HeaderContainer';
 import Login from './Login/Login';
 import { connect } from 'react-redux';
-import { initializeApp } from '../redux/appReduser';
+import { initializeApp } from '../redux/appReduser.ts';
 import Preloader from './common/Preloader/Preloader';
 
 // подрузка по мере надобности

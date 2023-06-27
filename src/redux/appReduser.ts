@@ -1,13 +1,16 @@
-import { api } from "../api/api";
 import { checkAuthUser } from "./authReduser";
 
 const INITIALISED_SUCCESS = 'calories/app/INITIALISED_SUCCESS'
 
-const initialState = {
+export type initialStateType = {
+    initialized: boolean
+}
+
+const initialState: initialStateType = {
     initialized: false
 }
 
-const appReduser = (state = initialState, action) => {
+const appReduser = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
 
         case INITIALISED_SUCCESS:
@@ -20,10 +23,14 @@ const appReduser = (state = initialState, action) => {
     }
 }
 
-export const setInitiolizedSuccess = () => ({ type: INITIALISED_SUCCESS })
+export type setInitiolizedSuccessActionType = {
+    type: typeof INITIALISED_SUCCESS
+}
+
+export const setInitiolizedSuccess = (): setInitiolizedSuccessActionType => ({ type: INITIALISED_SUCCESS })
 
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch: any) => {
     let getUserData = dispatch(checkAuthUser())
     Promise.all([getUserData])
         .then(() => {
