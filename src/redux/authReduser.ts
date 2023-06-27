@@ -4,23 +4,17 @@ const SET_USER_DATA = 'calories/auth/SET_USER_DATA'
 const SET_CAPTCHA_URL = 'calories/auth/SET_CAPTCHA_URL'
 const DELETE_CAPTCHA_URL = 'calories/auth/DELETE_CAPTCHA_URL'
 
-export type initialStateType = {
-    authorisedId: number | null,
-    email: string | null,
-    login: string | null,
-    isAuth: boolean,
-    isFetching: boolean,
-    captchaUrl: string | null
-}
 
-const initialState: initialStateType = {
-    authorisedId: null,
-    email: null,
-    login: null,
+const initialState = {
+    authorisedId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
     isFetching: false,
-    captchaUrl: null
+    captchaUrl: null as string | null
 }
+
+export type initialStateType = typeof initialState;
 
 const authReduser = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
