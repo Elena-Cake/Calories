@@ -4,10 +4,15 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from "./Message/Message";
 import { Navigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { initialStateDialogsType } from "../../redux/dialogsReduser";
 
+type dialogsType = {
+    dialogsPage: initialStateDialogsType
+    sendMessage: (newMessage: string) => void
+    isAuth: boolean
+}
 
-
-const Dialogs = ({ dialogsPage, sendMessage, isAuth }) => {
+const Dialogs: React.FC<dialogsType> = ({ dialogsPage, sendMessage, isAuth }) => {
     const [isActive, setIsActive] = useState(false)
 
     const dialogsElem = dialogsPage.dialogsData.map((dialog, i) => <DialogItem key={i} name={dialog.name} id={dialog.id} isActive={isActive} />)
@@ -31,7 +36,9 @@ const Dialogs = ({ dialogsPage, sendMessage, isAuth }) => {
     )
 }
 
-const MessageForm = ({ sendMessage }) => {
+type messageType = { sendMessage: (newMessage: string) => void }
+
+const MessageForm: React.FC<messageType> = ({ sendMessage }) => {
     return (
         <div className={s.dialogs__messages}>
             <Formik
