@@ -1,7 +1,7 @@
 import axios from "axios"
 import { api } from "../api/api"
 import { updateObjectInArray } from "../utils/objects-helpers.js"
-import { photosType } from "../types/types"
+import { photosType, userType } from "../types/types"
 
 const FOLLOW = 'calories/user/FOLLOW'
 const UNFOLLOW = 'calories/user/UNFOLLOW'
@@ -11,15 +11,6 @@ const SET_TOTAL_USERS_COUNT = 'calories/user/SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'calories/user/TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS'
 
-
-type userType = {
-    name: string
-    id: number
-    uniqueUrlName: string | null
-    status: string | null
-    followed: boolean
-    photos: photosType
-}
 
 const initialState = {
     users: [] as Array<userType>,
