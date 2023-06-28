@@ -1,4 +1,4 @@
-import { checkAuthUser } from "./authReduser.ts"
+import { checkAuthUser } from "./authReduser"
 
 
 const INITIALISED_SUCCESS = 'calories/app/INITIALISED_SUCCESS'

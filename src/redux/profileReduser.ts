@@ -1,4 +1,5 @@
 import { api } from "../api/api";
+import { photosType } from "../types/types";
 
 const ADD_POST = 'calories/profile/ADD_POST';
 const DELETE_POST = 'calories/profile/DELETE_POST';
@@ -26,10 +27,7 @@ type contactsType = {
     youtube: string | null
     mainLink: string | null
 }
-type photosType = {
-    small: string | null
-    large: string | null
-}
+
 
 type profileType = {
     userId: number
@@ -91,7 +89,7 @@ const profileReduser = (state = initialState, action: any): initialStateType => 
         case SET_STATUS:
             return { ...state, status: action.status };
         case SET_AVATAR:
-            return { ...state, profile: { ...state.profile, photos: action.photos } };
+            return { ...state, profile: { ...state.profile, photos: action.photos } as profileType };
         case SET_PROFILE:
             return {
                 ...state, profile: {
@@ -110,7 +108,7 @@ const profileReduser = (state = initialState, action: any): initialStateType => 
                         youtube: action.profile.contacts.youtube,
                         mainLink: action.profile.contacts.mainLink
                     }
-                }
+                } as profileType
             };
         case SET_IS_EDIT_MODE_ON:
             return { ...state, isEditMode: true };
@@ -122,41 +120,83 @@ const profileReduser = (state = initialState, action: any): initialStateType => 
     }
 }
 
+type addPostType = {
+    type: typeof ADD_POST,
+    postMessage: string
+}
 
-
-export const addPost = (text) => {
+export const addPost = (text: string): addPostType => {
     return {
         type: ADD_POST,
         postMessage: text
     }
 }
-export const deletePost = (postId) => {
+
+type deletePostType = {
+    type: typeof DELETE_POST,
+    postId: number
+}
+
+export const deletePost = (postId: number): deletePostType => {
     return {
         type: DELETE_POST,
         postId
     }
 }
 
-export const setStatus = (status) => ({ type: SET_STATUS, status })
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
-export const setAvatarSuccess = (photos) => ({ type: SET_AVATAR, photos: photos })
-export const setProfileSuccess = (profile) => ({ type: SET_PROFILE, profile })
-export const setIsEditModeProfileOn = () => ({ type: SET_IS_EDIT_MODE_ON })
-export const setIsEditModeProfileOff = () => ({ type: SET_IS_EDIT_MODE_OFF })
+type setStatusType = {
+    type: typeof SET_STATUS,
+    status: string
+}
 
-export const getUser = (profileId) => async (dispatch) => {
+export const setStatus = (status: string): setStatusType => ({ type: SET_STATUS, status })
+
+type setUserProfileType = {
+    type: typeof SET_USER_PROFILE,
+    profile: profileType
+}
+
+export const setUserProfile = (profile: profileType): setUserProfileType => ({ type: SET_USER_PROFILE, profile })
+
+type setAvatarSuccessType = {
+    type: typeof SET_AVATAR,
+    photos: photosType
+}
+
+export const setAvatarSuccess = (photos: photosType): setAvatarSuccessType => ({ type: SET_AVATAR, photos: photos })
+
+type setProfileSuccessType = {
+    type: typeof SET_PROFILE,
+    profile: profileType
+}
+
+export const setProfileSuccess = (profile: profileType): setProfileSuccessType => ({ type: SET_PROFILE, profile })
+
+type setIsEditModeProfileOnType = {
+    type: typeof SET_IS_EDIT_MODE_ON
+}
+
+export const setIsEditModeProfileOn = (): setIsEditModeProfileOnType => ({ type: SET_IS_EDIT_MODE_ON })
+
+type setIsEditModeProfileOffType = {
+    type: typeof SET_IS_EDIT_MODE_OFF
+}
+
+export const setIsEditModeProfileOff = (): setIsEditModeProfileOffType => ({ type: SET_IS_EDIT_MODE_OFF })
+
+export const getUser = (profileId: number) => async (dispatch: any) => {
     let data = await api.getProfile(profileId);
     dispatch(setUserProfile(data))
 }
 
 
-export const getStatus = (profileId) => async (dispatch) => {
+export const getStatus = (profileId: number) => async (dispatch: any) => {
     let data = await api.getStatus(profileId)
     dispatch(setStatus(data))
 }
 
 
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
     let res = await api.updateStatus(status);
 
     if (!res.resultCode) dispatch(setStatus(status))
@@ -164,7 +204,7 @@ export const updateStatus = (status) => async (dispatch) => {
 
 }
 
-export const updateAvatar = (file) => async (dispatch) => {
+export const updateAvatar = (file: any) => async (dispatch: any) => {
     let res = await api.updateAvatar(file);
 
     if (!res.resultCode) dispatch(setAvatarSuccess(res.data.photos))
@@ -172,7 +212,7 @@ export const updateAvatar = (file) => async (dispatch) => {
 
 }
 
-export const updateProfile = (profile) => async (dispatch) => {
+export const updateProfile = (profile: profileType) => async (dispatch: any) => {
     console.log('updateProfile')
     let res = await api.updateProfile(profile);
     if (!res.resultCode) {
