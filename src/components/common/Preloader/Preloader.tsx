@@ -2,7 +2,9 @@ import React from "react";
 
 import loadingSrc from "../../../images/loading.gif";
 
-const Preloader = ({ isFetching }) => {
+type propsType = { isFetching: boolean }
+
+const Preloader: React.FC<propsType> = ({ isFetching }) => {
     return (
         <>
             {isFetching &&
