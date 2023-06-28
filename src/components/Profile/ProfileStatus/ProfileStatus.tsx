@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEventHandler, FocusEvent, useEffect, useRef, useState } from "react";
 import c from './ProfileStatus.module.scss'
 
-const ProfileStatus = ({ text, updateStatus, isOwner }) => {
+type propsType = {
+    text: string,
+    updateStatus: (newStatus: string) => void,
+    isOwner: boolean
+}
+
+const ProfileStatus: React.FC<propsType> = ({ text, updateStatus, isOwner }) => {
 
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState(text);
@@ -9,13 +15,13 @@ const ProfileStatus = ({ text, updateStatus, isOwner }) => {
     const activateEditMode = () => {
         setEditMode(true)
     }
-    const deactivateEditMode = (e) => {
+    const deactivateEditMode = (e: FocusEvent<HTMLTextAreaElement>) => {
         setEditMode(false)
         updateStatus(e.target.value)
     }
 
-    const onStatusChange = (e) => {
-        setStatus(e.target.value)
+    const onStatusChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+        setStatus(event.target.value)
     }
 
     useEffect(() => {
@@ -32,7 +38,12 @@ const ProfileStatus = ({ text, updateStatus, isOwner }) => {
                         <span className={c.status__text} >{text || "статус шредингера"}</span>
                         <div className={c.status__pen}> </div>
                     </div> :
-                    <textarea className={c.status__edit} value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
+                    <textarea
+                        className={c.status__edit}
+                        value={status}
+                        onChange={onStatusChange}
+                        onBlur={deactivateEditMode}
+                        autoFocus />
             }
         </div>
     )
