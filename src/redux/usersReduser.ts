@@ -2,6 +2,7 @@ import axios from "axios"
 import { api } from "../api/api"
 import { updateObjectInArray } from "../utils/objects-helpers.js"
 import { photosType, userType } from "../types/types"
+import { number } from "yup"
 
 const FOLLOW = 'calories/user/FOLLOW'
 const UNFOLLOW = 'calories/user/UNFOLLOW'

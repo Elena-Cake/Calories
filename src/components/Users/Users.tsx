@@ -7,6 +7,7 @@ import User from "./User/User";
 import { userType } from "../../types/types";
 
 type propsType = {
+    title: string
     currentPage: number
     onChangePage: (pageNumber: number) => void
     totalUserCount: number

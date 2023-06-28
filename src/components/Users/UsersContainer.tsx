@@ -6,16 +6,40 @@ import { follow, unfollow, setCurrPage, getUsers } from "../../redux/usersReduse
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { compose } from "redux";
+import { userType } from "../../types/types";
+import { AppStateType } from "../../redux/reduxStore";
 
+type ownPropsType = {
+    title: string
+}
+type mapStateToPropsType = {
+    currentPage: number
+    totalUserCount: number
+    pageSize: number
+    portionSize?: number
+    users: Array<userType>
+    followingInProgress: Array<number>
+    isFetching: boolean
+}
+type mapDispatchToPropsType = {
+    onChangePage: (pageNumber: number) => void
+    getUsers: (pageNumber: number, pageSize: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setCurrPage: (pageNumber: number) => void
+}
+
+type propsType = ownPropsType & mapStateToPropsType & mapDispatchToPropsType
 
 // контейнернаяя компонента для общения с API
-let UsersAPIComponent = ({ users, follow, unfollow,
+let UsersAPIComponent: React.FC<propsType> = ({
+    users, follow, unfollow, title,
     setCurrPage, pageSize, totalUserCount,
     currentPage, isFetching, getUsers,
-    toggleFollowingProgress, followingInProgress }) => {
+    followingInProgress }) => {
 
 
-    const onChangePage = (pageNumber) => {
+    const onChangePage = (pageNumber: number) => {
         setCurrPage(pageNumber)
         getUsers(pageNumber, pageSize)
     }
@@ -28,11 +52,11 @@ let UsersAPIComponent = ({ users, follow, unfollow,
         <>
             <Preloader isFetching={isFetching} />
             <Users
+                title={title}
                 users={users}
                 follow={follow}
                 unfollow={unfollow}
                 totalUserCount={totalUserCount}
-
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onChangePage={onChangePage}
@@ -43,7 +67,7 @@ let UsersAPIComponent = ({ users, follow, unfollow,
 
 
 // контейнернаяя компонента для общения с store
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -54,7 +78,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, { follow, unfollow, setCurrPage, getUsers })
+export default compose<propsType>(
+    connect
+        (mapStateToProps, { follow, unfollow, setCurrPage, getUsers })
 )(UsersAPIComponent)
 
