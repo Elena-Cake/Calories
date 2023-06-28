@@ -2,11 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import './Header.scss'
 
-const Header = (props) => {
-    const onSubmit = (values) => {
-        const { email, password, isRobot } = values
-        const rememberMe = !isRobot
-        props.logoutMe(email, password, rememberMe)
+type propsType = {
+    logoutMe: () => void
+    isAuth: boolean
+    login: string | null
+}
+
+const Header: React.FC<propsType> = (props) => {
+    const onSubmit = () => {
+        props.logoutMe()
     }
     return (
         <div className='header'>
