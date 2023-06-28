@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from './Dialogs.module.css';
+import s from './Dialogs.module.scss';
 import DialogItem from './DialogItem/DialogItem';
 import Message from "./Message/Message";
 import { Navigate } from "react-router-dom";
@@ -33,7 +33,7 @@ const Dialogs = ({ dialogsPage, sendMessage, isAuth }) => {
 
 const MessageForm = ({ sendMessage }) => {
     return (
-        <div className={s.dialogs__messages}>
+        <div className={s.messages__form}>
             <Formik
                 initialValues={{
                     message: '',

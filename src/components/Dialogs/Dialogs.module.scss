@@ -1,0 +1,17 @@
+@import "../default_variables.scss";
+
+.dialogs {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 15px;
+}
+
+.dialogs__items {
+    @extend .container;
+    padding: 10px;
+}
+
+.dialogs__messages {
+    @extend .container;
+    padding: 10px;
+}

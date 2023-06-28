@@ -47,7 +47,7 @@ const PostsForm = ({ addPost }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.post}
-                            placeholder="What are you feeling?" />
+                            placeholder="What's new?" />
 
                         <button disabled={!isValid && !dirty} type="submit">add</button>
                     </Form>
