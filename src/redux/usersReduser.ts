@@ -101,7 +101,7 @@ type ThuncType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 //getUsersThunkCreator
 export const getUsers = (currentPage: number, pageSize: number)
     : ThuncType => {
-    // return async (dispatch: Dispatch<ActionsType>, getState: () => AppStateType) => {
+    // return async (dispatch: Dispatch<ActionsType>, getState: () => AppStateType) => {  //analog prev line
     return async (dispatch, getState) => {
         dispatch(toggleIsFetching(true));
 

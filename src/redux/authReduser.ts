@@ -1,4 +1,4 @@
-import { api } from "../api/api";
+import { ResultCodeEnum, ResultCodeForCaptcha, api } from "../api/api";
 
 const SET_USER_DATA = 'calories/auth/SET_USER_DATA'
 const SET_CAPTCHA_URL = 'calories/auth/SET_CAPTCHA_URL'
@@ -69,7 +69,7 @@ export const deleteCaptchaUrl = (): deleteCaptchaUrlType => ({ type: DELETE_CAPT
 
 export const checkAuthUser = () => async (dispatch: any) => {
     let data = await api.checkAuthUser();
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         let { id, email, login } = data.data
         dispatch(setAuthUserData(id, email, login, true))
     }
@@ -77,10 +77,10 @@ export const checkAuthUser = () => async (dispatch: any) => {
 
 export const loginMe = (email: string, pass: string, rememberMe: boolean, captcha: string) => async (dispatch: any) => {
     let data = await api.login(email, pass, rememberMe, captcha);
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(checkAuthUser())
     } else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
             dispatch(getCaptchaUrl())
         }
     }
@@ -93,7 +93,7 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
 
 export const logoutMe = () => async (dispatch: any) => {
     let data = await api.logout()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(setAuthUserData(null, null, null, false))
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { logoutMe } from "../../redux/authReduser";
-import Header from "./Header.js";
+import Header from "./Header";
 import { AppStateType } from "../../redux/reduxStore";
 
 type mapStateToProps = {

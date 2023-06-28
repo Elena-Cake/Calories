@@ -1,5 +1,5 @@
 import { api } from "../api/api";
-import { photosType } from "../types/types";
+import { photosType, profileType } from "../types/types";
 
 const ADD_POST = 'calories/profile/ADD_POST';
 const DELETE_POST = 'calories/profile/DELETE_POST';
@@ -17,27 +17,6 @@ type postType = {
     likes: number
 }
 
-type contactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
-}
-
-
-type profileType = {
-    userId: number
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: contactsType
-    photos: photosType
-}
 
 const initialState = {
     posts: [
