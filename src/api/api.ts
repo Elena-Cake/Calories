@@ -17,70 +17,40 @@ export enum ResultCodeForCaptcha {
     CaptchaIsRequired = 10
 }
 
-type AuthCheckUserResType = {
-    data: { id: number, email: string, login: string }
-    resultCode: ResultCodeEnum
-    messages: Array<string>
-}
-
-type AuthLoginResType = {
-    data: { userId: number }
-    resultCode: ResultCodeEnum | ResultCodeForCaptcha
-    messages: Array<string>
-}
-
-type AuthLogoutResType = {
-    data: {}
-    resultCode: ResultCodeEnum
-    messages: Array<string>
-}
-
-type AuthGetCaptchaResType = {
-    url: string
-}
-
-type UsersGetUsersResType = {
-    items: Array<userType>,
+type GetItemsType<T> = {
+    items: Array<T>,
     totalCount: number,
     error: string | null
 }
 
-type UsersFollowResType = {
-    data: {}
-    resultCode: ResultCodeEnum
+type ResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D
+    resultCode: RC
     messages: Array<string>
 }
 
-type ProfileStatusResType = {
-    data: {}
-    resultCode: ResultCodeEnum
-    messages: Array<string>
+type AuthCheckUserDataType = {
+    id: number,
+    email: string,
+    login: string
 }
+type ProfileUpdateAvatarDataType = { photos: photosType }
+type AuthLoginDataType = { userId: number }
+type AuthGetCaptchaResType = { url: string }
 
-type ProfileUpdateAvatarResType = {
-    data: { photos: photosType }
-    resultCode: ResultCodeEnum
-    messages: Array<string>
-}
-
-type ProfileUpdateResType = {
-    data: {}
-    resultCode: ResultCodeEnum
-    messages: Array<string>
-}
 
 export const api = {
     // auth
     checkAuthUser() {
-        return instance.get<AuthCheckUserResType>('auth/me')
+        return instance.get<ResponseType<AuthCheckUserDataType>>('auth/me')
             .then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null) {
-        return instance.post<AuthLoginResType>('auth/login', { email, password, rememberMe, captcha })
+        return instance.post<ResponseType<AuthLoginDataType, ResultCodeEnum | ResultCodeForCaptcha>>('auth/login', { email, password, rememberMe, captcha })
             .then(res => res.data)
     },
     logout() {
-        return instance.delete<AuthLogoutResType>('auth/login')
+        return instance.delete<ResponseType>('auth/login')
             .then(res => res.data)
     },
     getCaptchaUrl() {
@@ -90,17 +60,17 @@ export const api = {
 
     // Users
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get<UsersGetUsersResType>(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<GetItemsType<userType>>(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
 
     follow(id: number) {
-        return instance.post<UsersFollowResType>(`follow/${id}`, {})
+        return instance.post<ResponseType>(`follow/${id}`, {})
             .then(res => res.data)
     },
 
     unfollow(id: number) {
-        return instance.delete<UsersFollowResType>(`follow/${id}`)
+        return instance.delete<ResponseType>(`follow/${id}`)
             .then(res => res.data)
     },
 
@@ -116,14 +86,14 @@ export const api = {
     },
 
     updateStatus(status: string) {
-        return instance.put<ProfileStatusResType>(`profile/status`, { status })
+        return instance.put<ResponseType>(`profile/status`, { status })
             .then(res => res.data)
     },
 
     updateAvatar(foto: any) {
         const formData = new FormData();
         formData.append('image', foto)
-        return instance.put<ProfileUpdateAvatarResType>(`profile/photo`, formData, {
+        return instance.put<ResponseType<ProfileUpdateAvatarDataType>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -132,7 +102,7 @@ export const api = {
     },
 
     updateProfile(profile: profileType) {
-        return instance.put<ProfileUpdateResType>(`profile`, profile)
+        return instance.put<ResponseType>(`profile`, profile)
             .then(res => res.data)
     },
 }
