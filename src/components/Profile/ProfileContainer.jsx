@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getUser, getStatus, updateStatus, updateAvatar, setIsEditModeProfileOn } from "../../redux/profileReduser";
+import { getUser, getStatus, updateStatus, updateAvatar, actions } from "../../redux/profileReduser";
 import { compose } from "redux";
 
 const ProfileContainer = (props) => {
@@ -57,7 +57,7 @@ let mapStateToProps = (state) => ({
 
 
 export default compose(
-    connect(mapStateToProps, { getUser, getStatus, updateStatus, updateAvatar, setIsEditModeProfileOn }),
+    connect(mapStateToProps, { getUser, getStatus, updateStatus, updateAvatar, setIsEditModeProfileOn: actions.setIsEditModeProfileOn }),
     withRouter,
     // AuthRedirect
 )(ProfileContainer)

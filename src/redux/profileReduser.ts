@@ -1,5 +1,6 @@
 import { api } from "../api/api";
 import { photosType, profileType } from "../types/types";
+import { BaseThunkType, InferActionsTypes } from "./reduxStore";
 
 const ADD_POST = 'calories/profile/ADD_POST';
 const DELETE_POST = 'calories/profile/DELETE_POST';
@@ -16,7 +17,6 @@ type postType = {
     text: string,
     likes: number
 }
-
 
 const initialState = {
     posts: [
@@ -39,10 +39,11 @@ const initialState = {
     isEditMode: false
 
 }
-
 export type initialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
 
-const profileReduser = (state = initialState, action: any): initialStateType => {
+const profileReduser = (state = initialState, action: ActionsType): initialStateType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -99,104 +100,52 @@ const profileReduser = (state = initialState, action: any): initialStateType => 
     }
 }
 
-type addPostType = {
-    type: typeof ADD_POST,
-    postMessage: string
+export const actions = {
+    addPost: (text: string) => ({ type: ADD_POST, postMessage: text } as const),
+    deletePost: (postId: number) => ({ type: DELETE_POST, postId } as const),
+    setStatus: (status: string) => ({ type: SET_STATUS, status } as const),
+    setUserProfile: (profile: profileType) => ({ type: SET_USER_PROFILE, profile } as const),
+    setAvatarSuccess: (photos: photosType) => ({ type: SET_AVATAR, photos: photos } as const),
+    setProfileSuccess: (profile: profileType) => ({ type: SET_PROFILE, profile } as const),
+    setIsEditModeProfileOn: () => ({ type: SET_IS_EDIT_MODE_ON } as const),
+    setIsEditModeProfileOff: () => ({ type: SET_IS_EDIT_MODE_OFF } as const)
 }
 
-export const addPost = (text: string): addPostType => {
-    return {
-        type: ADD_POST,
-        postMessage: text
-    }
-}
 
-type deletePostType = {
-    type: typeof DELETE_POST,
-    postId: number
-}
-
-export const deletePost = (postId: number): deletePostType => {
-    return {
-        type: DELETE_POST,
-        postId
-    }
-}
-
-type setStatusType = {
-    type: typeof SET_STATUS,
-    status: string
-}
-
-export const setStatus = (status: string): setStatusType => ({ type: SET_STATUS, status })
-
-type setUserProfileType = {
-    type: typeof SET_USER_PROFILE,
-    profile: profileType
-}
-
-export const setUserProfile = (profile: profileType): setUserProfileType => ({ type: SET_USER_PROFILE, profile })
-
-type setAvatarSuccessType = {
-    type: typeof SET_AVATAR,
-    photos: photosType
-}
-
-export const setAvatarSuccess = (photos: photosType): setAvatarSuccessType => ({ type: SET_AVATAR, photos: photos })
-
-type setProfileSuccessType = {
-    type: typeof SET_PROFILE,
-    profile: profileType
-}
-
-export const setProfileSuccess = (profile: profileType): setProfileSuccessType => ({ type: SET_PROFILE, profile })
-
-type setIsEditModeProfileOnType = {
-    type: typeof SET_IS_EDIT_MODE_ON
-}
-
-export const setIsEditModeProfileOn = (): setIsEditModeProfileOnType => ({ type: SET_IS_EDIT_MODE_ON })
-
-type setIsEditModeProfileOffType = {
-    type: typeof SET_IS_EDIT_MODE_OFF
-}
-
-export const setIsEditModeProfileOff = (): setIsEditModeProfileOffType => ({ type: SET_IS_EDIT_MODE_OFF })
-
-export const getUser = (profileId: number) => async (dispatch: any) => {
+export const getUser = (profileId: number): ThunkType => async (dispatch) => {
     let data = await api.getProfile(profileId);
-    dispatch(setUserProfile(data))
+    dispatch(actions.setUserProfile(data))
 }
 
 
-export const getStatus = (profileId: number) => async (dispatch: any) => {
+export const getStatus = (profileId: number): ThunkType => async (dispatch) => {
     let data = await api.getStatus(profileId)
-    dispatch(setStatus(data))
+    dispatch(actions.setStatus(data))
 }
 
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     let res = await api.updateStatus(status);
 
-    if (!res.resultCode) dispatch(setStatus(status))
+    if (!res.resultCode) dispatch(actions.setStatus(status))
     if (res.resultCode) console.warn('update fail')
 
 }
 
-export const updateAvatar = (file: any) => async (dispatch: any) => {
+export const updateAvatar = (file: any): ThunkType => async (dispatch) => {
     let res = await api.updateAvatar(file);
 
-    if (!res.resultCode) dispatch(setAvatarSuccess(res.data.photos))
+    if (!res.resultCode) dispatch(actions.setAvatarSuccess(res.data.photos))
     if (res.resultCode) console.warn('update fail')
 
 }
 
-export const updateProfile = (profile: profileType) => async (dispatch: any) => {
+export const updateProfile = (profile: profileType): ThunkType => async (dispatch) => {
     console.log('updateProfile')
     let res = await api.updateProfile(profile);
     if (!res.resultCode) {
-        dispatch(setProfileSuccess(profile))
-        dispatch(setIsEditModeProfileOff())
+        dispatch(actions.setProfileSuccess(profile))
+        dispatch(actions.setIsEditModeProfileOff())
     }
     if (res.resultCode) console.warn('update fail')
 

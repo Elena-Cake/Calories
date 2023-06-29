@@ -3,7 +3,7 @@ import React from "react";
 import Posts from "./Posts";
 import { connect } from "react-redux";
 
-import { addPost } from '../../../redux/profileReduser'
+import { actions } from '../../../redux/profileReduser'
 
 
 
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   return (
     {
       addPost: (text) => {
-        dispatch(addPost(text))
+        dispatch(actions.addPost(text))
       }
     }
   )
