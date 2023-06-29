@@ -11,7 +11,7 @@ const SET_PROFILE = 'calories/profile/SET_PROFILE';
 const SET_IS_EDIT_MODE_ON = 'calories/profile/SET_IS_EDIT_MODE_ON';
 const SET_IS_EDIT_MODE_OFF = 'calories/profile/SET_IS_EDIT_MODE_OFF';
 
-type postType = {
+export type postType = {
     id: number,
     avatar: string,
     text: string,
