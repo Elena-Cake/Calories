@@ -1,4 +1,4 @@
-import { InferActionsTypes } from './reduxStore';
+import { BaseThunkType, InferActionsTypes } from './reduxStore';
 import { ResultCodeEnum, ResultCodeForCaptcha, api } from "../api/api";
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
 export type initialStateType = typeof initialState;
 
 type ActionsType = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
 
 const authReduser = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -44,7 +45,7 @@ export const actions = {
     deleteCaptchaUrl: () => ({ type: 'CALORIES/AUTH/DELETE_CAPTCHA_URL' } as const)
 }
 
-export const checkAuthUser = () => async (dispatch: any) => {
+export const checkAuthUser = (): ThunkType => async (dispatch) => {
     let data = await api.checkAuthUser();
     if (data.resultCode === ResultCodeEnum.Success) {
         let { id, email, login } = data.data
@@ -52,7 +53,7 @@ export const checkAuthUser = () => async (dispatch: any) => {
     }
 }
 
-export const loginMe = (email: string, pass: string, rememberMe: boolean, captcha: string) => async (dispatch: any) => {
+export const loginMe = (email: string, pass: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
     let data = await api.login(email, pass, rememberMe, captcha);
     if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(checkAuthUser())
@@ -63,12 +64,12 @@ export const loginMe = (email: string, pass: string, rememberMe: boolean, captch
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch: any) => {
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     let data = await api.getCaptchaUrl();
     dispatch(actions.setCaptchaUrl(data.url))
 }
 
-export const logoutMe = () => async (dispatch: any) => {
+export const logoutMe = (): ThunkType => async (dispatch) => {
     let data = await api.logout()
     if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(actions.setAuthUserData(null, null, null, false))
