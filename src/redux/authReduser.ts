@@ -1,9 +1,5 @@
+import { InferActionsTypes } from './reduxStore';
 import { ResultCodeEnum, ResultCodeForCaptcha, api } from "../api/api";
-
-const SET_USER_DATA = 'calories/auth/SET_USER_DATA'
-const SET_CAPTCHA_URL = 'calories/auth/SET_CAPTCHA_URL'
-const DELETE_CAPTCHA_URL = 'calories/auth/DELETE_CAPTCHA_URL'
-
 
 const initialState = {
     authorisedId: null as number | null,
@@ -16,20 +12,22 @@ const initialState = {
 
 export type initialStateType = typeof initialState;
 
-const authReduser = (state = initialState, action: any): initialStateType => {
+type ActionsType = InferActionsTypes<typeof actions>
+
+const authReduser = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
 
-        case SET_USER_DATA:
+        case 'CALORIES/AUTH/SET_USER_DATA':
             return {
                 ...state,
                 ...action.payload
             };
-        case SET_CAPTCHA_URL:
+        case 'CALORIES/AUTH/SET_CAPTCHA_URL':
             return {
                 ...state,
                 captchaUrl: action.captchaUrl
             };
-        case DELETE_CAPTCHA_URL:
+        case 'CALORIES/AUTH/DELETE_CAPTCHA_URL':
             return {
                 ...state,
                 captchaUrl: null
@@ -40,38 +38,18 @@ const authReduser = (state = initialState, action: any): initialStateType => {
     }
 }
 
-type setAuthUserDataPayloadType = {
-    authorisedId: number | null,
-    email: string | null,
-    login: string | null,
-    isAuth: boolean
+export const actions = {
+    setAuthUserData: (authorisedId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
+        ({ type: 'CALORIES/AUTH/SET_USER_DATA', payload: { authorisedId, email, login, isAuth } } as const),
+    setCaptchaUrl: (captchaUrl: string) => ({ type: 'CALORIES/AUTH/SET_CAPTCHA_URL', captchaUrl } as const),
+    deleteCaptchaUrl: () => ({ type: 'CALORIES/AUTH/DELETE_CAPTCHA_URL' } as const)
 }
-
-type setAuthUserDataType = {
-    type: typeof SET_USER_DATA,
-    payload: setAuthUserDataPayloadType
-}
-
-export const setAuthUserData = (authorisedId: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType =>
-    ({ type: SET_USER_DATA, payload: { authorisedId, email, login, isAuth } })
-
-type setCaptchaUrlType = {
-    type: typeof SET_CAPTCHA_URL,
-    captchaUrl: string
-}
-
-export const setCaptchaUrl = (captchaUrl: string): setCaptchaUrlType => ({ type: SET_CAPTCHA_URL, captchaUrl })
-
-type deleteCaptchaUrlType = { type: typeof DELETE_CAPTCHA_URL }
-
-export const deleteCaptchaUrl = (): deleteCaptchaUrlType => ({ type: DELETE_CAPTCHA_URL })
-
 
 export const checkAuthUser = () => async (dispatch: any) => {
     let data = await api.checkAuthUser();
     if (data.resultCode === ResultCodeEnum.Success) {
         let { id, email, login } = data.data
-        dispatch(setAuthUserData(id, email, login, true))
+        dispatch(actions.setAuthUserData(id, email, login, true))
     }
 }
 
@@ -88,13 +66,13 @@ export const loginMe = (email: string, pass: string, rememberMe: boolean, captch
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
     let data = await api.getCaptchaUrl();
-    dispatch(setCaptchaUrl(data.url))
+    dispatch(actions.setCaptchaUrl(data.url))
 }
 
 export const logoutMe = () => async (dispatch: any) => {
     let data = await api.logout()
     if (data.resultCode === ResultCodeEnum.Success) {
-        dispatch(setAuthUserData(null, null, null, false))
+        dispatch(actions.setAuthUserData(null, null, null, false))
     }
 }
 
