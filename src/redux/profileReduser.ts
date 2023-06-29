@@ -132,7 +132,7 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
 
 }
 
-export const updateAvatar = (file: any): ThunkType => async (dispatch) => {
+export const updateAvatar = (file: File): ThunkType => async (dispatch) => {
     let res = await api.updateAvatar(file);
 
     if (!res.resultCode) dispatch(actions.setAvatarSuccess(res.data.photos))
