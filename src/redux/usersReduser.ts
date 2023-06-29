@@ -1,19 +1,9 @@
-import axios from "axios"
+
 import { api } from "../api/api"
 import { updateObjectInArray } from "../utils/objects-helpers.js"
-import { photosType, userType } from "../types/types"
-import { number } from "yup"
-import { AppStateType, BaseThunkType, InferActionsTypes } from "./reduxStore"
+import { userType } from "../types/types"
+import { BaseThunkType, InferActionsTypes } from "./reduxStore"
 import { Dispatch } from "redux"
-import { ThunkAction } from "redux-thunk"
-
-const FOLLOW = 'calories/user/FOLLOW'
-const UNFOLLOW = 'calories/user/UNFOLLOW'
-const SET_USERS = 'calories/user/SET_USERS'
-const SET_CURRENT_PAGE = 'calories/user/SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT = 'calories/user/SET_TOTAL_USERS_COUNT'
-const TOGGLE_IS_FETCHING = 'calories/user/TOGGLE_IS_FETCHING'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS'
 
 const initialState = {
     users: [] as Array<userType>,
@@ -27,37 +17,37 @@ type initialStateType = typeof initialState
 
 const usersReduser = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
-        case FOLLOW:
+        case 'calories/user/FOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, "id", action.userId, { followed: true })
             };
-        case UNFOLLOW:
+        case 'calories/user/UNFOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, "id", action.userId, { followed: false })
             };
-        case SET_USERS:
+        case 'calories/user/SET_USERS':
             return {
                 ...state,
                 users: [...action.users]
             };
-        case SET_CURRENT_PAGE:
+        case 'calories/user/SET_CURRENT_PAGE':
             return {
                 ...state,
                 currentPage: action.currentPage
             };
-        case SET_TOTAL_USERS_COUNT:
+        case 'calories/user/SET_TOTAL_USERS_COUNT':
             return {
                 ...state,
                 totalUserCount: action.totalUserCount
             };
-        case TOGGLE_IS_FETCHING:
+        case 'calories/user/TOGGLE_IS_FETCHING':
             return {
                 ...state,
                 isFetching: action.isFetching
             };
-        case TOGGLE_IS_FOLLOWING_PROGRESS:
+        case 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isFetching ?
@@ -71,13 +61,13 @@ const usersReduser = (state = initialState, action: ActionsType): initialStateTy
 type ActionsType = InferActionsTypes<typeof actions>
 
 export const actions = {
-    followSucsess: (userId: number) => ({ type: FOLLOW, userId } as const),
-    unfollowSucsess: (userId: number) => ({ type: UNFOLLOW, userId } as const),
-    setUsers: (users: Array<userType>) => ({ type: SET_USERS, users } as const),
-    setCurrPage: (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage } as const),
-    setTotalUserCount: (totalUserCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalUserCount } as const),
-    toggleIsFetching: (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching } as const),
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId } as const)
+    followSucsess: (userId: number) => ({ type: 'calories/user/FOLLOW', userId } as const),
+    unfollowSucsess: (userId: number) => ({ type: 'calories/user/UNFOLLOW', userId } as const),
+    setUsers: (users: Array<userType>) => ({ type: 'calories/user/SET_USERS', users } as const),
+    setCurrPage: (currentPage: number) => ({ type: 'calories/user/SET_CURRENT_PAGE', currentPage } as const),
+    setTotalUserCount: (totalUserCount: number) => ({ type: 'calories/user/SET_TOTAL_USERS_COUNT', totalUserCount } as const),
+    toggleIsFetching: (isFetching: boolean) => ({ type: 'calories/user/TOGGLE_IS_FETCHING', isFetching } as const),
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const)
 }
 
 
