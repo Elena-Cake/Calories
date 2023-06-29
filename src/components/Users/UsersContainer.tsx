@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { follow, unfollow, setCurrPage, getUsers } from "../../redux/usersReduser";
+import { follow, unfollow, actions, getUsers } from "../../redux/usersReduser";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { compose } from "redux";
@@ -80,6 +80,6 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 export default compose<propsType>(
     connect
-        (mapStateToProps, { follow, unfollow, setCurrPage, getUsers })
+        (mapStateToProps, { follow, unfollow, setCurrPage: actions.setCurrPage, getUsers })
 )(UsersAPIComponent)
 

@@ -37,7 +37,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
 
                     <Form onSubmit={handleSubmit}>
                         <div className={s.form__input}>
-                            <label >Email</label>
+                            <label for="email">Email</label>
                             <Field
                                 name='email'
                                 onChange={handleChange}
@@ -47,7 +47,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                             <ErrorMessage className={s.input__error} name="email" component="span"></ErrorMessage>
                         </div>
                         <div className={s.form__input}>
-                            <label htmlFor={'password'}>Password</label>
+                            <label for='password'>Password</label>
                             <Field
                                 name={'password'}
                                 type={'password'}
@@ -69,7 +69,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                             <ErrorMessage className={s.input__error} name="confirmPassword" component="span"></ErrorMessage>
                         </div> */}
                         <div className={s.form__input}>
-                            <label htmlFor={'isRobot'}>I'm not a robot</label>
+                            <label for={'isRobot'}>I'm not a robot</label>
                             <Field
                                 name={'isRobot'}
                                 onChange={handleChange}
