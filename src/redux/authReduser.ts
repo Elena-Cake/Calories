@@ -9,7 +9,6 @@ const initialState = {
     isFetching: false,
     captchaUrl: null as string | null
 }
-
 export type initialStateType = typeof initialState;
 
 type ActionsType = InferActionsTypes<typeof actions>

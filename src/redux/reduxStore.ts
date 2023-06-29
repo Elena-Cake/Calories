@@ -1,9 +1,9 @@
-import { applyMiddleware, combineReducers, compose, legacy_createStore as createStore } from "redux"
+import { Action, applyMiddleware, combineReducers, compose, legacy_createStore as createStore } from "redux"
 import authReduser from "./authReduser"
 import dialogsReduser from "./dialogsReduser"
 import profileReduser from "./profileReduser"
 import usersReduser from "./usersReduser"
-import thunkMiddleware from "redux-thunk"
+import thunkMiddleware, { ThunkAction } from "redux-thunk"
 import appReduser from "./appReduser"
 
 let reducers = combineReducers({
@@ -18,6 +18,8 @@ type rootReduserType = typeof reducers
 export type AppStateType = ReturnType<rootReduserType>
 
 type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+
+export type BaseThunkType<AT extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, AT>
 
 export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
 
