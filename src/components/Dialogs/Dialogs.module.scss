@@ -1,0 +1,38 @@
+@import "../default_variables.scss";
+
+.dialogs {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 15px;
+}
+
+.dialogs__items {
+    @extend .container;
+    padding: 10px;
+}
+
+.dialogs__messages {
+    @extend .container;
+    padding: 10px;
+}
+
+.messages__form {
+    @extend .searhForm;
+}
+
+.messages__form_input {
+    @extend .searchInput;
+
+    &:focus {
+        border: 0;
+    }
+}
+
+.dialogs__sendBtn {
+    @extend .searchBtn;
+
+    &:focus {
+        border: 0;
+        border-bottom: 1px solid $color-border-container;
+    }
+}

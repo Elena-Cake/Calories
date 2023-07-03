@@ -1,8 +1,0 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 30% 70%;
-}
-
-.dialogs__items {
-    padding: 10px;
-}

@@ -47,8 +47,8 @@ const PostsForm = ({ addPost }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.post}
-                            className={c.posts__form_input}
-                            placeholder="Что вы хотите сказать?" />
+                            placeholder="What's new?"
+                            className={c.posts__form_input} />
 
                         <button className={c.posts__form_btn} disabled={!isValid && !dirty} type="submit">Опубликовать</button>
                     </Form>
