@@ -25,7 +25,12 @@
 }
 
 .login__btnOkey {
-    @extend .button;
+    @extend .searchBtn;
     padding: 10px 15px;
     margin: 10px 15px;
+    border-radius: 20px;
+}
+
+.login__formItem {
+    @extend .searchInput;
 }

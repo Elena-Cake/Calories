@@ -43,7 +43,8 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
-                                placeholder="What your email?" />
+                                placeholder="What your email?"
+                                className={s.login__formItem} />
                             <ErrorMessage className={s.input__error} name="email" component="span"></ErrorMessage>
                         </div>
                         <div className={s.form__input}>
@@ -54,7 +55,8 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                placeholder="What your password?" />
+                                placeholder="What your password?"
+                                className={s.login__formItem} />
                             <ErrorMessage className={s.input__error} name="password" component="span"></ErrorMessage>
                         </div>
                         {/* <div className={s.form__input}>
