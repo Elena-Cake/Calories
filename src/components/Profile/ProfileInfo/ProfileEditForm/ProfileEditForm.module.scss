@@ -1,3 +1,9 @@
+@import '../../../default_variables.scss';
+
+.edit {
+    @extend .container;
+}
+
 .contact__item {
     margin: 3px 0;
     display: grid;
@@ -22,4 +28,15 @@
 .edit__contacts {
     margin-left: 5%;
 
+}
+
+.edit__item_form {
+    @extend .searhForm;
+    @extend .searchInput;
+    padding: 5px 15px;
+}
+
+.edit__saveBtn {
+    @extend .searchBtn;
+    border-radius: 20px;
 }
