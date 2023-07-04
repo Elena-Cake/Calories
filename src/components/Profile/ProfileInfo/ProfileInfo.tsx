@@ -4,12 +4,25 @@ import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
+import { profileType } from "../../../types/types";
 
-const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth, isEditMode, setIsEditModeProfileOn }) => {
+
+type PropsType = {
+    profile: profileType,
+    status: string,
+    updateStatus: (newStatus: string) => void,
+    isOwner: boolean,
+    updateAvatar: (photo: File) => void,
+    isAuth: boolean,
+    isEditMode: boolean,
+    setIsEditModeProfileOn: () => void
+}
+
+const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwner, updateAvatar, isAuth, isEditMode, setIsEditModeProfileOn }) => {
     const avatarSrc = profile.photos.large || userPhoto
 
-    const onNewAvatarSelected = (e) => {
-        if (e.target.files.length) {
+    const onNewAvatarSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
             updateAvatar(e.target.files[0])
         }
     }
@@ -31,7 +44,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                         <div className={c.avatar__overflow}></div>
                         {isOwner ?
                             <>
-                                <label for="ava" className={c.avatar__labelImg}><img src={avatarSrc} alt="avatar" className={c.avatar__img} /></label>
+                                <label htmlFor="ava" className={c.avatar__labelImg}><img src={avatarSrc} alt="avatar" className={c.avatar__img} /></label>
                                 <input id="ava" className={c.avatar__btnEdit} type="file" accept="image/*" onChange={onNewAvatarSelected} />
                             </>
                             :

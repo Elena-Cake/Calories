@@ -4,10 +4,17 @@ import Posts from "./Posts";
 import { connect } from "react-redux";
 
 import { actions } from '../../../redux/profileReduser'
+import { AppStateType } from "../../../redux/reduxStore";
+import { postType } from "../../../types/types";
 
+type MapPropsType = {
+  posts: Array<postType>
+}
+type DispatchPropsType = {
+  addPost: (text: string) => void
+}
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapPropsType => {
   return (
     {
       posts: state.profilePage.posts
@@ -15,7 +22,7 @@ const mapStateToProps = (state) => {
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any): DispatchPropsType => {
   return (
     {
       addPost: (text) => {

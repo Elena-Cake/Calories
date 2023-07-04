@@ -1,7 +1,12 @@
 import React from "react";
 import c from './Contact.module.scss'
 
-const Contact = ({ contactLink, contactName }) => {
+type PropsType = {
+    contactLink: string,
+    contactName: string
+}
+
+const Contact: React.FC<PropsType> = ({ contactLink, contactName }) => {
 
     return (
         <li className={`${c.contact} ${contactLink ? c.contact_visible : ''}`}>
