@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useLocation,
     useNavigate,
@@ -11,19 +11,28 @@ import { getUser, getStatus, updateStatus, updateAvatar, actions } from "../../r
 import { compose } from "redux";
 
 const ProfileContainer = (props) => {
+    const [profileId, setProfileId] = useState(null)
     const navigate = useNavigate()
-
     useEffect(() => {
-        let profileId = props.router.params.userId;
-        if (!profileId) {
-            if (!props.authorisedId) {
-                navigate('/users')
+
+        console.log(props.router.params.userId, profileId);
+        if (props.router.params.userId !== profileId) {
+            let profileId
+            if (!props.router.params.userId) {
+                if (!props.authorisedId) {
+                    navigate('/users')
+                }
+                setProfileId(props.authorisedId)
+                profileId = props.authorisedId
+            } else {
+
+                setProfileId(props.router.params.userId)
+                profileId = props.router.params.userId
             }
-            profileId = props.authorisedId
+            props.getUser(profileId)
+            props.getStatus(profileId)
         }
-        props.getUser(profileId)
-        props.getStatus(profileId)
-    }, [])
+    }, [props.router.params.userId])
 
     return (
         <div>
