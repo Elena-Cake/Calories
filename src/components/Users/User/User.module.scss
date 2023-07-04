@@ -5,10 +5,11 @@
     padding: 10px 20px;
     margin: 10px;
     grid-template-areas:
-        'foto name location'
-        'btn status location';
+        'foto name btn'
+        'foto status btn';
     grid-template-columns: 2fr 5fr 2fr;
     border-bottom: 1px solid $color-border-container;
+    align-items: center;
 
     &:last-of-type {
         border-bottom: 0;
@@ -36,13 +37,6 @@
     grid-area: status;
 }
 
-.user__location {
-    grid-area: location;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .user__text {
     @extend .font-text;
     margin: 0;
@@ -53,4 +47,5 @@
 
 .user__btnFollow {
     @extend .button;
+    height: 30px;
 }

@@ -33,3 +33,10 @@ export type profileType = {
     contacts: contactsType
     photos: photosType
 }
+
+export type postType = {
+    id: number,
+    avatar: string,
+    text: string,
+    likes: number
+}
