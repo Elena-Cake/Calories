@@ -3,8 +3,15 @@ import s from './User.module.scss'
 import { NavLink } from "react-router-dom";
 
 import userPhoto from '../../../images/ava.png'
+import { userType } from "../../../types/types";
 
-const User = ({ user, handleFollow, followingInProgress }) => {
+type PropsType = {
+    user: userType,
+    handleFollow: (followed: boolean, id: number) => void,
+    followingInProgress: Array<number>
+}
+
+const User: React.FC<PropsType> = ({ user, handleFollow, followingInProgress }) => {
     console.log();
     return (
         <div className={s.user__card}>

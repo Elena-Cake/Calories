@@ -78,7 +78,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-export default compose<propsType>(
+export default compose<React.ComponentType>(
     connect
         (mapStateToProps, { follow, unfollow, setCurrPage: actions.setCurrPage, getUsers })
 )(UsersAPIComponent)

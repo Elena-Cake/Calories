@@ -9,19 +9,13 @@ import { initialStateDialogsType } from "../../redux/dialogsReduser";
 type dialogsType = {
     dialogsPage: initialStateDialogsType
     sendMessage: (newMessage: string) => void
-    isAuth: boolean
 }
 
-const Dialogs: React.FC<dialogsType> = ({ dialogsPage, sendMessage, isAuth }) => {
+const Dialogs: React.FC<dialogsType> = ({ dialogsPage, sendMessage }) => {
     const [isActive, setIsActive] = useState(false)
 
     const dialogsElem = dialogsPage.dialogsData.map((dialog, i) => <DialogItem key={i} name={dialog.name} id={dialog.id} isActive={isActive} />)
     const messagesElem = dialogsPage.messagesData.map((m, i) => <Message key={i} message={m.message} />)
-
-
-    if (!isAuth) {
-        return <Navigate to={'login'} />
-    }
 
     return (
         <div className={s.dialogs}>

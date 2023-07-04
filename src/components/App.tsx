@@ -6,17 +6,17 @@ import ProfileContainer from './Profile/ProfileContainer';
 import HeaderContainer from './Header/HeaderContainer';
 import Login from './Login/Login';
 import { connect } from 'react-redux';
-import { initializeApp } from '../redux/appReduser.ts';
+import { initializeApp } from '../redux/appReduser';
 import Preloader from './common/Preloader/Preloader';
 import NotFound from './NotFound/NotFound';
+import { AppStateType } from '../redux/reduxStore';
 
 // подрузка по мере надобности
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
 
 
-const App = (props) => {
-
+const App: React.FC<MapPropsType & DispatchPropsType> = (props) => {
 
   useEffect(() => {
     props.initializeApp()
@@ -33,11 +33,11 @@ const App = (props) => {
         <div className='app__wrapper_content'>
           <Suspense fallback={<Preloader isFetching={true} />}>
             <Routes>
-              <Route exact path="/" element={<Navigate to="/profile" />} />
+              <Route path="/" element={<Navigate to="/profile" />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile/:userId?" element={<ProfileContainer />} />
               <Route path="/dialogs/*" element={(<DialogsContainer />)} />
-              <Route path="/users" element={(<UsersContainer title="Users" />)} />
+              <Route path="/users" element={(<UsersContainer />)} />
               <Route path="*" element={(<NotFound />)} />
             </Routes>
           </Suspense>
@@ -47,10 +47,15 @@ const App = (props) => {
   )
 }
 
-const marStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
   isAuth: state.auth.isAuth
 })
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: () => void
+}
+
 // compose withRouter
-export default connect(marStateToProps, { initializeApp })(App);
+export default connect(mapStateToProps, { initializeApp })(App);
