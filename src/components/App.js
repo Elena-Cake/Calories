@@ -8,6 +8,7 @@ import Login from './Login/Login';
 import { connect } from 'react-redux';
 import { initializeApp } from '../redux/appReduser.ts';
 import Preloader from './common/Preloader/Preloader';
+import NotFound from './NotFound/NotFound';
 
 // подрузка по мере надобности
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
@@ -37,7 +38,7 @@ const App = (props) => {
               <Route path="/profile/:userId?" element={<ProfileContainer />} />
               <Route path="/dialogs/*" element={(<DialogsContainer />)} />
               <Route path="/users" element={(<UsersContainer title="Users" />)} />
-              <Route path="*" element={(<div>404 NOT FOUND</div>)} />
+              <Route path="*" element={(<NotFound />)} />
             </Routes>
           </Suspense>
         </div>

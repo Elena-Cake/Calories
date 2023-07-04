@@ -29,3 +29,19 @@
 .btnAdd:hover {
     background-color: rgba(97, 250, 166, 0.5);
 }
+
+.posts__form {
+    @extend .searhForm;
+}
+
+.posts__form_input {
+    @extend .searchInput;
+
+    &:focus {
+        border: 0;
+    }
+}
+
+.posts__form_btn {
+    @extend .searchBtn;
+}

@@ -2,6 +2,7 @@
 
 .profileInfo {
     @extend .container;
+    position: relative;
     padding: 20px;
     display: grid;
     grid-template-areas:
@@ -14,6 +15,7 @@
     grid-template-columns: minmax(300px, 30%) auto auto;
     gap: 10px;
     column-gap: 30px;
+    overflow: hidden;
 
     &__avatar {
         grid-area: ava;
@@ -41,6 +43,7 @@
     }
 
     &__about {
+        @extend .font-text;
         grid-area: about;
         display: flex;
     }
@@ -51,6 +54,7 @@
         padding: 10px 15px;
         max-width: 190px;
         margin: 0 0 80px auto;
+        z-index: 2;
     }
 
     &__status {
@@ -59,11 +63,32 @@
 
 }
 
+.profileInfo__fon {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: $color-bg-profile;
+}
+
 .avatar {
     position: relative;
     width: 300px;
     height: 300px;
     max-width: 30%;
+}
+
+.avatar__overflow {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    z-index: 0;
+    width: 308px;
+    height: 308px;
+    border-radius: 50%;
+    background-color: $color-bg-container;
 }
 
 .avatar__labelImg {
@@ -79,8 +104,8 @@
 .avatar__img {
     position: absolute;
     border-radius: 50%;
-    max-width: 300px;
-    z-index: -0;
+    max-width: 290px;
+    z-index: 1;
 }
 
 .avatar__btnEdit {
@@ -89,7 +114,7 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    z-index: 1;
+    z-index: 2;
 
 }
 

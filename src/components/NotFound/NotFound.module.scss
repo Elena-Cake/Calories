@@ -1,0 +1,10 @@
+@import "../default_variables.scss";
+
+.notfound {
+    @extend .container;
+    text-align: center;
+}
+
+.notfound_title {
+    @extend .font-h1;
+}

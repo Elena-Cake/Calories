@@ -1,5 +1,5 @@
 import React from "react";
-import c from './ProfileEditForm.module.css'
+import c from './ProfileEditForm.module.scss'
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { updateProfile } from "../../../../redux/profileReduser";
@@ -29,7 +29,7 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
     })
 
     return (
-        <div>
+        <div className={c.edit}>
             <Formik
                 initialValues={{
                     fullName: profile.fullName,
@@ -63,7 +63,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.fullName || ''}
-                                placeholder="What your fullName?" />
+                                placeholder="What your fullName?"
+                                className={c.edit__item_form} />
                             <ErrorMessage className={c.input__error} name="fullName" component="span"></ErrorMessage>
                         </div>
                         <div className={c.edit__contacts}>
@@ -75,7 +76,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.facebook || ''}
-                                    placeholder="What your facebook?" />
+                                    placeholder="What your facebook?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="facebook" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -85,7 +87,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.website || ''}
-                                    placeholder="What your website?" />
+                                    placeholder="What your website?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="website" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -95,7 +98,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.vk || ''}
-                                    placeholder="What your vk?" />
+                                    placeholder="What your vk?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="vk" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -105,7 +109,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.twitter || ''}
-                                    placeholder="What your twitter?" />
+                                    placeholder="What your twitter?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="twitter" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -115,7 +120,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.instagram || ''}
-                                    placeholder="What your instagram?" />
+                                    placeholder="What your instagram?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="instagram" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -125,7 +131,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.youtube || ''}
-                                    placeholder="What your youtube?" />
+                                    placeholder="What your youtube?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="youtube" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -135,7 +142,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.github || ''}
-                                    placeholder="What your github?" />
+                                    placeholder="What your github?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="github" component="span"></ErrorMessage>
                             </div>
                             <div className={c.edit__item}>
@@ -145,7 +153,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.mainLink || ''}
-                                    placeholder="What your mainLink?" />
+                                    placeholder="What your mainLink?"
+                                    className={c.edit__item_form} />
                                 <ErrorMessage className={c.input__error} name="mainLink" component="span"></ErrorMessage>
                             </div>
                         </div>
@@ -156,7 +165,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 selected={values.lookingForAJob}
-                                type={"checkbox"} />
+                                type={"checkbox"}
+                                className={c.edit__item_form_checkbox} />
                             <ErrorMessage className={c.input__error} name="lookingForAJob" component="span"></ErrorMessage>
                         </div>
                         <div className={c.edit__item}>
@@ -166,7 +176,8 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.lookingForAJobDescription || ''}
-                                placeholder="What your new job expectations?" />
+                                placeholder="What your new job expectations?"
+                                className={c.edit__item_form} />
                             <ErrorMessage className={c.input__error} name="lookingForAJobDescription" component="span"></ErrorMessage>
                         </div>
                         <div className={c.edit__item}>
@@ -176,11 +187,12 @@ const ProfileEditForm = ({ profile, onSubmit }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.aboutMe || ''}
-                                placeholder="What your aboutMe?" />
+                                placeholder="What your aboutMe?"
+                                className={c.edit__item_form} />
                             <ErrorMessage className={c.input__error} name="aboutMe" component="span"></ErrorMessage>
                         </div>
 
-                        <button disabled={!isValid && !dirty} type="submit">Сохранить</button>
+                        <button className={c.edit__saveBtn} disabled={!isValid && !dirty} type="submit">Сохранить</button>
                     </Form>
                 )}
             </Formik>

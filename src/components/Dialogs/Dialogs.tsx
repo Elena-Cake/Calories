@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from './Dialogs.module.css';
+import s from './Dialogs.module.scss';
 import DialogItem from './DialogItem/DialogItem';
 import Message from "./Message/Message";
 import { Navigate } from "react-router-dom";
@@ -40,7 +40,7 @@ type messageType = { sendMessage: (newMessage: string) => void }
 
 const MessageForm: React.FC<messageType> = ({ sendMessage }) => {
     return (
-        <div className={s.dialogs__messages}>
+        <div >
             <Formik
                 initialValues={{
                     message: '',
@@ -54,14 +54,15 @@ const MessageForm: React.FC<messageType> = ({ sendMessage }) => {
                     handleChange, handleBlur,
                     isValid, handleSubmit, dirty }) => (
 
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className={s.messages__form}>
                         <Field
                             name='message'
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.message}
-                            placeholder="What do your wonna send?" />
-                        <button disabled={!isValid && !dirty} type="submit">Отправить</button>
+                            placeholder="What do your wonna send?"
+                            className={s.messages__form_input} />
+                        <button disabled={!isValid && !dirty} type="submit" className={s.dialogs__sendBtn}>Отправить</button>
                     </Form>
                 )}
             </Formik>

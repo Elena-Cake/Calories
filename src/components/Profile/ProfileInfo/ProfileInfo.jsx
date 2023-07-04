@@ -26,7 +26,9 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
         <>
             {(profile) &&
                 <div className={c.profileInfo}>
+                    <div className={c.profileInfo__fon}></div>
                     <div className={`${c.profileInfo__avatar} ${c.avatar}`}>
+                        <div className={c.avatar__overflow}></div>
                         {isOwner ?
                             <>
                                 <label for="ava" className={c.avatar__labelImg}><img src={avatarSrc} alt="avatar" className={c.avatar__img} /></label>
@@ -47,9 +49,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, updateAvatar, isA
                         </div>
                     }
                     {profile.aboutMe &&
-                        <div className={c.profileInfo__about}>
-                            <p >{profile.aboutMe} </p>
-                        </div>
+                        <p className={c.profileInfo__about}>{profile.aboutMe} </p>
                     }
                     {isOwner &&
                         <button className={c.profileInfo__btnEdit} onClick={onEditModeActivate}>Редактировать профиль</button>}

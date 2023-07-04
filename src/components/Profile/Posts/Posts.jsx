@@ -41,15 +41,16 @@ const PostsForm = ({ addPost }) => {
                     handleChange, handleBlur,
                     isValid, handleSubmit, dirty }) => (
 
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className={c.posts__form}>
                         <Field
                             name='post'
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.post}
-                            placeholder="What are you feeling?" />
+                            placeholder="What's new?"
+                            className={c.posts__form_input} />
 
-                        <button disabled={!isValid && !dirty} type="submit">add</button>
+                        <button className={c.posts__form_btn} disabled={!isValid && !dirty} type="submit">Опубликовать</button>
                     </Form>
                 )}
             </Formik>
