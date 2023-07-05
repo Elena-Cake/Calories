@@ -4,7 +4,7 @@ import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 import userPhoto from '../../../images/ava.png'
 import Contact from "./Contact/Contact";
-import { profileType } from "../../../types/types";
+import { contactsType, profileType } from "../../../types/types";
 
 
 type PropsType = {
@@ -22,13 +22,13 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwn
     const avatarSrc = profile.photos.large || userPhoto
 
     const onNewAvatarSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
+        if (e.target.files?.length) {
             updateAvatar(e.target.files[0])
         }
     }
     const contactElements = []
     for (let contact in profile.contacts) {
-        contactElements.push(<Contact key={contact} contactLink={profile.contacts[contact]} contactName={contact} />)
+        contactElements.push(<Contact key={contact} contactLink={profile.contacts[contact as keyof contactsType]} contactName={contact} />)
     }
 
     const onEditModeActivate = () => {
