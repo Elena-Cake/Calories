@@ -5,7 +5,7 @@ import { Field, Form, Formik } from "formik";
 
 const Posts = ({ posts, addPost }) => {
 
-    const userElements = posts.map((u, i) => <Post key={i} user={u} />)
+    const userElements = posts.map((u, i) => <Post key={i} post={u} />)
     const newPostElem = React.createRef()
 
     const onAddPost = () => {
