@@ -13,7 +13,7 @@ const initialState = {
     isFetching: false,
     followingInProgress: [] as Array<number> //array of users ids
 }
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
 const usersReduser = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -102,12 +102,12 @@ const _followUnfollowFlow = async (
 }
 
 export const follow = (userId: number): ThuncType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, userId, api.follow.bind(api), actions.followSucsess)
+    await _followUnfollowFlow(dispatch, userId, api.follow.bind(api), actions.followSucsess)
 }
 
 export const unfollow = (userId: number): ThuncType => {
     return async (dispatch) => {
-        _followUnfollowFlow(dispatch, userId, api.unfollow.bind(api), actions.unfollowSucsess)
+        await _followUnfollowFlow(dispatch, userId, api.unfollow.bind(api), actions.unfollowSucsess)
     }
 }
 

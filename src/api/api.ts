@@ -23,7 +23,7 @@ type GetItemsType<T> = {
     error: string | null
 }
 
-type ResponseType<D = {}, RC = ResultCodeEnum> = {
+export type ResponseType<D = {}, RC = ResultCodeEnum> = {
     data: D
     resultCode: RC
     messages: Array<string>
