@@ -1,5 +1,5 @@
-import { profileType } from "../types/types";
-import profileReduser, { actions, postType } from "./profileReduser";
+import { postType, profileType } from "../types/types";
+import profileReduser, { actions } from "./profileReduser";
 import React from 'react';
 
 const state = {

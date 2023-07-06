@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://github.com/Elena-Cake/Calories",
   "jest": {
+    "testEnvironment": "node",
     "transformIgnorePatterns": [
       "node_modules/(?!(react-leaflet|@react-leaflet|d3-*|axios))"
     ]

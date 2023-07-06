@@ -1,10 +1,10 @@
 
-import usersReduser, { actions, follow, initialStateType } from "./usersReduser"
+import usersReduser, { actions, follow, initialStateType, unfollow } from "./usersReduser"
 
 // thunks
 import { ResponseType, ResultCodeEnum, api } from "../api/api";
 jest.mock("../api/api")
-const apiMock = api as jest.Mocked<typeof api>;
+let apiMock = api as jest.Mocked<typeof api>;
 
 const result: ResponseType = {
     data: [],
@@ -12,10 +12,20 @@ const result: ResponseType = {
     messages: []
 }
 
+apiMock.follow.mockReturnValue(Promise.resolve(result))
+apiMock.unfollow.mockReturnValue(Promise.resolve(result))
 
+const dispatchMock = jest.fn()
+const getStateMock = jest.fn()
+beforeEach(() => {
+    dispatchMock.mockClear()
+    getStateMock.mockClear()
+    apiMock.follow.mockClear()
+    apiMock.unfollow.mockClear()
+})
 
+// state
 let state: initialStateType;
-
 beforeEach(() => {
     state = {
         users: [
@@ -75,11 +85,8 @@ test("unfollow success", () => {
 })
 
 // thunks
-apiMock.follow.mockReturnValue(Promise.resolve(result))
 
-// test("follow success thunk", () => {
-//     const dispatchMock = jest.fn()
-//     const getStateMock = jest.fn()
+// test("follow success thunk", async () => {
 
 //     const thunk = follow(1)
 //     await thunk(dispatchMock, getStateMock, {})
@@ -88,4 +95,15 @@ apiMock.follow.mockReturnValue(Promise.resolve(result))
 //     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.toggleFollowingProgress(true, 1))
 //     expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.followSucsess(1))
 //     expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.toggleFollowingProgress(false, 1))
+// })
+
+// test("unfollow success thunk", async () => {
+
+//     const thunk = unfollow(2)
+//     await thunk(dispatchMock, getStateMock, {})
+
+//     expect(dispatchMock).toBeCalledTimes(3)
+//     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.toggleFollowingProgress(true, 2))
+//     expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.unfollowSucsess(2))
+//     expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.toggleFollowingProgress(false, 2))
 // })
