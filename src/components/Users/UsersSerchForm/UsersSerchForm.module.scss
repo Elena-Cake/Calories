@@ -1,0 +1,13 @@
+@import "../../default_variables.scss";
+
+.users__form {
+    @extend .searhForm;
+}
+
+.users__form_input {
+    @extend .searchInput;
+}
+
+.users__form_btn {
+    @extend .searchBtn;
+}

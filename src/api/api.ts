@@ -59,8 +59,8 @@ export const api = {
     },
 
     // Users
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetItemsType<userType>>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number, pageSize: number, term = '') {
+        return instance.get<GetItemsType<userType>>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
             .then(res => res.data)
     },
 

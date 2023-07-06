@@ -23,7 +23,7 @@ type mapStateToPropsType = {
 }
 type mapDispatchToPropsType = {
     onChangePage: (pageNumber: number) => void
-    getUsers: (pageNumber: number, pageSize: number) => void
+    getUsers: (pageNumber: number, pageSize: number, term: string) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setCurrPage: (pageNumber: number) => void
@@ -41,11 +41,11 @@ let UsersAPIComponent: React.FC<propsType> = ({
 
     const onChangePage = (pageNumber: number) => {
         setCurrPage(pageNumber)
-        getUsers(pageNumber, pageSize)
+        getUsers(pageNumber, pageSize, '')
     }
 
     useEffect(() => {
-        getUsers(currentPage, pageSize)
+        getUsers(currentPage, pageSize, '')
     }, [])
 
     return (

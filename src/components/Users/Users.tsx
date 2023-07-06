@@ -5,6 +5,7 @@ import s from './Users.module.scss';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 import { userType } from "../../types/types";
+import UsersSerchForm from "./UsersSerchForm/UsersSerchForm";
 
 type propsType = {
     title: string
@@ -35,6 +36,7 @@ let Users: React.FC<propsType> = ({ users, follow, unfollow, currentPage, onChan
     })
     return (
         <div className={s.users}>
+            <UsersSerchForm />
             <Paginator currentPage={currentPage} onChangePage={onChangePage} totalUserCount={totalUserCount} pageSize={pageSize} />
             <div className={s.users__items}>
                 {usersElements}

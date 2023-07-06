@@ -8,6 +8,7 @@ import { Dispatch } from "redux"
 const initialState = {
     users: [] as Array<userType>,
     pageSize: 8,
+    filters: { term: '' },
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -52,7 +53,12 @@ const usersReduser = (state = initialState, action: ActionsType): initialStateTy
                 ...state,
                 followingInProgress: action.isFetching ?
                     [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id != action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            };
+        case 'calories/user/SET_FILTERS':
+            return {
+                ...state,
+                filters: action.payload
             }
         default:
             return state
@@ -67,19 +73,24 @@ export const actions = {
     setCurrPage: (currentPage: number) => ({ type: 'calories/user/SET_CURRENT_PAGE', currentPage } as const),
     setTotalUserCount: (totalUserCount: number) => ({ type: 'calories/user/SET_TOTAL_USERS_COUNT', totalUserCount } as const),
     toggleIsFetching: (isFetching: boolean) => ({ type: 'calories/user/TOGGLE_IS_FETCHING', isFetching } as const),
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const)
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const),
+    setFilters: (term: string) => ({ type: 'calories/user/SET_FILTERS', payload: { term } } as const),
+
 }
 
 
 type ThuncType = BaseThunkType<ActionsType>
 //getUsersThunkCreator
-export const getUsers = (currentPage: number, pageSize: number)
+export const getUsers = (currentPage: number, pageSize: number, term: string)
     : ThuncType => {
     // return async (dispatch: Dispatch<ActionsType>, getState: () => AppStateType) => {  //analog prev line
     return async (dispatch, getState) => {
         dispatch(actions.toggleIsFetching(true));
 
-        let res = await api.getUsers(currentPage, pageSize);
+        dispatch(actions.setCurrPage(currentPage))
+        dispatch(actions.setFilters(term))
+
+        let res = await api.getUsers(currentPage, pageSize, term);
         dispatch(actions.setUsers(res.items))
         dispatch(actions.setTotalUserCount(res.totalCount))
 
