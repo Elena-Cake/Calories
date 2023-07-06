@@ -8,7 +8,7 @@ import { Dispatch } from "redux"
 const initialState = {
     users: [] as Array<userType>,
     pageSize: 8,
-    filters: { term: '' },
+    filters: { term: '', friend: null as null | boolean },
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -82,7 +82,7 @@ export const actions = {
 
 type ThuncType = BaseThunkType<ActionsType>
 //getUsersThunkCreator
-export const getUsers = (currentPage: number, pageSize: number, filters: FiltersType = { term: '' })
+export const getUsers = (currentPage: number, pageSize: number, filters: FiltersType = { term: '', friend: null })
     : ThuncType => {
     // return async (dispatch: Dispatch<ActionsType>, getState: () => AppStateType) => {  //analog prev line
     return async (dispatch, getState) => {
@@ -91,7 +91,7 @@ export const getUsers = (currentPage: number, pageSize: number, filters: Filters
         dispatch(actions.setCurrPage(currentPage))
         dispatch(actions.setFilters(filters))
 
-        let res = await api.getUsers(currentPage, pageSize, filters.term);
+        let res = await api.getUsers(currentPage, pageSize, filters.term, filters.friend);
         dispatch(actions.setUsers(res.items))
         dispatch(actions.setTotalUserCount(res.totalCount))
 

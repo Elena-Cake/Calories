@@ -11,3 +11,7 @@
 .users__form_btn {
     @extend .searchBtn;
 }
+
+.users__form_select {
+    @extend .searchSelect;
+}

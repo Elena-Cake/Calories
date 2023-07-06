@@ -59,8 +59,8 @@ export const api = {
     },
 
     // Users
-    getUsers(currentPage: number, pageSize: number, term = '') {
-        return instance.get<GetItemsType<userType>>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
+    getUsers(currentPage: number, pageSize: number, term = '', friend = null as null | boolean) {
+        return instance.get<GetItemsType<userType>>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`))
             .then(res => res.data)
     },
 
