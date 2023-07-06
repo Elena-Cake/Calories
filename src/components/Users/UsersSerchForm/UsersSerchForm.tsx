@@ -1,13 +1,14 @@
 import React from "react";
 import s from './UsersSerchForm.module.scss'
 import { Field, Form, Formik } from "formik";
+import { FiltersType } from "../../../redux/usersReduser";
 
-type PropsType = {}
-type UsersSearchFormObjType = {
-    term: string
+type PropsType = {
+    onChangeFilters: (filters: FiltersType) => void
 }
 
-const UsersSerchForm: React.FC<PropsType> = () => {
+
+const UsersSerchForm: React.FC<PropsType> = ({ onChangeFilters }) => {
     return (
         <div >
             <Formik
@@ -15,8 +16,8 @@ const UsersSerchForm: React.FC<PropsType> = () => {
                     term: ''
                 }}
                 validateOnBlur
-                onSubmit={(values: UsersSearchFormObjType) => {
-
+                onSubmit={(values: FiltersType) => {
+                    onChangeFilters({ term: values.term })
                 }}
             >
                 {({ values, errors, touched,

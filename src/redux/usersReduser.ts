@@ -15,6 +15,7 @@ const initialState = {
     followingInProgress: [] as Array<number> //array of users ids
 }
 type initialStateType = typeof initialState
+export type FiltersType = typeof initialState.filters
 
 const usersReduser = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -58,7 +59,7 @@ const usersReduser = (state = initialState, action: ActionsType): initialStateTy
         case 'calories/user/SET_FILTERS':
             return {
                 ...state,
-                filters: action.payload
+                filters: action.filters
             }
         default:
             return state
@@ -74,23 +75,23 @@ export const actions = {
     setTotalUserCount: (totalUserCount: number) => ({ type: 'calories/user/SET_TOTAL_USERS_COUNT', totalUserCount } as const),
     toggleIsFetching: (isFetching: boolean) => ({ type: 'calories/user/TOGGLE_IS_FETCHING', isFetching } as const),
     toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: 'calories/user/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const),
-    setFilters: (term: string) => ({ type: 'calories/user/SET_FILTERS', payload: { term } } as const),
+    setFilters: (filters: FiltersType) => ({ type: 'calories/user/SET_FILTERS', filters } as const),
 
 }
 
 
 type ThuncType = BaseThunkType<ActionsType>
 //getUsersThunkCreator
-export const getUsers = (currentPage: number, pageSize: number, term: string)
+export const getUsers = (currentPage: number, pageSize: number, filters: FiltersType = { term: '' })
     : ThuncType => {
     // return async (dispatch: Dispatch<ActionsType>, getState: () => AppStateType) => {  //analog prev line
     return async (dispatch, getState) => {
         dispatch(actions.toggleIsFetching(true));
 
         dispatch(actions.setCurrPage(currentPage))
-        dispatch(actions.setFilters(term))
+        dispatch(actions.setFilters(filters))
 
-        let res = await api.getUsers(currentPage, pageSize, term);
+        let res = await api.getUsers(currentPage, pageSize, filters.term);
         dispatch(actions.setUsers(res.items))
         dispatch(actions.setTotalUserCount(res.totalCount))
 
