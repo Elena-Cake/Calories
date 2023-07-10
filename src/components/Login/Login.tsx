@@ -4,11 +4,27 @@ import s from './Login.module.scss'
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { loginMe } from "../../redux/authReduser.ts";
-import { connect } from "react-redux";
+import { loginMe } from "../../redux/authReduser";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType, TypedDispatch } from "../../redux/reduxStore";
+
+type valuesType = {
+    email: string,
+    password: string,
+    confirmPassword?: string,
+    isRobot: boolean,
+    captcha?: string | null
+}
+
+type PropsType = {
+    onSubmit: (values: valuesType) => void
+}
 
 
-const LoginForm = ({ onSubmit, captchaUrl }) => {
+const LoginForm: React.FC<PropsType> = ({ onSubmit }) => {
+
+    const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+
     const validationsSchema = yup.object().shape({
         email: yup.string().typeError('String').required('Required'),
         password: yup.string().typeError('String').required('Required'),
@@ -37,7 +53,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
 
                     <Form onSubmit={handleSubmit}>
                         <div className={s.form__input}>
-                            <label for="email">Email</label>
+                            <label>Email</label>
                             <Field
                                 name='email'
                                 onChange={handleChange}
@@ -48,7 +64,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                             <ErrorMessage className={s.input__error} name="email" component="span"></ErrorMessage>
                         </div>
                         <div className={s.form__input}>
-                            <label for='password'>Password</label>
+                            <label>Password</label>
                             <Field
                                 name={'password'}
                                 type={'password'}
@@ -71,7 +87,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
                             <ErrorMessage className={s.input__error} name="confirmPassword" component="span"></ErrorMessage>
                         </div> */}
                         <div className={s.form__input}>
-                            <label for={'isRobot'}>I'm not a robot</label>
+                            <label >I'm not a robot</label>
                             <Field
                                 name={'isRobot'}
                                 onChange={handleChange}
@@ -98,26 +114,25 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
 }
 
 
-const Login = ({ isAuth, loginMe, captchaUrl }) => {
+const Login: React.FC = () => {
     const navigate = useNavigate();
-    const onSubmit = (values) => {
+    const dispatch = useDispatch<TypedDispatch>()
+
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+
+    const onSubmit = (values: valuesType) => {
         const { email, password, isRobot, captcha = null } = values
         const rememberMe = !isRobot
-        loginMe(email, password, rememberMe, captcha)
+        dispatch(loginMe(email, password, rememberMe, captcha))
     }
     if (isAuth) {
         navigate("/profile")
     }
     return (
         <div >
-            <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+            <LoginForm onSubmit={onSubmit} />
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth
-})
-
-export default connect(mapStateToProps, { loginMe })(Login);
+export default Login;

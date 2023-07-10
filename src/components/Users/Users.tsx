@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import s from './Users.module.scss';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
-import { userType } from "../../types/types";
 import UsersSerchForm from "./UsersSerchForm/UsersSerchForm";
 import { follow, unfollow, FiltersType, getUsers } from "../../redux/usersReduser";
 import { useDispatch, useSelector } from "react-redux";
