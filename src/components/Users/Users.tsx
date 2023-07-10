@@ -12,11 +12,10 @@ import { getAllUsersInfo, getCurrentPage, getFilters, getFollowingInProgress, ge
 import { TypedDispatch } from "../../redux/reduxStore";
 
 type propsType = {
-    title: string
-    portionSize?: number
+    title?: string
 }
 
-let Users: React.FC<propsType> = () => {
+const Users: React.FC<propsType> = () => {
 
     const users = useSelector(getAllUsersInfo)
     const totalUserCount = useSelector(getUsersTotalCount)
