@@ -3,7 +3,7 @@ import authReduser from "./authReduser"
 import dialogsReduser from "./dialogsReduser"
 import profileReduser from "./profileReduser"
 import usersReduser from "./usersReduser"
-import thunkMiddleware, { ThunkAction } from "redux-thunk"
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk"
 import appReduser from "./appReduser"
 
 let reducers = combineReducers({
@@ -20,6 +20,8 @@ export type AppStateType = ReturnType<rootReduserType>
 export type BaseThunkType<AT extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, AT>
 
 export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
+// export type AppDispatch = typeof store.dispatch
+export type TypedDispatch = ThunkDispatch<AppStateType, any, Action>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

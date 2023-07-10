@@ -1,34 +1,52 @@
 // чистая компонента
 
-import React from "react";
+import React, { useEffect } from "react";
 import s from './Users.module.scss';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 import { userType } from "../../types/types";
 import UsersSerchForm from "./UsersSerchForm/UsersSerchForm";
-import { FiltersType } from "../../redux/usersReduser";
+import { follow, unfollow, FiltersType, getUsers } from "../../redux/usersReduser";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsersInfo, getCurrentPage, getFilters, getFollowingInProgress, getPageSize, getUsersTotalCount } from "../../redux/users-selectors";
+import { TypedDispatch } from "../../redux/reduxStore";
 
 type propsType = {
     title: string
-    currentPage: number
-    onChangePage: (pageNumber: number) => void
-    onChangeFilters: (filters: FiltersType) => void
-    totalUserCount: number
-    pageSize: number
     portionSize?: number
-    users: Array<userType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    followingInProgress: Array<number>
 }
 
-let Users: React.FC<propsType> = ({ users, follow, unfollow, currentPage, onChangePage, onChangeFilters,
-    followingInProgress, totalUserCount, pageSize }) => {
+let Users: React.FC<propsType> = () => {
+
+    const users = useSelector(getAllUsersInfo)
+    const totalUserCount = useSelector(getUsersTotalCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filters = useSelector(getFilters)
+    const followingInProgress = useSelector(getFollowingInProgress)
+
+    const dispatch = useDispatch<TypedDispatch>()
+
+    const onChangePage = (pageNumber: number) => {
+        dispatch(getUsers(pageNumber, pageSize, filters))
+    }
+
+    const onChangeFilters = (filters: FiltersType) => {
+        dispatch(getUsers(1, pageSize, filters))
+    }
+
+    const dispatchFollow = (userId: number) => {
+        dispatch(follow(userId))
+    }
+    const dispatchUnfollow = (userId: number) => {
+        dispatch(unfollow(userId))
+    }
+
     const handleFollow = (isFollowed: boolean, userId: number) => {
         isFollowed ?
-            unfollow(userId)
+            dispatchUnfollow(userId)
             :
-            follow(userId);
+            dispatchFollow(userId);
     }
 
     const usersElements = users.map(u => {
@@ -36,6 +54,11 @@ let Users: React.FC<propsType> = ({ users, follow, unfollow, currentPage, onChan
             <User key={u.id} user={u} handleFollow={handleFollow} followingInProgress={followingInProgress} />
         )
     })
+
+    useEffect(() => {
+        dispatch(getUsers(currentPage, pageSize))
+    }, [])
+
     return (
         <div className={s.users}>
             <UsersSerchForm onChangeFilters={onChangeFilters} />
