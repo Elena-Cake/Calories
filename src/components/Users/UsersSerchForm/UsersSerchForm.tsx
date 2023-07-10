@@ -2,6 +2,8 @@ import React from "react";
 import s from './UsersSerchForm.module.scss'
 import { Field, Form, Formik } from "formik";
 import { FiltersType } from "../../../redux/usersReduser";
+import { getFilters } from "../../../redux/users-selectors";
+import { useSelector } from "react-redux";
 
 type PropsType = {
     onChangeFilters: (filters: FiltersType) => void
@@ -13,13 +15,17 @@ type FormType = {
 
 
 const UsersSerchForm: React.FC<PropsType> = ({ onChangeFilters }) => {
+
+    const filters = useSelector(getFilters)
+
     return (
         <div >
             <Formik
+                enableReinitialize
                 initialValues={{
-                    term: '',
-                    friend: 'null'
-                }}
+                    term: filters.term,
+                    friend: String(filters.friend) as 'null' | 'true' | 'false'
+                } as FormType}
                 validateOnBlur
                 onSubmit={(values: FormType) => {
                     const friend = values.friend === 'null' ? null :

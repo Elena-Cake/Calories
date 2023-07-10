@@ -9,6 +9,7 @@ import { follow, unfollow, FiltersType, getUsers } from "../../redux/usersReduse
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersInfo, getCurrentPage, getFilters, getFollowingInProgress, getPageSize, getUsersTotalCount } from "../../redux/users-selectors";
 import { TypedDispatch } from "../../redux/reduxStore";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 type propsType = {
     title?: string
@@ -24,6 +25,8 @@ const Users: React.FC<propsType> = () => {
     const followingInProgress = useSelector(getFollowingInProgress)
 
     const dispatch = useDispatch<TypedDispatch>()
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
 
     const onChangePage = (pageNumber: number) => {
         dispatch(getUsers(pageNumber, pageSize, filters))
@@ -53,9 +56,24 @@ const Users: React.FC<propsType> = () => {
         )
     })
 
+
+
     useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize))
+        let actualPage = currentPage
+        const actualFilters = filters
+
+        if (searchParams.get('friends')) actualFilters.friend =
+            searchParams.get('friends') === 'null' ? null :
+                searchParams.get('friends') === 'true' ? true : false
+        if (searchParams.get('term')) actualFilters.term = String(searchParams.get('term'))
+        if (searchParams.get('page')) actualPage = Number(searchParams.get('page'))
+
+        dispatch(getUsers(actualPage, pageSize, actualFilters))
     }, [])
+
+    useEffect(() => {
+        navigate(`/users?term=${filters.term}&friends=${filters.friend}&page=${currentPage}`)
+    }, [filters, currentPage])
 
     return (
         <div className={s.users}>
