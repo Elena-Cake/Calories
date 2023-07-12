@@ -49,7 +49,7 @@ const Paginator: React.FC<propsType> = ({ currentPage, onChangePage, totalUserCo
                 <button className={s.pagination__btn} onClick={onPrevClick}>prev</button>
             }
             {pagesElements}
-            {currentPortion <= portionCount || currentPortion < 2 &&
+            {currentPortion < portionCount &&
                 <button className={s.pagination__btn} onClick={onNextClick}>next</button>
             }
         </div>
