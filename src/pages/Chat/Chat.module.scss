@@ -1,0 +1,5 @@
+@import '../../components/default_variables.scss';
+
+.chat {
+    @extend .container;
+}

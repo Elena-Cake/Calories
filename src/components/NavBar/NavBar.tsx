@@ -17,7 +17,12 @@ const NavBar: React.FC = () => {
                         `${s.navlink} ${s.active}` : `${s.navlink}`}>
                     Messages
                 </NavLink>
-                <NavLink to="/news"
+                <NavLink to="/chat"
+                    className={(state) => state.isActive ?
+                        `${s.navlink} ${s.active}` : `${s.navlink}`}>
+                    Chat
+                </NavLink>
+                {/* <NavLink to="/news"
                     className={(state) => state.isActive ?
                         `${s.navlink} ${s.active}` : `${s.navlink}`}>
                     News
@@ -26,7 +31,7 @@ const NavBar: React.FC = () => {
                     className={(state) => state.isActive ?
                         `${s.navlink} ${s.active}` : `${s.navlink}`}>
                     Music
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/users"
                     className={(state) => state.isActive ?
                         `${s.navlink} ${s.active}` : `${s.navlink}`}>

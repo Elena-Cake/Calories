@@ -1,0 +1,22 @@
+@import "../../default_variables.scss";
+
+.messages__form {
+    @extend .searhForm;
+}
+
+.messages__form_input {
+    @extend .searchInput;
+
+    &:focus {
+        border: 0;
+    }
+}
+
+.dialogs__sendBtn {
+    @extend .searchBtn;
+
+    &:focus {
+        border: 0;
+        border-bottom: 1px solid $color-border-container;
+    }
+}

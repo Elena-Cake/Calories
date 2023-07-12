@@ -14,7 +14,7 @@ import { AppStateType } from '../redux/reduxStore';
 // подрузка по мере надобности
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
-
+const Chat = React.lazy(() => import('../pages/Chat/Chat'));
 
 const App: React.FC<MapPropsType & DispatchPropsType> = (props) => {
 
@@ -38,6 +38,7 @@ const App: React.FC<MapPropsType & DispatchPropsType> = (props) => {
               <Route path="/profile/:userId?" element={<ProfileContainer />} />
               <Route path="/dialogs/*" element={(<DialogsContainer />)} />
               <Route path="/users" element={(<UsersContainer />)} />
+              <Route path="/chat" element={(<Chat />)} />
               <Route path="*" element={(<NotFound />)} />
             </Routes>
           </Suspense>
