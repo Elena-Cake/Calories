@@ -18,6 +18,7 @@ const SingleSendForm: React.FC<PropsType> = ({ sendMessage }) => {
                 validateOnBlur
                 onSubmit={(values) => {
                     sendMessage(values.message)
+                    values.message = ''
                 }}
             >
                 {({ values, touched,

@@ -1,13 +1,27 @@
-
+import React, { useEffect, useState } from 'react'
 import SingleSendForm from '../../components/common/SingleSendForm/SingleSendForm';
 import s from './Chat.module.scss';
 
+const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+
 const Chat: React.FC = () => {
+    const [messages, setMessages] = useState([] as Array<ChatMessageType>)
 
-    const messages = [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
-    const messageElements = messages.map(item => <Message />)
+    useEffect(() => {
+        wsChanel.addEventListener('message', (e) => {
+            const newMessages = JSON.parse(e.data)
+            setMessages((prevMessages) => [...prevMessages, ...newMessages])
+        })
 
-    const sendMessage = (message: string) => { }
+    }, [])
+
+
+    const messageElements = messages.map((message, i) => <Message key={i} message={message} />)
+
+    const sendMessage = (message: string) => {
+        wsChanel.send(message)
+    }
+
 
     return <div className={s.chat}>
         <div className={s.chat__messages}>
@@ -18,22 +32,32 @@ const Chat: React.FC = () => {
 }
 export default Chat;
 
-type propsType = {}
+type propsType = {
+    message: Array<ChatMessageType>
+}
 
-const Message: React.FC<propsType> = ({ }) => {
+type ChatMessageType = {
+    photo: string,
+    userName: string,
+    message: string,
+    userId: number
+}
 
-    const message = {
-        ava: ' https://cdn-icons-png.flaticon.com/512/6386/6386976.png',
-        author: 'User',
-        body: 'Hi'
 
-    }
+const Message: React.FC<propsType> = ({ message }) => {
+
+    // const message: ChatMessageType = {
+    //     photo: ' https://cdn-icons-png.flaticon.com/512/6386/6386976.png',
+    //     userName: 'User',
+    //     message: 'Hi',
+    //     userId: 2
+    // }
 
     return (
         <div className={s.messages__item}>
-            <img src={message.ava} className={s.message__ava} alt='user avatar' />
-            {/* <h2>{message.author}</h2> */}
-            <p className={s.message__body}>{message.body}</p>
+            <img src={message.photo} className={s.message__ava} alt='user avatar' />
+            {/* <h2>{message.userName}</h2> */}
+            <p className={s.message__body}>{message.message}</p>
         </div>
     )
 }
