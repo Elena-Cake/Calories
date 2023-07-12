@@ -3,23 +3,52 @@ import SingleSendForm from '../../components/common/SingleSendForm/SingleSendFor
 import s from './Chat.module.scss';
 import Avatar from '../../components/common/Avatar/Avatar';
 
-const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState([] as ChatMessageType[])
+    const [wsChanel, setWsChanel] = useState<WebSocket | null>(null)
 
     useEffect(() => {
-        wsChanel.addEventListener('message', (e) => {
+        const updateMessages = (e: MessageEvent) => {
             const newMessages = JSON.parse(e.data)
             setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        })
+        }
+
+        wsChanel?.addEventListener('message', updateMessages)
+        return () => {
+            wsChanel?.removeEventListener('message', updateMessages)
+        }
+    }, [wsChanel])
+
+    useEffect(() => {
+        let ws: WebSocket;
+
+        const closeHandler = () => {
+            console.error('CLOSE WS')
+            setTimeout(createChanel, 3000)
+        }
+
+        function createChanel() {
+            ws?.removeEventListener('close', closeHandler)
+            ws?.close()
+
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws?.addEventListener('close', closeHandler)
+            setWsChanel(ws)
+        }
+        createChanel()
+
+        return () => {
+            ws.removeEventListener('close', closeHandler)
+            ws.close()
+        }
     }, [])
 
 
     const messageElements = messages.map((message, i) => <Message key={i} message={message} />)
 
     const sendMessage = (message: string) => {
-        wsChanel.send(message)
+        wsChanel ? wsChanel.send(message) : console.error("NO WS CHANEL")
     }
 
 
@@ -46,19 +75,12 @@ type ChatMessageType = {
 
 const Message: React.FC<propsType> = ({ message }) => {
 
-    // const message: ChatMessageType = {
-    //     photo: ' https://cdn-icons-png.flaticon.com/512/6386/6386976.png',
-    //     userName: 'User',
-    //     message: 'Hi',
-    //     userId: 2
-    // }
-
     return (
         <div className={s.messages__item}>
             <div className={s.message__ava}>
                 <Avatar userId={message.userId} photo={message.photo} />
             </div>
-            {/* <h2>{message.userName}</h2> */}
+            <h2 className={s.message__name}>{message.userName}</h2>
             <p className={s.message__body}>{message.message}</p>
         </div>
     )

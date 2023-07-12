@@ -12,19 +12,24 @@
 .messages__item {
     padding: 10px 5px;
     display: grid;
-    grid-template-columns: 30px auto;
+    grid-template-columns: 50px auto;
     grid-template-areas:
+        'ava name'
         'ava message';
-    gap: 20px;
+    column-gap: 20px;
     align-items: center;
 }
 
 .message__ava {
     grid-area: ava;
-    width: 30px;
-    height: 30px;
+}
+
+.message__name {
+    @extend .font-h2;
+    margin: 0;
 }
 
 .message__body {
+    @extend .font-text;
     grid-area: message;
 }
