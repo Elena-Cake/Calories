@@ -2,11 +2,12 @@ import React from "react";
 import s from './SingleSendForm.module.scss'
 import { Field, Form, Formik } from "formik";
 
+type PropsType = {
+    sendMessage: (message: string) => void
+}
 
 
-const SingleSendForm: React.FC = () => {
-
-    const sendMessage = (message: string) => { }
+const SingleSendForm: React.FC<PropsType> = ({ sendMessage }) => {
 
     return (
         <div >

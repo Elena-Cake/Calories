@@ -3,3 +3,28 @@
 .chat {
     @extend .container;
 }
+
+.chat__messages {
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.messages__item {
+    padding: 10px 5px;
+    display: grid;
+    grid-template-columns: 30px auto;
+    grid-template-areas:
+        'ava message';
+    gap: 20px;
+    align-items: center;
+}
+
+.message__ava {
+    grid-area: ava;
+    width: 30px;
+    height: 30px;
+}
+
+.message__body {
+    grid-area: message;
+}
