@@ -7,7 +7,7 @@
     grid-template-areas:
         'foto name btn'
         'foto status btn';
-    grid-template-columns: 2fr 5fr 2fr;
+    grid-template-columns: 1fr 5fr 2fr;
     border-bottom: 1px solid $color-border-container;
     align-items: center;
 

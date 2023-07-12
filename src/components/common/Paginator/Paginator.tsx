@@ -41,6 +41,7 @@ const Paginator: React.FC<propsType> = ({ currentPage, onChangePage, totalUserCo
     const onNextClick = () => {
         setCurrentPortion(currentPortion + 1)
     }
+    console.log(currentPortion <= portionCount, currentPortion < 2)
 
     return (
         <div className={s.pagination}>
@@ -48,7 +49,7 @@ const Paginator: React.FC<propsType> = ({ currentPage, onChangePage, totalUserCo
                 <button className={s.pagination__btn} onClick={onPrevClick}>prev</button>
             }
             {pagesElements}
-            {currentPortion <= portionCount || portionCount < 2 &&
+            {currentPortion <= portionCount || currentPortion < 2 &&
                 <button className={s.pagination__btn} onClick={onNextClick}>next</button>
             }
         </div>
