@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import SingleSendForm from '../../components/common/SingleSendForm/SingleSendForm';
 import s from './Chat.module.scss';
+import Avatar from '../../components/common/Avatar/Avatar';
 
 const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 const Chat: React.FC = () => {
-    const [messages, setMessages] = useState([] as Array<ChatMessageType>)
+    const [messages, setMessages] = useState([] as ChatMessageType[])
 
     useEffect(() => {
         wsChanel.addEventListener('message', (e) => {
             const newMessages = JSON.parse(e.data)
             setMessages((prevMessages) => [...prevMessages, ...newMessages])
         })
-
     }, [])
 
 
@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
 export default Chat;
 
 type propsType = {
-    message: Array<ChatMessageType>
+    message: ChatMessageType
 }
 
 type ChatMessageType = {
@@ -55,7 +55,9 @@ const Message: React.FC<propsType> = ({ message }) => {
 
     return (
         <div className={s.messages__item}>
-            <img src={message.photo} className={s.message__ava} alt='user avatar' />
+            <div className={s.message__ava}>
+                <Avatar id={message.userId} photo={message.photo} />
+            </div>
             {/* <h2>{message.userName}</h2> */}
             <p className={s.message__body}>{message.message}</p>
         </div>
