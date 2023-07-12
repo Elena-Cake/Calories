@@ -60,4 +60,4 @@ export default compose(
     connect(mapStateToProps, { getUser, getStatus, updateStatus, updateAvatar, setIsEditModeProfileOn: actions.setIsEditModeProfileOn }),
     WithRouter,
     // AuthRedirect
-)(ProfileContainer)
+)(ProfileContainer) as React.ComponentType

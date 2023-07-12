@@ -2,7 +2,6 @@ import React, { Suspense, useEffect } from 'react';
 import './App.scss';
 import NavBar from './NavBar/NavBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ProfileContainer from './Profile/ProfileContainer';
 import HeaderContainer from './Header/HeaderContainer';
 import Login from './Login/Login';
 import { connect } from 'react-redux';
@@ -10,6 +9,7 @@ import { initializeApp } from '../redux/appReduser';
 import Preloader from './common/Preloader/Preloader';
 import NotFound from './NotFound/NotFound';
 import { AppStateType } from '../redux/reduxStore';
+import ProfileContainer from './Profile/ProfileContainer';
 
 // подрузка по мере надобности
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
