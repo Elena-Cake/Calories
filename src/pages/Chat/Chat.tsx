@@ -56,7 +56,7 @@ const Message: React.FC<propsType> = ({ message }) => {
     return (
         <div className={s.messages__item}>
             <div className={s.message__ava}>
-                <Avatar id={message.userId} photo={message.photo} />
+                <Avatar userId={message.userId} photo={message.photo} />
             </div>
             {/* <h2>{message.userName}</h2> */}
             <p className={s.message__body}>{message.message}</p>

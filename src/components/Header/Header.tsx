@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import './Header.scss'
+import Avatar from "../common/Avatar/Avatar";
 
 type propsType = {
     logoutMe: () => void

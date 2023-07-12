@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import userPhoto from '../../../images/ava.png'
 import { userType } from "../../../types/types";
+import Avatar from "../../common/Avatar/Avatar";
 
 type PropsType = {
     user: userType,
@@ -14,9 +15,7 @@ type PropsType = {
 const User: React.FC<PropsType> = ({ user, handleFollow, followingInProgress }) => {
     return (
         <div className={s.user__card}>
-            <NavLink to={'/profile/' + user.id}>
-                <img className={s.user__foto} src={user.photos.small !== null ? user.photos.small : userPhoto} alt="" />
-            </NavLink>
+            <Avatar userId={user.id} photo={user.photos.small} />
             <button disabled={followingInProgress.some(id => id === user.id)}
                 className={s.user__btnFollow}
                 onClick={() => { handleFollow(user.followed, user.id) }}>
