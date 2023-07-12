@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SingleSendForm from '../../components/common/SingleSendForm/SingleSendForm';
 import s from './Chat.module.scss';
 import Avatar from '../../components/common/Avatar/Avatar';
+import { ChatMessageType } from '../../types/types';
 
 
 const Chat: React.FC = () => {
@@ -65,12 +66,7 @@ type propsType = {
     message: ChatMessageType
 }
 
-type ChatMessageType = {
-    photo: string,
-    userName: string,
-    message: string,
-    userId: number
-}
+
 
 
 const Message: React.FC<propsType> = ({ message }) => {

@@ -40,3 +40,10 @@ export type postType = {
     text: string,
     likes: number
 }
+
+export type ChatMessageType = {
+    photo: string,
+    userName: string,
+    message: string,
+    userId: number
+}
