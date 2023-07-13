@@ -2,6 +2,7 @@ import axios from "axios"
 import { ChatMessageType, photosType, profileType, userType } from "../types/types"
 
 type SubscriberType = (messages: ChatMessageType[]) => void
+// export type EventNamesType = 'message-reseived' | 'status-changed'
 
 let subscribers = [] as Array<SubscriberType>
 
@@ -17,8 +18,13 @@ const updateMessages = (e: MessageEvent) => {
     subscribers.forEach(s => s(newMessages))
 }
 
-function createChanel() {
+const cleanUp = () => {
+    ws?.removeEventListener('message', updateMessages)
     ws?.removeEventListener('close', closeHandler)
+}
+
+function createChanel() {
+    cleanUp()
     ws?.close()
 
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
@@ -33,9 +39,8 @@ export const chatApi = {
     },
     stop() {
         subscribers = []
+        cleanUp()
         ws?.close()
-        ws?.removeEventListener('close', closeHandler)
-        ws?.removeEventListener('message', updateMessages)
     },
     subscribe(callback: SubscriberType) {
         subscribers.push(callback)

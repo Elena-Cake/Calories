@@ -1,13 +1,15 @@
 import React from "react";
 import s from './SingleSendForm.module.scss'
 import { Field, Form, Formik } from "formik";
+import { statusType } from "../../../redux/chatReduser";
 
 type PropsType = {
     sendMessage: (message: string) => void
+    statusButton: statusType
 }
 
 
-const SingleSendForm: React.FC<PropsType> = ({ sendMessage }) => {
+const SingleSendForm: React.FC<PropsType> = ({ sendMessage, statusButton = 'ready' }) => {
 
     return (
         <div >
@@ -33,7 +35,7 @@ const SingleSendForm: React.FC<PropsType> = ({ sendMessage }) => {
                             value={values.message}
                             placeholder="What do your wonna send?"
                             className={s.messages__form_input} />
-                        <button disabled={!isValid && !dirty} type="submit" className={s.dialogs__sendBtn}>Отправить</button>
+                        <button disabled={statusButton !== 'ready' && !dirty} type="submit" className={s.dialogs__sendBtn}>Отправить</button>
                     </Form>
                 )}
             </Formik>

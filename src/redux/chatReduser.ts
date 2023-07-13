@@ -4,8 +4,11 @@ import { chatApi } from "../api/chatApi"
 import { ChatMessageType } from "../types/types"
 import { BaseThunkType, InferActionsTypes } from "./reduxStore"
 
+export type statusType = 'pending' | 'ready'
+
 const initialState = {
-    messages: [] as ChatMessageType[]
+    messages: [] as ChatMessageType[],
+    status: 'pending' as statusType
 }
 
 export type initialStateType = typeof initialState
@@ -21,6 +24,11 @@ const chatReduser = (state = initialState, action: ActionsType): initialStateTyp
                 ...state,
                 messages: [...state.messages, ...action.payload.messages]
             };
+        case 'CALORIES/CHAT/STATUS_CHANGED':
+            return {
+                ...state,
+                status: action.payload.status
+            };
         default:
             return state
     }
@@ -30,6 +38,10 @@ export const actions = {
     messagesReceived: (messages: ChatMessageType[]) => ({
         type: 'CALORIES/CHAT/MESSAGES_RECEIVED',
         payload: { messages }
+    } as const),
+    statusChanged: (status: statusType) => ({
+        type: 'CALORIES/CHAT/STATUS_CHANGED',
+        payload: { status }
     } as const)
 }
 
