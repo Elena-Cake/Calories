@@ -5,13 +5,15 @@ import profileReduser from "./profileReduser"
 import usersReduser from "./usersReduser"
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk"
 import appReduser from "./appReduser"
+import chatReduser from "./chatReduser"
 
 let reducers = combineReducers({
     profilePage: profileReduser,
     dialogsPage: dialogsReduser,
     usersPage: usersReduser,
     auth: authReduser,
-    app: appReduser
+    app: appReduser,
+    chat: chatReduser
 });
 
 type rootReduserType = typeof reducers

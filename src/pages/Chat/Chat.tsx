@@ -3,53 +3,28 @@ import SingleSendForm from '../../components/common/SingleSendForm/SingleSendFor
 import s from './Chat.module.scss';
 import Avatar from '../../components/common/Avatar/Avatar';
 import { ChatMessageType } from '../../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendMessage, startMessagesListening, stopMessagesListening } from '../../redux/chatReduser';
+import { AppStateType, TypedDispatch } from '../../redux/reduxStore';
 
 
 const Chat: React.FC = () => {
-    const [messages, setMessages] = useState([] as ChatMessageType[])
-    const [wsChanel, setWsChanel] = useState<WebSocket | null>(null)
+
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
+    const dispatch = useDispatch<TypedDispatch>()
 
     useEffect(() => {
-        const updateMessages = (e: MessageEvent) => {
-            const newMessages = JSON.parse(e.data)
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        }
-
-        wsChanel?.addEventListener('message', updateMessages)
+        dispatch(startMessagesListening())
         return () => {
-            wsChanel?.removeEventListener('message', updateMessages)
-        }
-    }, [wsChanel])
-
-    useEffect(() => {
-        let ws: WebSocket;
-
-        const closeHandler = () => {
-            console.error('CLOSE WS')
-            setTimeout(createChanel, 3000)
-        }
-
-        function createChanel() {
-            ws?.removeEventListener('close', closeHandler)
-            ws?.close()
-
-            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-            ws?.addEventListener('close', closeHandler)
-            setWsChanel(ws)
-        }
-        createChanel()
-
-        return () => {
-            ws.removeEventListener('close', closeHandler)
-            ws.close()
+            dispatch(stopMessagesListening())
         }
     }, [])
 
 
     const messageElements = messages.map((message, i) => <Message key={i} message={message} />)
 
-    const sendMessage = (message: string) => {
-        wsChanel ? wsChanel.send(message) : console.error("NO WS CHANEL")
+    const sendMessageHandler = (message: string) => {
+        dispatch(sendMessage(message))
     }
 
 
@@ -57,7 +32,7 @@ const Chat: React.FC = () => {
         <div className={s.chat__messages}>
             {messageElements}
         </div>
-        <SingleSendForm sendMessage={sendMessage} />
+        <SingleSendForm sendMessage={sendMessageHandler} />
     </div>
 }
 export default Chat;
